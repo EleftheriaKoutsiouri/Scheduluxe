@@ -1,0 +1,61 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Sign in</title>  
+    <!-- Link to CSS file -->  
+    <link rel="stylesheet" href="SignIncss.css">   
+    <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+        }
+    
+        /* Full-screen container */
+        .full-screen {
+          height: 100vh;
+          width: 100vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #f0f0f0; /* Adjust background as needed */
+        }
+    body {
+    background-image: url('images/image1.jpg'); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Keeps the image fixed even when scrolling */
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form action="#">
+          <h2>Sign in</h2>
+            <div class="input-field">
+            <input type="text" required>
+            <label>Enter your email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" required>
+            <label>Enter your password</label>
+          </div>
+          <div class="forget">
+            <label for="remember">
+              <input type="checkbox" id="remember">
+              <p>Remember me</p>
+            </label>
+            <a href="#">Forgot password?</a>
+          </div>
+          <button type="submit">Sign in</button>
+          <div class="register">
+            <p>Don’t have an account? No worries! Create your account now and start your journey!   <a href="#">Register</a></p>
+          </div>
+        </form>
+      </div>
+</body>
+</html>
