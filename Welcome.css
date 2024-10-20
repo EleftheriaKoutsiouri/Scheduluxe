@@ -2,54 +2,52 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ensures padding and border are included in element's width and height */
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif; /* Sets the default font style for the body */
 }
 
 /* Header container */
 .header-container {
-    background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') center/cover no-repeat;
-    height: 110vh;
+    background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') center/cover no-repeat; /* Adds a background image and centers it */
+    height: 110vh; /* Full viewport height plus some extra for larger displays */
     position: relative;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255); /* White text color */
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.4);
-    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay on the header */
+    height: 100%; /* Full height of the header */
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Centers content vertically */
 }
 
 .logo h1 {  
-    color: #c986a9;  
-    font-size: 40px;  
+    color: #c986a9; /* Pinkish color for logo text */
+    font-size: 40px; /* Large logo size */
     text-shadow:   
-        1px 1px 0px rgb(52, 4, 61), /* Δεξιά-κάτω */  
-        -1px -1px 0px rgb(91, 25, 127), /* Αριστερά-πάνω */  
-        -1px 1px 0px rgba(255, 255, 255, 1), /* Αριστερά-κάτω */  
-        1px -1px 0px rgb(88, 19, 90); /* Δεξιά-πάνω */  
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* Λευκή σκιά */    
-} 
+        1px 1px 0px rgb(52, 4, 61), /* Creates multiple shadows for a stylish text effect */
+        -1px -1px 0px rgb(91, 25, 127),   
+        -1px 1px 0px rgba(255, 255, 255, 1),  
+        1px -1px 0px rgb(88, 19, 90);
+}
 
 /* Navigation menu */
 .nav-menu {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Space between logo and navigation items */
+    align-items: center; /* Align items vertically in the center */
 }
 
 .nav-menu ul {
-    list-style: none;
+    list-style: none; /* Removes bullets from the list */
     display: flex;
-    gap: 20px;   
+    gap: 20px; /* Spacing between navigation items */
 }  
-
 
 .nav-menu a {
     color: white;
@@ -57,135 +55,136 @@ body {
     font-weight: bold;
     font-size: 13px;
     font-weight: 700;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif; /* Matching font style */
 }
 
 /* Main content - align left */
 .main-content {
     text-align: left; /* Align text to the left */
-    margin-left: 50px; /* Add left margin for spacing */
-    margin-top: 50px;
+    margin-left: 50px; /* Adds margin to the left for better spacing */
+    margin-top: 50px; /* Adds top margin */
 }
 
 .main-content h2 {
-    font-size: 4rem;
+    font-size: 4rem; /* Large heading size */
     font-weight: bold;
-    
 }
 
 .main-content p {
     margin-top: 20px;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Subheading font size */
 }
 
+/* Form container */
 .search-container {
-    background: rgba(255, 192, 203, 0.2);
+    background: rgba(255, 192, 203, 0.2); /* Light pink background for the form container */
     border-radius: 10px; /* Rounded corners */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a soft shadow for depth */
+    width: 90%; /* Sets the width of the container */
 }
-
 
 /* Form styling */
 form {
     display: flex;
-    gap: 20px;
-    justify-content: flex-start; /* Align the form to the left */
+    gap: 20px; /* Space between form fields */
+    justify-content: flex-start; /* Align form to the left */
     margin-top: 40px;
-    margin-left: 50px; /* Keep aligned with text */
+    margin-left: 50px; /* Align form with the text */
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%; /* Allow form groups to take full width */
+    width: 100%; /* Form groups take full width */
 }
 
 .form-group label {
     font-size: 1rem;
     margin-bottom: 5px;
-    border-radius: 30px;
+    border-radius: 30px; /* Slight rounding of label corners */
 }
 
+/* Input and select field styling */
 select, input[type="number"] {
-    width: 60%; /* Full width */
-    padding: 5px; /* paxos sto plaisio */
-    border: 2px solid rgb(155, 85, 144); /* Match the button style */
-    border-radius: 25px; /* Make it rounded */
-    background: rgba(255, 255, 255, 0.8); /* Light background for contrast */
-    color: #666666;
+    width: 60%; /* Width of the input fields */
+    padding: 5px; /* Padding inside the input fields */
+    border: 2px solid rgb(155, 85, 144); /* Pink border to match button style */
+    border-radius: 25px; /* Rounding the input fields */
+    background: rgba(255, 255, 255, 0.8); /* Light background for input fields */
+    color: #666666; /* Soft gray color for text */
 }
 
 select {
-    color: #666666; /* Soft gray color for selected text */
+    color: #666666; /* Gray text color for select field */
 }
 
 select option {
-    color: #666666; /* Soft gray for dropdown options */
+    color: #666666; /* Gray color for dropdown options */
 }
 
+/* Button styling */
 button {
-    padding: 20px 20px;
-    border: none;
-    border-radius: 5px;
-    background: #DB82CB; /* Button color */
+    padding: 20px 20px; /* Large padding for the button */
+    border: #9a999f;
+    border-radius: 5px; /* Slightly rounded button */
+    background: #DB82CB; /* Pink button color */
     color: white;
-    font-size: 20px;
+    font-size: 20px; /* Large font size */
     cursor: pointer;
-    transition: background 0.4s;
+    transition: background 0.4s; /* Smooth background transition on hover */
 }
 
 button:hover {
-    background: #6e1764; /* Button hover color */
+    background: #5a1451; /* Darker color on hover */
 }
 
-/* Info section - align right */
+/* Info section */
 .info-section {
     display: flex;
     justify-content: flex-end; /* Align info boxes to the right */
-    gap: 20px;
+    gap: 20px; /* Space between info boxes */
     margin-right: 50px; /* Add right margin for spacing */
     margin-top: 30px;
 }
 
 .info-box {
-    background: rgba(75, 0, 130, 0.3); /* Purple shades */
+    background: rgba(75, 0, 130, 0.3); /* Light purple background */
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 15px; /* Rounded corners for info boxes */
     width: 250px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
 }
 
 .info-box h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #DDA0DD; /* Light purple text */
+    color: #DDA0DD; /* Light purple text color */
 }
 
 .info-box p {
     font-size: 1rem;
-    color: #E6E6FA; /* Lighter shade of purple */
+    color: #E6E6FA; /* Lighter shade of purple for paragraph text */
 }
 
-/* Media queries */
+/* Responsive design */
 @media (max-width: 800px) {
     .nav-menu ul {
-        flex-direction: column;
+        flex-direction: column; /* Stacks navigation items vertically on smaller screens */
     }
 
     .main-content h2 {
-        font-size: 5rem;
+        font-size: 5rem; /* Larger heading size for smaller screens */
     }
 
     form {
-        flex-direction: column;
+        flex-direction: column; /* Stacks form fields vertically */
         gap: 5px;
     }
 
     .info-section {
-        flex-direction: column;
+        flex-direction: column; /* Stacks info boxes vertically on smaller screens */
         align-items: center;
     }
 }
