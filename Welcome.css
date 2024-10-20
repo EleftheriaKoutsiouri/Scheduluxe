@@ -1,7 +1,7 @@
 /* General reset */
 * {
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
     box-sizing: border-box; /* Ensures padding and border are included in element's width and height */
 }
 
@@ -13,8 +13,9 @@ body {
 /* Header container */
 .header-container {
     background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') center/cover no-repeat; /* Adds a background image and centers it */
-    height: 110vh; /* Full viewport height plus some extra for larger displays */
-    position: relative;
+    height: 100vh; /* Full viewport height plus some extra for larger displays */
+    width: 100vw;
+    position:relative;
     color: rgb(255, 255, 255); /* White text color */
 }
 
