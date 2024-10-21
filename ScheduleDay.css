@@ -1,5 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /*Body of this page -> background*/
-.body {
+body {
     background-color: #B098E3; /*without briightness*/
     background-size: cover; /* cover all the window */
     height: 100vh; /* height for all the viewpoint */
@@ -10,17 +16,32 @@
     
 }
 
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    padding: 100px 40px 40px 40px;
+}
+
 /* Navigation menu */
 .nav-menu {
     display: flex;
     justify-content: space-between; /* Space between logo and navigation items */
     align-items: center; /* Align items vertically in the center */
-    margin-top: 30px;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+
 }
 
 .logo {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .logo img {
@@ -31,7 +52,6 @@
 
 /*Style of the h1 in logo class*/
 .logo h1 {
-    margin-left: 20px;
     width: 215px;
     height: 48px;
     font-size: 40px;
@@ -64,8 +84,35 @@
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 20
-    px;
+    font-size: 20px;
     font-family: 'Nunito', sans-serif;
+    transition: color 0.3s;
 }
 
+.nav-menu a:hover {
+    color: black;
+
+}
+
+.schedule-container {
+    background-color: #ffffff;
+    width: 50%;
+    border-radius: 18px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
+}
+
+.day-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+}
+
+.day-container h2{
+    color: #094470;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    /*font-weight: 700px;*/
+    border-radius: 18px;
+}
