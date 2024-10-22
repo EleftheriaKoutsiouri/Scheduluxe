@@ -2,227 +2,215 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Ensures padding and border are included in element's width and height */
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif; /* Sets the default font style for the body */
+    font-family: 'Arial', sans-serif;
 }
-
 
 .header-container {
-    background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') no-repeat center center fixed; 
-    background-size: cover; /* Προσαρμόζει την εικόνα ώστε να καλύπτει όλο το παράθυρο */
-    height: 100vh; /* Ύψος που καλύπτει όλο το viewport */
-    width: 100vw; /* Εξασφαλίζει ότι το πλάτος καλύπτει ολόκληρη την οθόνη */
+    background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
     position: relative;
-    color: rgb(255, 255, 255); /* Λευκό χρώμα για το κείμενο */
+    color: rgb(255, 255, 255);
 }
 
-
 .overlay {
-    background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay on the header */
-    height: 100%; /* Full height of the header */
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers content vertically */
+    justify-content: center;
 }
 
 /* Navigation menu */
 .nav-menu {
     display: flex;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 30px;
 }
 
-
 .logo h1 {
-    position: absolute; /* Χρησιμοποιούμε absolute για να τοποθετηθεί σε συγκεκριμένη θέση */
-    left: 50px; /* Ορίζει τη θέση Χ (από αριστερά) */
-    top: 15px; /* Ορίζει τη θέση Υ (από πάνω) */
-    width: 210px; /* Ορίζει το πλάτος */
-    height: 48px; /* Ορίζει το ύψος */
-    font-size: 35px; /* Το μέγεθος του κειμένου παραμένει μεγάλο */
-    font-family: 'Montserrat', sans-serif; /* Γραμματοσειρά με χοντρά και πλαγιαστά γράμματα */
-    font-weight: 9850; /* Χοντρά γράμματα */
-    font-style: italic; /* Πλαγιαστά */
-    text-align: center; /* Κεντράρισμα του κειμένου */
+    position: absolute;
+    left: 50px;
+    top: 15px;
+    width: 210px;
+    height: 48px;
+    font-size: 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 9850;
+    font-style: italic;
+    text-align: center;
 }
 
-/* Λευκό για τα πρώτα γράμματα */
+/* White text for the first letters */
 .white-text {
     color: #ffffff;
 }
 
-/* Πορτοκαλί για τα υπόλοιπα γράμματα */
+/* Orange text for the remaining letters */
 .orange-text {
     color: #FFA500;
 }
 
-
 .nav-menu ul {
-    list-style: none; /* Removes bullets from the list */
+    list-style: none;
     display: flex;
-    gap: 20px; /* Spacing between navigation items */
-    position: absolute; /* Σταθερή τοποθέτηση */
-    top: 20px; /* Απόσταση από το επάνω μέρος της οθόνης */
-    right: 20px; /* Απόσταση από το δεξί μέρος της οθόνης */
-}  
+    gap: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
 
 .nav-menu a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     font-size: 13px;
-    font-weight: 700;
-    font-family: 'Nunito', sans-serif; /* Matching font style */
-
-    /* Navigation menu */
-.nav-menu {
-    display: flex;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
-}
+    font-family: 'Nunito', sans-serif;
 }
 
 /* Main content - align left */
 .main-content {
-    text-align: left; /* Align text to the left */
-    margin-left: 50px; /* Adds margin to the left for better spacing */
-    margin-top: 50px; /* Adds top margin */
+    text-align: left;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 .main-content h2 {
-    font-size: 4rem; /* Large heading size */
+    font-size: 4rem;
     font-weight: bold;
 }
 
 .main-content p {
     margin-top: 25px;
-    font-size: 15px; /* Subheading font size */
+    font-size: 15px;
     font-family: Poppins;
 }
 
 /* Form container */
 .search-container {
-    background: rgba(255, 192, 203, 0.2); /* Light pink background for the form container */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a soft shadow for depth */
+    background: rgba(255, 192, 203, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 800px;
-    margin-left: 0px; /* Sets the width of the container */
+    margin-left: 0px;
 }
 
 /* Form styling */
 form {
     display: flex;
-    gap: 20px; /* Space between form fields */
-    justify-content: flex-start; /* Align form to the left */
+    gap: 20px;
+    justify-content: flex-start;
     margin-top: 40px;
-    margin-left: 50px; /* Align form with the text */
+    margin-left: 50px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%; /* Form groups take full width */
+    width: 100%;
     font-family: Poppins;
-    font-size: 2px;
 }
 
 .form-group label {
     font-size: 1rem;
     margin-bottom: 5px;
-    border-radius: 30px; /* Slight rounding of label corners */
 }
 
 /* Input and select field styling */
 select, input[type="number"] {
-    width: 80%; /* Width of the input fields */
-    padding: 5px; /* Padding inside the input fields */
-    border: 2px solid rgb(155, 85, 144); /* Pink border to match button style */
-    border-radius: 25px; /* Rounding the input fields */
-    background: rgba(255, 255, 255, 0.8); /* Light background for input fields */
-    color: #666666; /* Soft gray color for text */
+    width: 85%;
+    padding: 5px;
+    border: 2px solid rgb(155, 85, 144);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #666666;
 }
 
 select {
-    color: #666666; /* Gray text color for select field */
+    color: #666666;
 }
 
 select option {
-    color: #666666; /* Gray color for dropdown options */
+    color: #666666;
 }
 
 /* Button styling */
 button {
-    padding: 20px 20px; /* Large padding for the button */
-    border: #9a999f;
-    border-radius: 5px; /* Slightly rounded button */
-    background: #DB82CB; /* Pink button color */
+    padding: 20px 20px;
+    border: #db7cc7;
+    border-radius: 5px;
+    background: #DB82CB;
     color: white;
-    font-size: 20px; /* Large font size */
+    font-size: 20px;
     cursor: pointer;
-    transition: background 0.4s; /* Smooth background transition on hover */
+    transition: background 0.4s;
 }
 
 button:hover {
-    background: #5a1451; /* Darker color on hover */
+    background: #f0680e;
 }
 
 /* Info section */
 .info-section {
     display: flex;
-    justify-content: flex-end; /* Align info boxes to the right */
-    gap: 20px; /* Space between info boxes */
-    margin-right: 50px; /* Add right margin for spacing */
-    margin-top: 30px;
+    justify-content: flex-end;
+    gap: 30px;
+    margin-right: 50px;
+    margin-top: 45px;
 }
 
 .info-box {
-    background: rgba(107, 15, 173, 0.3); /* Light purple background */
+    background: rgba(115, 26, 179, 0.3);
     padding: 20px;
-    border-radius: 15px; /* Rounded corners for info boxes */
+    border-radius: 15px;
     width: 230px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(169, 152, 174, 0.4); /* Adds shadow for depth */
+    box-shadow: 0px 4px 6px rgba(169, 152, 174, 0.4);
 }
 
 .info-box h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #DDA0DD; /* Light purple text color */
+    color: #DB82CB;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .info-box p {
     font-size: 1rem;
-    color: #E6E6FA; /* Lighter shade of purple for paragraph text */
+    color: #E6E6FA;
 }
 
 /* Responsive design */
 @media (max-width: 600px) {
     .nav-menu ul {
-        gap:10px;
-        flex-direction: column; /* Stacks navigation items vertically on smaller screens */
+        gap: 10px;
+        flex-direction: column;
     }
 
     .main-content h2 {
-        font-size: 5rem; /* Larger heading size for smaller screens */
+        font-size: 5rem;
     }
-    
+
     .header-container {
-        height: 100vh; /* Επαναφορά του ύψους στην οθόνη */
+        height: 100vh;
     }
+
     form {
-        flex-direction: column; /* Stacks form fields vertically */
+        flex-direction: column;
         gap: 5px;
     }
 
     .info-section {
-        flex-direction: column; /* Stacks info boxes vertically on smaller screens */
+        flex-direction: column;
         align-items: center;
     }
 }
