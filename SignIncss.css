@@ -1,11 +1,9 @@
 /* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -13,11 +11,77 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ded1b05d;
+  background: #B098E3;
   padding: 30px;
+  overflow-x: hidden;
+}
+.nav-menu {
+  display: flex;
+  position: fixed;
+  justify-content: space-between; /* Space between logo and navigation items */ /* Align items vertically in the center */
+  align-items: center;
+  padding: 20px 40px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.logo img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Style of the h1 in logo class */
+.logo h1 {
+  width: 215px;
+  height: 48px;
+  font-size: 40px;
+  font-family:'Poetsen One', sans-serif !important; 
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+  text-align: center;
+  white-space: nowrap;
+}
+.white-title {
+  color: #ffffff;
+}
+
+/* Second half title */
+.orange-title {
+  color: #FFA500;
+}
+
+.nav-menu ul {
+  list-style: none; /* Removes bullets from the list */
+  display: flex;
+  gap: 30px; /* Spacing between navigation items */
+  margin-right: 20px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Nunito', sans-serif;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: black;
 }
 
 .container {
+  font-family: "Poppins", sans-serif;
   position: relative;
   max-width: 850px;
   width: 100%;
