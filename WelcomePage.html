@@ -32,35 +32,34 @@
 
         <!-- Main content section -->  
         <main class="main-content">  
-            <h2>Discover The <br> World, One Step<br> At A Time!</h2>  
+            <h2>Discover The World, One Step<br> At A Time!</h2>  
             <p>Discover new attractions and experiences to match  your interests and travel style</p>  
-            
             <!-- Search form -->  
             <div class="search-container">  
-                <form>  
-                    <div class="form-group">  
-                        <label for="destination">Destination</label>  
-                        <select id="destination" name="destination" required>  
-                            <option value="" disabled selected hidden>Select a destination</option>  
-                            <option value="paris">Paris</option>  
-                            <option value="london">London</option>  
-                            <option value="new-york">New York</option> 
-                            <option value="Italy">Italy</option> 
-                            <option value="Germany">Germany</option> 
-                            <option value="Vienna">Vienna</option> 
-                        </select>  
-                    </div>  
-                    <div class="form-group">  
-                        <label for="date">Days</label>  
-                        <input type="number" min="1" id="date" name="date" placeholder="Select number of days">  
-                    </div>  
-                    <div class="form-group">  
-                        <label for="people">People</label>  
-                        <input type="number" id="people" name="people" min="1" placeholder="Select Number of People">  
-                    </div>  
-                    <button type="submit"><i class="fa fa-search"></i></button>  
+                <form action="/search-results" method="GET">  
+                  <div class="form-group">  
+                    <label for="destination">Destination</label>  
+                    <select id="destination" name="destination" required>  
+                      <option value="" disabled selected hidden>Select a destination</option>  
+                      <option value="paris">Paris</option>  
+                      <option value="london">London</option>  
+                      <option value="new-york">New York</option>  
+                      <option value="italy">Italy</option>  
+                      <option value="germany">Germany</option>  
+                      <option value="vienna">Vienna</option>  
+                    </select>  
+                  </div>  
+                  <div class="form-group">  
+                    <label for="date">Days</label>  
+                    <input type="number" min="1" id="date" name="date" placeholder="Select number of days" required>  
+                  </div>  
+                  <div class="form-group">  
+                    <label for="people">People</label>  
+                    <input type="number" id="people" name="people" min="1" placeholder="Select Number of People" required>  
+                  </div>  
+                  <button type="submit"><i class="fa fa-search"></i></button>  
                 </form>  
-            </div>  
+              </div>  
             <!-- Information section -->  
             <div class="info-section">  
                 <div class="info-box">  
