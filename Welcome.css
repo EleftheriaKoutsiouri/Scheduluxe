@@ -7,15 +7,18 @@
 
 body {
     font-family: 'Nunito', sans-serif;
+    overflow: hidden; /* Prevent scrolling */
 }
+
 
 .header-container {
     background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: 100vh;
+    height: 100vh; /* Full height of the viewport */
     width: 100vw;
     position: relative;
     color: #ffffff;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 .overlay {
@@ -26,6 +29,9 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+
+/* Other styles remain the same */
+
 
 /* Navigation menu */
 .nav-menu {
@@ -105,11 +111,11 @@ body {
 .main-content {
     text-align: left;
     margin-left: 50px;
-    margin-top: 10px;
+    margin-top: 180px;
 }
 
 .main-content h2 {
-    font-size: 3rem;
+    font-size: 48px;
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
 }
@@ -128,9 +134,10 @@ body {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 665px;
+    max-width: 750px;
     margin-left: 0px;
 }
+
 
 /* Form styling */
 form {
@@ -138,7 +145,7 @@ form {
     gap: 20px;
     justify-content: flex-start;
     margin-top: 40px;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 .form-group {
@@ -148,6 +155,7 @@ form {
     width: 100%;
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
+    padding: 5px;
 }
 
 .form-group label {
@@ -162,7 +170,7 @@ select, input[type="number"] {
     border: 2px solid rgb(155, 85, 144);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.8);
-    color: #dc9d0c;
+    color: #666666;
 }
 select {
     color: #666666;
@@ -190,31 +198,32 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
-    position: absolute;
-    bottom: 10px; 
-    right: 35px; 
+    margin-bottom: 80px; /* Increase this value to move them higher */
+    right: 70px; /* Adjust this value to move them more to the right */
     width: 100%;
 }
 
+
 .info-box {
     background: rgba(115, 26, 179, 0.2);
-    padding: 15px;
+    padding: 20px; /* Increase padding for more space inside the box */
     border-radius: 10px;
-    width: 170px;
+    width: 200px; /* Increase width */
     text-align: center;
     box-shadow: 0px 2px 4px rgba(169, 152, 174, 0.3);
 }
 
 .info-box h3 {
     font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem; /* Increase font size for heading */
     margin-bottom: 5px;
     color: #DB82CB;
 }
 
 .info-box p {
-    font-size: 0.9rem;
+    font-size: 1rem; /* Increase font size for paragraph */
     color: #E6E6FA;
     margin-top: 5px;
     font-family: 'Nunito', sans-serif;
 }
+
