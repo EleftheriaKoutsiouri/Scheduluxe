@@ -21,6 +21,7 @@ main {
     width: 100%;
     display: flex;
     padding: 100px 40px 40px 40px;
+    gap: 60px;
 }
 
 /* Navigation menu */
@@ -110,6 +111,47 @@ main {
 }
 
 .day-container h2{
+    color: #094470;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    /*font-weight: 700px;*/
+    border-radius: 18px;
+}
+
+.other-info-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    gap: 40px;
+}
+
+.map-container{
+    background-color: #ffffff;
+    width: 100%;
+    height: 60%;
+    border-radius: 18px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
+}
+
+.map-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.details-container{
+    background-color: #ffffff;
+    width: 100%;
+    height: 40%;
+    border-radius: 18px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
+}
+
+.details-container h2{
     color: #094470;
     font-size: 40px;
     font-family: 'Poppins', sans-serif;
