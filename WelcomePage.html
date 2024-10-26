@@ -51,12 +51,29 @@
                   </div>  
                   <div class="form-group">  
                     <label for="date">Days</label>  
-                    <input type="number" min="1" id="date" name="date" placeholder="Select number of days" required>  
+                    <input type="number" min="1" max="3" id="date" name="date" placeholder="Select number of days" required>  
                   </div>  
                   <div class="form-group">  
-                    <label for="people">People</label>  
-                    <input type="number" id="people" name="people" min="1" placeholder="Select Number of People" required>  
+                    <label for="type">Type</label>  
+                    <select id="type" name="type" required>  
+                      <option value="" disabled selected hidden>Select a category</option>  
+                      <option value="educational">Educational</option>  
+                      <option value="culture">Culture</option>  
+                      <option value="adventure">Adventure</option>  
+                      <option value="relaxation">Relaxation</option>  
+                      <option value="nature">Nature</option>  
+                    </select>  
                   </div>  
+                  
+                  <div class="form-group">  
+                    <label for="budget">Budget</label>  
+                    <select id="budget" name="budget" required>  
+                      <option value="" disabled selected hidden>Select your budget</option>  
+                      <option value="low">Low</option>  
+                      <option value="medium">Medium</option>  
+                      <option value="high">High</option>  
+                    </select>  
+                  </div>
                   <button type="submit"><i class="fa fa-search"></i></button>  
                 </form>  
               </div>  

@@ -165,7 +165,7 @@ form {
 
 /* Input and select field styling */
 select, input[type="number"] {
-    width: 100%;
+    width: 110%;
     padding: 6px;
     border: 2px solid rgb(155, 85, 144);
     border-radius: 10px;
