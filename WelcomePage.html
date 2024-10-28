@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap">  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Praise&display=swap"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />  
 </head>  
 <body>  
@@ -32,15 +33,19 @@
 
         <!-- Main content section -->  
         <main class="main-content">  
-            <h2>Discover The World, One Step<br> At A Time!</h2>  
-            <p>Discover new attractions and experiences to match  your interests and travel style</p>  
+          <h2>
+            <span class="discover-text">DISCOVER  </span> 
+            <span class="world-text">The World</span><br>
+            <span class="step-text">One Step At A Time!</span>
+        </h2>        
+            <p>Crafting unforgettable journeys tailored to your unique travel style</p>  
             <!-- Search form -->  
             <div class="search-container">  
                 <form action="/search-results" method="GET">  
                   <div class="form-group">  
                     <label for="destination">Destination</label>  
                     <select id="destination" name="destination" required>  
-                      <option value="" disabled selected hidden>Select a destination</option>  
+                      <option value="" disabled selected hidden>Select destination</option>  
                       <option value="paris">Paris</option>  
                       <option value="london">London</option>  
                       <option value="new-york">New York</option>  
@@ -51,40 +56,77 @@
                   </div>  
                   <div class="form-group">  
                     <label for="date">Days</label>  
-                    <input type="number" min="1" max="3" id="date" name="date" placeholder="Select number of days" required>  
+                    <input type="number" min="1" max="3" id="date" name="date" placeholder="Select days" required>  
                   </div>  
-                  <div class="form-group">  
-                    <label for="type">Type</label>  
-                    <select id="type" name="type" required>  
-                      <option value="" disabled selected hidden>Select a category</option>  
-                      <option value="educational">Educational</option>  
-                      <option value="culture">Culture</option>  
-                      <option value="adventure">Adventure</option>  
-                      <option value="relaxation">Relaxation</option>  
-                      <option value="nature">Nature</option>  
-                    </select>  
-                  </div>  
+
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <div class="dropdown" onclick="event.stopPropagation()">
+                      <button type="button" onclick="toggleDropdown(event)">Select Categories</button>
+                      <div class="dropdown-content">
+                        <div>
+                          <input type="checkbox" id="educational" name="type" value="educational">
+                          <label for="educational">Educational</label>
+                        </div>
+                        <div>
+                          <input type="checkbox" id="culture" name="type" value="culture">
+                          <label for="culture">Culture</label>
+                        </div>
+                        <div>
+                          <input type="checkbox" id="adventure" name="type" value="adventure">
+                          <label for="adventure">Adventure</label>
+                        </div>
+                        <div>
+                          <input type="checkbox" id="relaxation" name="type" value="relaxation">
+                          <label for="relaxation">Relaxation</label>
+                        </div>
+                        <div>
+                          <input type="checkbox" id="nature" name="type" value="nature">
+                          <label for="nature">Nature</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <script>
+                    // Toggle dropdown visibility
+                    function toggleDropdown(event) {
+                      event.stopPropagation(); // Prevents dropdown from closing when clicking the button
+                      const dropdown = event.currentTarget.closest('.dropdown');
+                      dropdown.classList.toggle('active');
+                    }
+
+                    // Close dropdown if clicked outside
+                    document.addEventListener('click', function(event) {
+                      const activeDropdowns = document.querySelectorAll('.dropdown.active');
+                      activeDropdowns.forEach(dropdown => {
+                        if (!dropdown.contains(event.target)) {
+                          dropdown.classList.remove('active');
+                        }
+                      });
+                    });
+                  </script>
                   
                   <div class="form-group">  
                     <label for="budget">Budget</label>  
                     <select id="budget" name="budget" required>  
                       <option value="" disabled selected hidden>Select your budget</option>  
-                      <option value="low">Low</option>  
-                      <option value="medium">Medium</option>  
-                      <option value="high">High</option>  
+                      <option value="low">Low Budget</option>  
+                      <option value="medium">Budget</option>  
+                      <option value="high">High Budget</option>  
                     </select>  
                   </div>
-                  <button type="submit"><i class="fa fa-search"></i></button>  
+                  <button type="submit" class="search-button"><i class="fa fa-search"></i></button>  
                 </form>  
               </div>  
             <!-- Information section -->  
             <div class="info-section">  
                 <div class="info-box">  
-                    <h3>Explore a World of Destinations</h3><hr>
+                    <h3><b>Explore a World of Destinations</b></h3><hr>
                     <p>Choose from over 20 exciting destinations to plan your perfect travel experience</p>  
                 </div>  
                 <div class="info-box">  
-                    <h3>Hassle-free Planning</h3><hr>
+                    <h3><b>Hassle-free Planning</b></h3><hr>
                     <p>Tailor your itinerary to suit your preferences and schedule effortless</p>  
                 </div>  
             </div>  

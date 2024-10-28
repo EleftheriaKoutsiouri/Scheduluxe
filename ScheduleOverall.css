@@ -21,7 +21,6 @@ main {
     width: 100%;
     display: flex;
     padding: 100px 50px 30px 50px;
-    gap: 60px;
 }
 
 /* Navigation menu */
@@ -103,13 +102,12 @@ main {
     
 }
 
-.day-container {
+.schedule-overall-title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
-.day-container h2{
+.schedule-overall-title h2{
     color: #094470;
     font-size: 30px;
     font-family: 'Poetsen One', sans-serif;
