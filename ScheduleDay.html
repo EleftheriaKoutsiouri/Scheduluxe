@@ -10,8 +10,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet">
+
         <!--icons-->
         <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
+
+        <!--script for the connection with the interactive map-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
     </head>
     <body>
@@ -100,11 +104,17 @@
                 </div>
             </div>
             <div class="other-info-container">
-                <div class="map-container">
-                    <img src="images/map.png" alt="Dummy Map">
+                <div class="map-container" id="map">
+                    <!-- Leaflet JavaScript -->
+                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                    <!-- custom JavaScript file -->
+                    <script src="map.js"></script>
+
+                    <!--<img src="images/map.png" alt="Dummy Map">-->
                 </div>
                 <div class="details-container">
                     <h2>Details</h2>
+                    <p>Paris is the city of love. It has beautiful sights, exciting and interesting people and for sure a lot places to eat and have fun!</p>
                 </div>
             </div>
         </main >
