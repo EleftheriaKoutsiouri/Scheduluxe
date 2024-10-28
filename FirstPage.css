@@ -1,0 +1,218 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+}
+
+.header-container {
+    background: url('https://images.template.net/wp-content/uploads/2016/10/15143039/Travel-Photography-Examples.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    color: #ffffff;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Navigation menu */
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px; 
+}
+
+/* Style of the h1 in logo class */
+.logo h1 {
+    width: 215px;
+    height: 48px;
+    font-size: 40px;
+    font-family: 'Poetsen One', sans-serif;
+    font-weight: 400; 
+    font-style: normal;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* First half title */
+.white-title {
+    color: #ffffff;
+}
+
+/* Second half title */
+.orange-title {
+    color: #FFA500;
+}
+
+/* Navigation Menu Styling */
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #FFA500;
+}
+
+/* Main content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 80vh;
+    margin-top: 40px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin: 20px 0;
+}
+
+/* Title styling */
+.discover-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 60px;
+    color: #ffffff;
+}
+
+.world-text {
+    font-family: 'Praise', cursive;
+    color: #FB9E1B;
+    font-size: 50px;
+}
+
+.step-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #ffffff;
+}
+
+.main-content p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+/* Button styling */
+.start-button {
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: linear-gradient(110deg, #FB9E1B, #AE65C2);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.start-button:hover {
+    background: #FB9E1B;
+}
+
+.start-button a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.start-button a:hover {
+    color: #31124B;
+}
+
+/* Info section */
+.info-section {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    right: 5px;
+    width: 100%;
+    position: relative;
+    bottom: 10px;
+}
+
+.info-box {
+    background: #875196;
+    padding: 15px;
+    border-radius: 10px;
+    width: 190px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(185, 147, 196, 0.715);
+}
+
+.info-box:hover {
+    box-shadow: 0px 6px 12px rgb(218, 171, 227);
+    transform: translateY(-2px);
+}
+
+.info-box h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #fcbfe8;
+}
+
+.info-box p {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-top: 5px;
+}
+
+/* Additional styles */
+.search-container {
+    background: linear-gradient(110deg, #FB9E1B, #AE65C2);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 750px;
+    margin-left: 0px;
+}
