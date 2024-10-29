@@ -45,7 +45,7 @@ body {
 
 /* Style of the h1 in logo class */
 .logo h1 {
-  color: #115976;
+  color: #000000;
   width: 215px;
   height: 48px;
   font-size: 40px;
@@ -57,24 +57,26 @@ body {
 }
 
 
+/* Navigation Menu Styling */
 .nav-menu ul {
-  list-style: none; /* Removes bullets from the list */
+  list-style: none;
   display: flex;
-  gap: 30px; /* Spacing between navigation items */
-  margin-right: 20px;
+  gap: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: Poppins;
 }
 
 .nav-menu a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
-  font-weight: bold;
-  font-size: 20px;
-  font-family: 'Nunito', sans-serif;
-  transition: color 0.3s ease;
+  font-size: 18px;
+  transition: color 0.3s;
 }
 
 .nav-menu a:hover {
-  color: #5b6180;
+  color: #ffffff;
 }
 
 .container {
