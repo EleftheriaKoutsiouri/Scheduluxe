@@ -3,7 +3,7 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Log in</title>  
+    <title>Sign in</title>  
     <!-- Link to CSS file -->  
     <link rel="stylesheet" href="SignIncss.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet">
-        <!--icons-->
-        <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
+    <!--icons-->
+    <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
     <style>
         html, body {
           margin: 0;
@@ -42,10 +42,8 @@
     <div class="header">
         <nav class="nav-menu">
             <a class="logo" href="#logo">  
-                <img src="images/traveller.png" alt="Icon">
-                <h1>
-                    <span class="white-title">Schedu</span><span class="orange-title">luxe</span>
-                </h1>
+                <img src="Group 2370.png" alt="Icon">
+                <h1>Scheduluxe</h1>
             </a> 
 
             <ul>  
@@ -60,31 +58,32 @@
 
   <div class="container">
     <input type="checkbox" id="flip">
-    <div class="cover">
-      <div class="front">
-        <img src="https://img.freepik.com/vector-premium/maleta-abierta-pasaporte_1270-218.jpg" alt="">
+      <div class="cover">
+          <div class="front">
+            <img src="https://img.freepik.com/vector-premium/maleta-abierta-pasaporte_1270-218.jpg" alt="">
+          </div>
+          <div class="back">
+            <img class="backImg" src="https://png.pngtree.com/png-vector/20190216/ourlarge/pngtree-travel-to-europe-png-image_697178.jpg" alt="">
+          </div>
       </div>
-      <div class="back">
-        <img class="backImg" src="https://png.pngtree.com/png-vector/20190216/ourlarge/pngtree-travel-to-europe-png-image_697178.jpg" alt="">
-      </div>
-    </div>
     <div class="forms">
         <div class="form-content">
           <div class="login-form">
-            <div class="title">Login</div>
+            <div class="title">Sign In</div>
           <form action="#">
             <div class="input-boxes">
               <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Enter your username" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="Enter your password" required>
               </div>
+              <!--TODO-->
               <div class="text"><a href="#">Forgot password?</a></div>
               <div class="button input-box">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" id="submit-button">
               </div>
               <div class="text sign-up-text">Don't have an account? <label for="flip">Sign up now</label></div>
             </div>
@@ -107,9 +106,9 @@
                 <input type="password" placeholder="Enter your password" required>
               </div>
               <div class="button input-box">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" id="submit-button">
               </div>
-              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+              <div class="text sign-up-text">Already have an account? <label for="flip">Sign In now</label></div>
             </div>
       </form>
     </div>
