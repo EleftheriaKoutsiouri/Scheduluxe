@@ -15,105 +15,108 @@
     <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
     <style>
         html, body {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          width: 100%;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
         }
-    
+
         .full-screen {
-          height: 100vh;
-          width: 100vw;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #a28484; 
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #a28484; 
+          }
+        .body {
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
         }
-    body {
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-attachment: fixed; 
-    }
     </style>
 </head>
 <body>
-  <header>
-    <div class="header">
-        <nav class="nav-menu">
-            <a class="logo" href="#logo">  
-                <img src="images/trav.png" alt="Icon">
-                <h1>Scheduluxe</h1>
-            </a> 
+    <header>
+        <div class="header">
+            <nav class="nav-menu">
+                <a class="logo" href="#logo">  
+                    <img src="images/trav.png" alt="Icon">
+                    <h1>Scheduluxe</h1>
+                </a> 
 
-            <ul>  
-                <li><a href="FirstPage.html">Home</a></li> 
-                <li><a href="About.html">About</a></li> 
-                <li><a href="Profile.html"><span class="material-symbols-outlined user-icon">account_circle</span></a></li>  
-            </ul>
+                <ul>  
+                    <li><a href="FirstPage.html">Home</a></li> 
+                    <li><a href="About.html">About</a></li> 
+                    <li><a href="Profile.html"><span class="material-symbols-outlined user-icon">account_circle</span></a></li>  
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        </nav>
-    </div>
-</header>
-
-  <div class="container">
-    <input type="checkbox" id="flip">
-      <div class="cover">
-          <div class="front">
-            <img src="https://img.freepik.com/vector-premium/maleta-abierta-pasaporte_1270-218.jpg" alt="">
-          </div>
-          <div class="back">
-            <img class="backImg" src="https://png.pngtree.com/png-vector/20190216/ourlarge/pngtree-travel-to-europe-png-image_697178.jpg" alt="">
-          </div>
-      </div>
-    <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
-            <div class="title">Sign In</div>
-          <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your username" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
-              </div>
-              <!--TODO-->
-              <div class="text"><a href="#">Forgot password?</a></div>
-              <div class="button input-box">
-                <input type="submit" value="Submit" id="submit-button">
-              </div>
-              <div class="text sign-up-text">Don't have an account? <label for="flip">Sign up now</label></div>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <img src="https://img.freepik.com/vector-premium/maleta-abierta-pasaporte_1270-218.jpg" alt="">
             </div>
-        </form>
-      </div>
-        <div class="signup-form">
-          <div class="title">Sign up</div>
-        <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your name" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
-              </div>
-              <div class="button input-box">
-                <input type="submit" value="Submit" id="submit-button">
-              </div>
-              <div class="text sign-up-text">Already have an account? <label for="flip">Sign In now</label></div>
+            <div class="back">
+                <img class="backImg" src="https://png.pngtree.com/png-vector/20190216/ourlarge/pngtree-travel-to-europe-png-image_697178.jpg" alt="">
             </div>
-      </form>
+        </div>
+        <div class="forms">
+            <div class="form-content">
+                <div class="login-form">
+                    <div class="title">Sign In</div>
+                    <form action="#">
+                        <div class="input-boxes">
+                            <div class="input-box">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Enter your username" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Enter your password" required>
+                            </div>
+                            <!--TODO-->
+                            <div class="text"><a href="#">Forgot password?</a></div>
+                            <div class="button input-box">
+                                <input type="submit" value="Submit" id="submit-button">
+                            </div>
+                            <div class="text sign-up-text">Don't have an account? 
+                                <label for="flip">Sign up now</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="signup-form">
+                    <div class="title">Sign up</div>
+                    <form action="#">
+                        <div class="input-boxes">
+                            <div class="input-box">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Enter your name" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input type="text" placeholder="Enter your email" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Enter your password" required>
+                            </div>
+                            <div class="button input-box">
+                                <input type="submit" value="Submit" id="submit-button">
+                            </div>
+                            <div class="text sign-up-text">Already have an account? 
+                                <label for="flip">Sign In now</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-  </div>
 </body>
 </html>
