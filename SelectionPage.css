@@ -6,16 +6,16 @@
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Times new Roman';
     overflow: hidden;
 }
 
 .header-container {
-    background: linear-gradient(170deg, rgb(57, 73, 137),rgb(165, 86, 86));
+    background: linear-gradient(to bottom,#c3d9ffe7 65%,#ffffff 75%);
     height: 100vh; 
     width: 100vw;
     position: relative;
-    color: #ffffff;
+    color:#992b57;
     overflow: hidden; 
 }
 
@@ -58,8 +58,8 @@ body {
     width: 215px;
     height: 48px;
     font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: 400; 
+    font-family: 'Times new Roman';
+    font-weight: bold; 
     font-style: normal;
     text-align: center;
     white-space: nowrap;
@@ -67,12 +67,12 @@ body {
 
 /* First half title */
 .white-title {
-    color: #ffffff;
+    color: #000000;
 }
 
 /* Second half title */
 .orange-title {
-    color: #FFA500;
+    color: #000000;
 }
 
 /* Navigation Menu Styling */
@@ -87,16 +87,16 @@ body {
 }
 
 .nav-menu a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
-    font-weight: bold;
+    
     font-size: 20px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins';
     transition: color 0.3s;
 }
 
 .nav-menu a:hover {
-    color: #391458;
+    color: #ffffff;
 }
 
 /* Main content */
@@ -117,42 +117,28 @@ h2 {
 
 
 .discover-text {
-    font-family: 'Nunito', sans-serif;
+    font-family:'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: 60px;
     text-align: center;
-    color: #FFFFFF; /* Main text color (white) */
-    text-shadow: 
-        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
-        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
-        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
-        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
+    color: #000000; /* Main text color (white) */
+
 }
 
 .world-text {
-    font-family: 'Nunito', sans-serif;
+    font-family:'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: 60px;
     text-align: center;
-    color: #FFFFFF; /* Main text color (white) */
-    text-shadow: 
-        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
-        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
-        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
-        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
+    color: #000000; /* Main text color (white) */
 }
 
 .step-text {
-    font-family: 'Nunito', sans-serif;
+    font-family:'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: 45px;
     text-align: center;
-    color: #FFFFFF; /* Main text color (white) */
-    text-shadow: 
-        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
-        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
-        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
-        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
+    color: #000000; /* Main text color (white) */
 }
 
 
@@ -165,9 +151,8 @@ h2 {
 
 /* Form container */
 .search-container {
-    background: rgba(255, 255, 255, 0.12); /* Διαφανές λευκό background */
+    background: rgba(255, 255, 255, 0.721); /* Διαφανές λευκό background */
     border: 5px solid transparent; /* Set a solid transparent border */
-    border-image: linear-gradient(110deg, #f89f29, #df7fe89e, rgba(241, 159, 222, 0.868)) 1; /* Ombre εφέ */
     border-radius: 10px; /* Ensure the corners are rounded */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 75%;
@@ -226,7 +211,7 @@ select option {
 .search-button {
     padding: 15px 20px;
     border-radius: 4px;
-    background-color: #391458;
+    background-color:rgb(232, 128, 152);
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -237,7 +222,7 @@ select option {
 }
 
 .search-button:hover {
-    background: #4e1c78; 
+    background: #781c41; 
 }
 
 .search-button i {
