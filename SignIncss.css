@@ -7,14 +7,17 @@
 }
 
 body {
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgb(57, 73, 137),rgba(148, 190, 253, 0.826));
-  padding: 30px;
-  overflow-x: hidden;
+  background-image: url(Untitled.png);
+  padding: 80px 50px 30px 50px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
+
 .nav-menu {
   display: flex;
   position: fixed;
@@ -42,6 +45,7 @@ body {
 
 /* Style of the h1 in logo class */
 .logo h1 {
+  color: #115976;
   width: 215px;
   height: 48px;
   font-size: 40px;
@@ -51,14 +55,7 @@ body {
   text-align: center;
   white-space: nowrap;
 }
-.white-title {
-  color: #ffffff;
-}
 
-/* Second half title */
-.orange-title {
-  color: #FFA500;
-}
 
 .nav-menu ul {
   list-style: none; /* Removes bullets from the list */
@@ -73,11 +70,11 @@ body {
   font-weight: bold;
   font-size: 20px;
   font-family: 'Nunito', sans-serif;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
-  color: black;
+  color: #5b6180;
 }
 
 .container {
@@ -87,7 +84,8 @@ body {
   width: 100%;
   background: #ffffff;
   padding: 40px 30px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
 }
 
@@ -248,7 +246,7 @@ body {
 
 .forms .form-content .button input {
   color: #fff;
-  background: #000000;
+  background: #5b6180b3;
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
@@ -256,7 +254,7 @@ body {
 }
 
 .forms .form-content .button input:hover {
-  background: #000000;
+  background: #5b6180;
 }
 
 .forms .form-content label {
@@ -276,6 +274,11 @@ body {
 
 .container #flip {
   display: none;
+}
+
+
+#submit-button {
+  border-bottom: #5b6180;
 }
 
 @media (max-width: 730px) {
