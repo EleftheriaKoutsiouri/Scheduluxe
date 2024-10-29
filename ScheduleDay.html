@@ -4,53 +4,52 @@
         <meta charset="UTF-8">  
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <title>ScheduleDayByDay</title>
-        <!--link to css, fonts and icon from google-->
+        
+        <!-- Link to CSS stylesheet, fonts, and icons from Google Fonts -->
         <link rel="stylesheet" href="ScheduleDay.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet">
-
-        <!--icons-->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        
+        <!-- FontAwesome Icons for additional icons -->
         <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
 
-        <!--script for the connection with the interactive map-->
+        <!-- Leaflet CSS for interactive map -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
     </head>
     <body>
+        <!-- Header section with navigation menu -->
         <header>
-
             <nav class="nav-menu">
+                <!-- Logo with image and title -->
                 <a class="logo" href="#logo">  
-                    <img src="images/traveller.png" alt="Icon">
+                    <img src="images/trav.png" alt="Icon">
                     <h1>
-                        <span class="white-title">Schedu</span><span class="orange-title">luxe</span>
+                        <span class="white-title">Scheduluxe</span>
                     </h1>
                 </a> 
-
+                <!-- Navigation links for Home, About, Login, Signup, and Profile -->
                 <ul>  
-                    <li><a href="#home">Home</a></li>  
-                    <li><a href="#about">About</a></li>  
-                    <li><a href="#signin">Log in</a></li>  
-                    <li><a href="#signup">Sign up</a></li>  
-                    <li><a href="#profile"><span class="material-symbols-outlined user-icon">account_circle</span></a></li>  
+                    <li><a href="FirstPage.html">Home</a></li>  
+                    <li><a href="About.html">About</a></li>  
+                    <li><a href="Profile.html"><span class="material-symbols-outlined user-icon">account_circle</span></a></li>  
                 </ul>
-
             </nav>
-
         </header>
 
         <main>
+            <!-- Schedule container for day navigation and activities list -->
             <div class="schedule-container">
+                <!-- Day container with left and right navigation arrows -->
                 <div class="day-container">
-                    <i class="fa-solid fa-arrow-left" style="color: #B197FC; font-size: 40px;"></i>
+                    <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
                     <h2>Day 1</h2>
-                    <i class="fa-solid fa-arrow-right" style="color: #B197FC; font-size: 40px;"></i>
+                    <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
                 </div>
-                
+
+                <!-- List of activities for the day -->
                 <div class="activity-list">
-    
+                    <!-- Activity item example with icon, title, and time -->
                     <div class="activity-item">
                         <div class="icon-activity">
                             <div class="icon-container">
@@ -60,7 +59,6 @@
                         </div>
                         <h4>Time 1</h4>
                     </div>
-
                     <div class="activity-item">
                         <div class="icon-activity">
                             <div class="icon-container">
@@ -70,7 +68,6 @@
                         </div>
                         <h4>Time 2</h4>
                     </div>
-
                     <div class="activity-item">
                         <div class="icon-activity">
                             <div class="icon-container">
@@ -80,7 +77,6 @@
                         </div>
                         <h4>Time 3</h4>
                     </div>
-                    
                     <div class="activity-item">
                         <div class="icon-activity">
                             <div class="icon-container">
@@ -90,33 +86,23 @@
                         </div>
                         <h4>Time 4</h4>
                     </div>
-
-                    <div class="activity-item">
-                        <div class="icon-activity">
-                            <div class="icon-container">
-                                <img src="images/coffee.png" alt="Icon for Breakfast">
-                            </div>
-                            <h3>Activity 5</h3>
-                        </div>
-                        <h4>Time 5</h4>
-                    </div>
-
                 </div>
             </div>
-            <div class="other-info-container">
-                <div class="map-container" id="map">
-                    <!-- Leaflet JavaScript -->
-                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                    <!-- custom JavaScript file -->
-                    <script src="map.js"></script>
 
-                    <!--<img src="images/map.png" alt="Dummy Map">-->
+            <!-- Additional information container with map and details section -->
+            <div class="other-info-container">
+                <!-- Map container with Leaflet library -->
+                <div class="map-container" id="map">
+                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                    <script src="map.js"></script> <!-- Link to custom map JavaScript file -->
                 </div>
+
+                <!-- Details section with title and description -->
                 <div class="details-container">
                     <h2>Details</h2>
-                    <p>Paris is the city of love. It has beautiful sights, exciting and interesting people and for sure a lot places to eat and have fun!</p>
+                    <p>Paris is the city of love. It has beautiful sights, exciting and interesting people, and many places to eat and have fun!</p>
                 </div>
             </div>
-        </main >
+        </main>
     </body>
 </html>
