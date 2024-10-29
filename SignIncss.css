@@ -11,7 +11,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg,#8dd2de, #bcafcf, #b9a396);
+  background: linear-gradient(135deg, rgb(57, 73, 137),rgba(148, 190, 253, 0.826));
   padding: 30px;
   overflow-x: hidden;
 }
@@ -151,20 +151,6 @@ body {
   width: 100%;
   opacity: 0.5;
   /*background: #ffffff;*/
-}
-
-.cover .text .text-1,
-.cover .text .text-2 {
-  z-index: 20;
-  font-size: 26px;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-}
-
-.cover .text .text-2 {
-  font-size: 15px;
-  font-weight: 500;
 }
 
 .container .forms {
