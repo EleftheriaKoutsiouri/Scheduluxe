@@ -11,7 +11,7 @@ body {
 }
 
 .header-container {
-    background: url(images/backround.png);
+    background: url(images/back.png);
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -20,7 +20,6 @@ body {
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.35);
     height: 100%;
     display: flex;
     flex-direction: column;
