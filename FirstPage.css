@@ -11,7 +11,7 @@ body {
 }
 
 .header-container {
-    background: url(images/backround.png);
+    background: url(images/back.png);
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -20,7 +20,6 @@ body {
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.35);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -50,8 +49,8 @@ body {
 }
 
 .logo img {
-    width: 32px;
-    height: 32px;
+    width: 37px;
+    height: 37px;
     margin-right: 10px; 
 }
 
@@ -59,12 +58,13 @@ body {
 .logo h1 {
     width: 215px;
     height: 48px;
-    font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
+    font-size: 45px;
+    font-family: 'Times New Roman', sans-serif;
     font-weight: 400; 
     font-style: normal;
     text-align: center;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 /* First half title */
@@ -81,13 +81,13 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
+    font-family: Poppins;
 }
 
 .nav-menu a {
     color: rgb(0, 0, 0);
     text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     transition: color 0.3s;
 }
 
@@ -114,7 +114,7 @@ h2 {
 
 /* Title styling */
 .discover-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
     font-size: 50px;
     color: #000000;
@@ -123,11 +123,11 @@ h2 {
 .world-text {
     font-family: 'Praise', cursive;
     color: #000000;
-    font-size: 50px;
+    font-size: 40px;
 }
 
 .step-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Times new Roman', sans-serif;
     font-weight: bold;
     font-size: 40px;
     color: #000000;
@@ -144,29 +144,29 @@ h2 {
 /* Button styling */
 .start-button {
     margin-top: 20px;
-    padding: 12px 22px;
-    background: #c3a0b8;
+    padding: 12px 10px;
+    background: rgb(218, 178, 174);
     color: rgb(0, 0, 0);
     font-size: 18px;
-    font-weight: bold;
     border: none;
-    border-radius: 25px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s ease;
+    font-family:Poppins;
 }
 
 .start-button:hover {
-    background: #af77ab;
+    background: #B1BAC9;
+
 }
 
 .start-button a {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     text-decoration: none;
-    font-weight: bold;
 }
 
 .start-button a:hover {
-    color: #31124B;
+    color: #000000;
 }
 
 /* Additional styles */
