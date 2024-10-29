@@ -89,6 +89,8 @@ body {
   margin-top: 20px;
   box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
+  margin-top: 150px;
+  margin-bottom: 50px;
 }
 
 .container .cover {

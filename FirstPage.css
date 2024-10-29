@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    overflow: hidden;
+
 }
 
 .header-container {
@@ -177,5 +177,24 @@ h2 {
     max-width: 750px;
     margin-left: 0px;
 }
+
+/*.carousel slide {
+    position: relative !important;
+    height: 50px !important;
+    width: 50px !important;
+}*/
+
+#carouselExampleCaptions {
+    width: 600px;    /* Set desired width */
+    height: 400px;   /* Set desired height */
+    margin: 0 auto;  /* Center the carousel */
+  }
+
+  /* Carousel images */
+  #carouselExampleCaptions .carousel-item img {
+    height: 100%;    /* Makes images fit the height */
+    width: 100%;     /* Makes images fit the width */
+    object-fit: cover; /* Ensures images cover the area without stretching */
+  }
 
 
