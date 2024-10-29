@@ -11,7 +11,7 @@ body {
 }
 
 .header-container {
-    background: linear-gradient(135deg, #bcafcf, #dcad92, #b37f9e);
+    background: linear-gradient(135deg, rgb(57, 73, 137),rgb(165, 86, 86));
     height: 100vh; 
     width: 100vw;
     position: relative;
@@ -96,7 +96,7 @@ body {
 }
 
 .nav-menu a:hover {
-    color: #FFA500;
+    color: #391458;
 }
 
 /* Main content */
@@ -117,7 +117,7 @@ h2 {
 
 
 .discover-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-weight: bold;
     font-size: 60px;
     text-align: center;
@@ -130,9 +130,9 @@ h2 {
 }
 
 .world-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 60px;
     text-align: center;
     color: #FFFFFF;
     text-shadow: 
@@ -143,9 +143,9 @@ h2 {
 }
 
 .step-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 45px;
     text-align: center;
     color: #FFFFFF;
     text-shadow: 
@@ -164,13 +164,17 @@ h2 {
 
 /* Form container */
 .search-container {
-    background: linear-gradient(110deg, #FB9E1B, #AE65C2);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12); /* Διαφανές λευκό background */
+    border: 5px solid transparent; /* Set a solid transparent border */
+    border-image: linear-gradient(110deg, #f89f29, #df7fe89e, rgba(241, 159, 222, 0.868)) 1; /* Ombre εφέ */
+    border-radius: 10px; /* Ensure the corners are rounded */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 75%;
     max-width: 820px;
     margin: 10px auto 0 auto; 
+    padding: 10px; /* Προσθήκη padding για να φαίνεται πιο ευχάριστο */
 }
+
 
 /* Form styling */
 form {
@@ -201,7 +205,7 @@ select, input[type="number"], input[type="text"], #date {
     width: 110%; /* Changed to 100% for consistent width */
     padding: 6px;
     font-size: 14px;
-    border: 2px solid rgb(155, 85, 144);
+    border: 1.5px solid rgb(155, 85, 144);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.8);
     cursor: pointer;
@@ -219,8 +223,8 @@ select option {
 
 /* Button styling */
 .search-button {
-    padding: 12px 22px;
-    border-radius: 4%;
+    padding: 15px 20px;
+    border-radius: 4px;
     background-color: #391458;
     color: white;
     font-size: 18px;
@@ -253,7 +257,7 @@ select option {
     padding: 6px 10px; 
     font-size: 14px; 
     border-radius: 10px;
-    border: 2px solid rgb(155, 85, 144); 
+    border: 1.5px solid rgb(155, 85, 144); 
     margin-left: auto;
     cursor: pointer;
     text-align: left;
@@ -293,4 +297,45 @@ select option {
     color: black;
     opacity: 1; 
     text-align: left; /* Ensure placeholder text is aligned left */
+}
+
+.info-section {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    position: fixed; 
+    bottom: -10px; 
+    right: 20px;
+    z-index: 10; 
+}
+
+.info-box {
+    padding: 15px;
+    border-radius: 10px;
+    width: 185px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(185, 147, 196, 0.8); /* Increased shadow for a more pronounced effect */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border for added definition */
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    
+    background: rgba(255, 255, 255, 0.12); /* Διαφανές λευκό background */
+}
+
+
+.info-box:hover {
+    box-shadow: 0px 8px 16px rgba(185, 147, 196, 0.5);
+    transform: translateY(-2px);
+}
+
+.info-box h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #391458;
+}
+
+.info-box p {
+    font-size: 0.8rem;
+    color: #ffffff;
+    margin-top: 5px;
 }
