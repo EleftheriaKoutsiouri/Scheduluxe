@@ -6,7 +6,7 @@
 
 /*Body of this page -> background*/
 body {
-    background-color: #B098E3 !important; /*!important=first in priority to integrate the bootstrap css*/
+    background-color: #ece7ec !important; /*!important=first in priority to integrate the bootstrap css*/
     background-size: cover; /* cover all the window */
     height: 100vh; /* height for all the viewpoint */
     width: 100vw; /* width for all the viewpoint */
@@ -23,74 +23,58 @@ main {
     padding: 100px 50px 30px 50px;
 }
 
-/* Navigation menu */
+/* Navigation Menu Container */
 .nav-menu {
     display: flex;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
-    padding: 20px 40px;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
 }
 
+/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    align-items: center; /* Center logo items vertically */
 }
 
 .logo img {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px; 
+    width: 37px;
+    height: 37px;
+    margin-right: 10px;
 }
 
-/*Style of the ;h1 in logo class*/
 .logo h1 {
-    width: 215px;
-    height: 48px;
-    font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: 400; /* Regular weight */
-    font-style: normal;
+    font-size: 35px;
+    font-family: 'Platypi', sans-serif;
+    font-weight: bolder;
     text-align: center;
     white-space: nowrap;
 }
 
-
-/* First half title */
-.white-title {
-    color: #ffffff;
-}
-
-/* Second half title */
-.orange-title {
-    color: #FFA500;
-}
-
+/* Styling for navigation menu items */
 .nav-menu ul {
-    list-style: none; /* Removes bullets from the list */
+    list-style: none;
     display: flex;
-    gap: 30px; /* Spacing between navigation items */
-    margin-right: 20px;
-}  
+    gap: 20px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0; /* No extra margin */
+    padding: 0;
+}
 
 .nav-menu a {
-    color: white;
+    color: rgb(0, 0, 0); /* Black text */
     text-decoration: none;
-    font-weight: bold;
     font-size: 18px;
-    font-family: 'Nunito', sans-serif;
-    transition: color 0.3s;
+    transition: color 0.3s; /* Smooth color transition on hover */
 }
 
 .nav-menu a:hover {
-    color: #094470;
-
+    color: #ffffff; /* White text on hover */
 }
 
 .schedule-container {
@@ -104,27 +88,22 @@ main {
 }
 
 .table-color td {
-    color:#000058 !important;
+    color:#000000 !important;
 }
 
 .table-color th {
-    color:#000058 !important;
+    color:#000000 !important;
 }
 
 .schedule-container h2 {
     text-align: center;
-    color: #094470;
+    color: #c91aa0;
     font-size: 30px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: lighter;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
     border-radius: 18px;
 }
 
-/*.schedule-container {
-    display: flex;
-    align-items: center;
-
-}*/
 
 
 

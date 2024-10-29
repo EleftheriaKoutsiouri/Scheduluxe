@@ -5,10 +5,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Nunito', sans-serif;
-
-}
 
 .header-container {
     background: url(images/back.png);
@@ -27,74 +23,59 @@ body {
     padding: 20px;
 }
 
-/* Navigation menu */
+/* Navigation Menu Container */
 .nav-menu {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
 }
 
-
+/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    align-items: center; /* Center logo items vertically */
 }
 
 .logo img {
     width: 37px;
     height: 37px;
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
-/* Style of the h1 in logo class */
 .logo h1 {
-    width: 215px;
-    height: 48px;
-    font-size: 45px;
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: 400; 
-    font-style: normal;
+    font-size: 35px;
+    font-family: 'Platypi', sans-serif;
+    font-weight: bolder;
     text-align: center;
     white-space: nowrap;
-    font-weight: bold;
 }
 
-/* First half title */
-.white-title {
-    color: #000000;
-}
-
-
-/* Navigation Menu Styling */
+/* Styling for navigation menu items */
 .nav-menu ul {
     list-style: none;
     display: flex;
     gap: 20px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+    margin: 0; /* No extra margin */
+    padding: 0;
 }
 
 .nav-menu a {
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0); /* Black text */
     text-decoration: none;
     font-size: 18px;
-    transition: color 0.3s;
+    transition: color 0.3s; /* Smooth color transition on hover */
 }
 
 .nav-menu a:hover {
-    color: #ffffff;
+    color: #ffffff; /* White text on hover */
 }
-
 /* Main content */
 .main-content {
     display: flex;

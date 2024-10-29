@@ -1,122 +1,107 @@
+/* General reset for consistent styling across browsers */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body styling */
 body {
-    background-color: rgba(134, 150, 237, 0.7); /*without brightness*/
-    background-size: cover; /* cover all the window */
-    height: 100vh; /* height for all the viewpoint */
-    width: 100vw; /* width for all the viewpoint */
+    background-color: rgba(188, 188, 194, 0.7); /* Semi-transparent background */
+    background-size: cover; /* Cover the entire viewport */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
     position: relative;
-    color: #ffffff; 
+    color: #ffffff;
     overflow: hidden;
-    
 }
 
+/* Main content container */
 main {
     height: 100%;
     width: 100%;
     display: flex;
-    padding: 100px 50px 30px 50px;
-    gap: 60px;
+    padding: 100px 50px 30px 50px; /* Space around content */
+    gap: 60px; /* Gap between main sections */
 }
 
-/* Navigation menu */
+/* Navigation Menu Container */
 .nav-menu {
     display: flex;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
-    padding: 20px 40px;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
 }
 
+/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    align-items: center; /* Center logo items vertically */
 }
 
 .logo img {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px; 
+    width: 37px;
+    height: 37px;
+    margin-right: 10px;
 }
 
-/*Style of the h1 in logo class*/
 .logo h1 {
-    width: 215px;
-    height: 48px;
-    font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: 400; /* Regular weight */
-    font-style: normal;
+    font-size: 35px;
+    font-family: 'Platypi', sans-serif;
+    font-weight: bolder;
     text-align: center;
     white-space: nowrap;
 }
 
-
-/* First half title */
-.white-title {
-    color: #ffffff;
-}
-
-/* Second half title */
-.orange-title {
-    color: #FFA500;
-}
-
+/* Styling for navigation menu items */
 .nav-menu ul {
-    list-style: none; /* Removes bullets from the list */
+    list-style: none;
     display: flex;
-    gap: 30px; /* Spacing between navigation items */
-    margin-right: 20px;
-}  
+    gap: 20px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0; /* No extra margin */
+    padding: 0;
+}
 
 .nav-menu a {
-    color: white;
+    color: rgb(0, 0, 0); /* Black text */
     text-decoration: none;
-    font-weight: bold;
     font-size: 18px;
-    font-family: 'Nunito', sans-serif;
-    transition: color 0.3s;
+    transition: color 0.3s; /* Smooth color transition on hover */
 }
 
 .nav-menu a:hover {
-    color: #094470;
-
+    color: #ffffff; /* White text on hover */
 }
 
+/* Schedule container styling */
 .schedule-container {
     background-color: #ffffff;
-    width: 50%;
-    border-radius: 18px;
-    padding: 20px 40px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
-    
+    width: 50%; /* Takes half of the main section's width */
+    border-radius: 8px;
+    padding: 20px 40px; /* Inner padding */
 }
 
+/* Day navigation container (includes arrows and day title) */
 .day-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.day-container h2{
-    color: #094470;
-    font-size: 30px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: lighter;
-    border-radius: 18px;
+.day-container h2 {
+    color: #000000;
+    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
 }
 
-
+/* Activity list container */
 .activity-list {
     display: flex;
     flex-direction: column;
@@ -124,44 +109,44 @@ main {
     justify-content: space-between;
     gap: 30px;
     background-color: #ffffff;
-    padding: 20px 10px;
-    height: 95%;
+    padding: 20px 10px; /* Padding around the activity items */
+    height: 95%; /* Full height minus padding */
+    font-weight: normal; 
 }
 
-
+/* Styling for individual activity items */
 .activity-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-
-    background-color: #FCD299;
-    border-radius: 12px; 
-    width: 100%;
-    color: #094470;
-    /*flex-basis: 65px;*/
+    background: rgba(241, 216, 213, 0.806); /* Soft background color */
+    border-radius: 8px; 
+    width: 100%; /* Full width of the container */
+    color: #000000;
     flex: 1;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Nunito', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; /* Smaller font size */
+    font-weight: normal; 
     transition: color 0.3s;
 }
 
 .activity-item:hover {
-    background-color: #e8a529;
+    background-color: #a63864bd; /* Darker background on hover */
 }
 
+/* Container for icon images in activities */
 .icon-container {
     border-radius: 8px;
-    background-color: #ffffff;
+    background-color: #ffffff; /* White background */
     padding: 2px 2px;
 }
 
-.icon-container img{
-    object-fit: contain;
+.icon-container img {
+    object-fit: contain; /* Ensure the image fits within the container */
 }
 
-
+/* Activity icon and title container */
 .icon-activity {
     display: flex;
     justify-content: space-between;
@@ -169,59 +154,49 @@ main {
     gap: 10px;
 }
 
-
-.other-info-container{
+/* Container for additional information (map and details) */
+.other-info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
+    width: 50%; /* Takes half of the main section's width */
     gap: 40px;
 }
 
-.map-container{
+/* Map container styling */
+.map-container {
     background-color: #ffffff;
     width: 100%;
-    height: 60%;
-    border-radius: 18px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
+    height: 60%; /* Map height within container */
+    border-radius: 8px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
-/*
-.map-container img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 18px;
-}
-*/
 
-/*for the map in the map.js file
-.leaflet-control-zoom {
-    display: none;
-}
-*/
+/* Hide the Leaflet attribution text */
 .leaflet-control-attribution {
     display: none;
 }
 
-.details-container{
-    background-color: #ffffff;
+/* Details container styling */
+.details-container {
+    background: rgba(241, 216, 213, 0.806); /* Soft pink background */
     width: 100%;
-    height: 40%;
-    border-radius: 18px;
-    padding: 20px 40px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
+    height: 40%; /* Full height for details section */
+    border-radius: 8px;
+    padding: 20px 40px; /* Inner padding */
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    font-family: "Poppins", sans-serif;
+    text-align: left; /* Left-align text */
 }
 
-.details-container h2{
-    color: #094470;
-    font-size: 30px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: lighter;
+.details-container h2 {
+    color: #000000;
+    font-size: 25px;
 }
-.details-container p{
+
+.details-container p {
     padding: 10px;
-    color: #094470;
+    color: #000000;
     font-size: 18px;
-    font-family: 'Nunito', sans-serif;
 }
