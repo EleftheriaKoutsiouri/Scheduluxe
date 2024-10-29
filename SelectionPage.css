@@ -11,7 +11,7 @@ body {
 }
 
 .header-container {
-    background: linear-gradient(135deg, rgb(57, 73, 137),rgb(165, 86, 86));
+    background: linear-gradient(170deg, rgb(57, 73, 137),rgb(165, 86, 86));
     height: 100vh; 
     width: 100vw;
     position: relative;
@@ -121,12 +121,12 @@ h2 {
     font-weight: bold;
     font-size: 60px;
     text-align: center;
-    color: #FFFFFF;
+    color: #FFFFFF; /* Main text color (white) */
     text-shadow: 
-        -1px -1px 0 #6B46A2, 
-        1px -1px 0 #6B46A2, 
-        -1px 1px 0 #6B46A2, 
-        1px 1px 0 #6B46A2;
+        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
+        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
+        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
+        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
 }
 
 .world-text {
@@ -134,12 +134,12 @@ h2 {
     font-weight: bold;
     font-size: 60px;
     text-align: center;
-    color: #FFFFFF;
+    color: #FFFFFF; /* Main text color (white) */
     text-shadow: 
-        -1px -1px 0 #6B46A2, 
-        1px -1px 0 #6B46A2, 
-        -1px 1px 0 #6B46A2, 
-        1px 1px 0 #6B46A2;
+        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
+        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
+        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
+        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
 }
 
 .step-text {
@@ -147,13 +147,14 @@ h2 {
     font-weight: bold;
     font-size: 45px;
     text-align: center;
-    color: #FFFFFF;
+    color: #FFFFFF; /* Main text color (white) */
     text-shadow: 
-        -1px -1px 0 #6B46A2, 
-        1px -1px 0 #6B46A2, 
-        -1px 1px 0 #6B46A2, 
-        1px 1px 0 #6B46A2;
+        -1px -1px 0 #3C1E6D, /* Darker purple for left-top */
+        1px -1px 0 #3C1E6D, /* Darker purple for right-top */
+        -1px 1px 0 #3C1E6D, /* Darker purple for left-bottom */
+        1px 1px 0 #3C1E6D; /* Darker purple for right-bottom */
 }
+
 
 
 .main-content p {
