@@ -20,7 +20,7 @@ body {
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.55);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -105,7 +105,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    height: 80vh;
+    height: 85vh;
     margin-top: 40px;
 }
 
@@ -137,8 +137,9 @@ h2 {
 
 .main-content p {
     margin-top: 10px;
-    font-size: 1rem;
+    font-size: 17px;
     color: #ffffff;
+    font-family: 'Poppins', sans-serif
 }
 
 /* Button styling */
@@ -169,24 +170,23 @@ h2 {
     color: #31124B;
 }
 
-/* Info section */
 .info-section {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
-    right: 5px;
-    width: 100%;
-    position: relative;
-    bottom: 10px;
+    position: fixed; 
+    bottom: 0px; 
+    right: 20px;
+    z-index: 10; 
 }
 
 .info-box {
-    background: #875196;
     padding: 15px;
     border-radius: 10px;
-    width: 190px;
+    width: 185px;
     text-align: center;
-    box-shadow: 0px 2px 4px rgba(185, 147, 196, 0.715);
+    box-shadow: 0px 2px 4px rgba(185, 147, 196, 0.265);
+    background-color: rgba(252, 191, 232, 0.251);
 }
 
 .info-box:hover {
@@ -196,16 +196,17 @@ h2 {
 
 .info-box h3 {
     font-family: 'Nunito', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-bottom: 5px;
     color: #fcbfe8;
 }
 
 .info-box p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #ffffff;
     margin-top: 5px;
 }
+
 
 /* Additional styles */
 .search-container {

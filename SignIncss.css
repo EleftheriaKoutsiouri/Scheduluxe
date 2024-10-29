@@ -11,7 +11,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #B098E3;
+  background: linear-gradient(135deg,#8dd2de, #bcafcf, #b9a396);
   padding: 30px;
   overflow-x: hidden;
 }
