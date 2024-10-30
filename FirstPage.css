@@ -5,22 +5,22 @@
     box-sizing: border-box;
 }
 
-
-.header-container {
-    background: url(images/back.png);
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
+body {
+    background-image: url(images/back.png);
+    background-size: cover; /* Cover the entire viewport */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
     position: relative;
     color: #000000;
+    /*overflow: hidden;*/
 }
 
-.overlay {
+main {
     height: 100%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
+    padding: 100px 50px 30px 50px;
+    gap: 60px;
 }
 
 /* Navigation Menu Container */
@@ -76,19 +76,31 @@
 .nav-menu a:hover {
     color: #ffffff; /* White text on hover */
 }
-/* Main content */
-.main-content {
+
+
+
+.info-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Αλλαγή από center σε flex-start για αριστερή στοίχιση */
-    text-align: left;
-    height: 70vh;
-    margin-top: 40px;
-    padding-left: 40px; /* Προσθέστε padding για να δώσετε λίγο περιθώριο από τα αριστερά */
+    justify-content: center;
+    align-items: flex-start;
+    /*text-align: left;*/
+    /*padding: 20px;*/
+    column-gap: 30px;
+    padding-left: 40px;
 }
 
 
-h2 {
+/* Main content 
+.main-content {
+    
+    height: 70vh;
+    margin-top: 40px;
+      Προσθέστε padding για να δώσετε λίγο περιθώριο από τα αριστερά 
+}
+*/
+
+.info-container h2 {
     font-size: 2.5rem;
     margin: 20px 0;
 }
@@ -110,11 +122,11 @@ h2 {
 .step-text {
     font-family: 'Times new Roman', sans-serif;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 50px;
     color: #000000;
 }
 
-.main-content p {
+.info-container p {
     margin-top: 10px;
     font-size: 17px;
     color: #000000;
@@ -124,10 +136,9 @@ h2 {
 
 /* Button styling */
 .start-button {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     padding: 12px 10px;
     background: rgb(218, 178, 174);
-    color: rgb(0, 0, 0);
     font-size: 18px;
     border: none;
     border-radius: 4px;
