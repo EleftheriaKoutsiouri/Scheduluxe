@@ -154,6 +154,22 @@ main {
     gap: 10px;
 }
 
+.button-overall {
+    background-color: #a63864bd;
+    padding: 10px 20px 10px 20px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+}
+
+.button-overall:hover {
+    background-color: #941548bd;
+}
+
+
+
 /* Container for additional information (map and details) */
 .other-info-container {
     display: flex;
