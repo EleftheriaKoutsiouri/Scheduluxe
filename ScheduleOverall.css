@@ -222,6 +222,14 @@ label.star:before {
     margin: auto;
 }
 
+.rate-download-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    padding: 20px 40px;
+}
+
 
 .submit-btn:hover {
     background-color: #e4528a!important;
