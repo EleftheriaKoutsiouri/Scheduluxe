@@ -2,7 +2,7 @@
 
 /* Body of this page -> background */
 body {
-    background-image: url(images/Back.png); /*without brightness*/
+    background-image: url(images/background.png); /*without brightness*/
     background-size: cover; /* cover all the window */
     height: 100vh;
     width: 100vw; /* width for all the viewpoint */
