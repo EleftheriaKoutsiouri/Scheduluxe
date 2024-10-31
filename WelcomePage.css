@@ -6,19 +6,20 @@
 }
 
 body {
-    background-image: url(images/back.png);
+    background-image: url(images/background.png);
     background-size: cover; /* Cover the entire viewport */
     height: 100vh; /* Full viewport height */
     width: 100vw; /* Full viewport width */
     position: relative;
     color: #000000;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 main {
     height: 100%;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     padding: 100px 50px 30px 50px;
     gap: 60px;
 }
@@ -62,12 +63,12 @@ main {
     display: flex;
     gap: 20px;
     font-family: 'Poppins', sans-serif;
-    margin: 0; /* No extra margin */
+    margin: 0;
     padding: 0;
 }
 
 .nav-menu a {
-    color: rgb(0, 0, 0); /* Black text */
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s; /* Smooth color transition on hover */
@@ -126,9 +127,11 @@ main {
 
 /* Button styling */
 .start-button {
-    /*margin-top: 20px;*/
+    margin-top: 20px;
     padding: 12px 10px;
     background: rgb(218, 178, 174);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
     font-size: 18px;
     border: none;
     border-radius: 4px;
@@ -139,17 +142,10 @@ main {
 
 .start-button:hover {
     background: #B1BAC9;
-
-}
-
-.start-button a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-}
-
-.start-button a:hover {
     color: #000000;
+
 }
+
 
 /* Additional styles */
 .search-container {
@@ -167,17 +163,17 @@ main {
 }*/
 
 #carouselExampleCaptions {
-    width: 600px;    /* Set desired width */
-    height: 400px;   /* Set desired height */
+    width: 600px;   
+    height: 400px;   
     margin: 0 auto;  /* Center the carousel */
     object-fit: cover;
-    box-shadow: 2px 4px 8px rgba(255, 255, 255, 0.8);
+    box-shadow: 4px 4px 8px rgba(255, 255, 255, 0.8);
   }
 
   /* Carousel images */
   #carouselExampleCaptions .carousel-item img {
-    height: 100%;    /* Makes images fit the height */
-    width: 100%;     /* Makes images fit the width */
+    height: 100%;   
+    width: 100%;   
     object-fit: cover; /* Ensures images cover the area without stretching */
     color:#000000;
   }
