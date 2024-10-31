@@ -1,75 +1,84 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   background-image: url(images/background.png);
-    font-family: 'Times new Roman';
-    background-size: cover;     
-    width: 100vw; 
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    align-items: center;
+  background-size: cover;     
+  width: 100vw; 
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  
+  
+}
+
+main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 100px 20% 30px 20%;
+
+
+  font-family: 'Times new Roman';
 }
 
 
 .container {
-    width: 90%;
-    max-width: 1000px;
-    max-height:  1500px;
-    padding: 20px;
-    margin-top: 90px;
-    background-color: #e7f5f2;
-    box-shadow: 20px 28px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    min-height: 500px;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 1%;
-  }
+  background-color: #F3F2F4;
+  box-shadow: 20px 28px 20px rgba(0, 0, 0, 0.2);
+  
+  display: flex;
 
-  .content {
-    flex: 1;
-    padding-right: 20px;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px 30px 10px 30px;
+
+  
+  font-family: 'Poppins', sans-serif;
+  border-radius: 1%;
+}
+
+
+.content {
+  flex: 1;
+  padding-right: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.header {
+  font-size: 3em;
+  color: #000000;
+  font-weight: bolder;
+}
+
+.paragraph {
+  line-height: 2.5;
+  color: #000000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  .container {
     flex-direction: column;
-    align-items: flex-start;
+    text-align: center;
   }
-
-  .header {
-    font-size: 3em;
-    margin-bottom: 10px;
-    color: #000000;
-    font-weight: bolder;
+  .content {
+    align-self:center;
+    padding-right: 0;
   }
-
-  .paragraph {
-    line-height: 2.5;
-    color: #000000;
-    font-family: 'Poppins', sans-serif;
-  }
-
   .image {
-    width: 400px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
+    margin-top: 20px;
   }
-
-  @media (max-width: 800px) {
-    .container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .content {
-      align-self:center;
-      padding-right: 0;
-    }
-    .image {
-      margin-top: 20px;
-    }
 }
