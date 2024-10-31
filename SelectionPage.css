@@ -194,7 +194,7 @@ select option {
 .search-button {
     padding: 15px 20px;
     border-radius: 4px;
-    background-color:rgb(232, 128, 152);
+    background-color:#86274dea;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -205,7 +205,7 @@ select option {
 }
 
 .search-button:hover {
-    background: #781c41; 
+    background: #9f4f6f; 
 }
 
 .search-button i {
