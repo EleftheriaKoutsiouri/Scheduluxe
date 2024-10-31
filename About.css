@@ -2,159 +2,126 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+  }
 
 /* Body of this page -> background */
-/*body {
-    background-color: #ffffff; 
-    background-size: cover; 
-    min-height: 100vh; 
-    margin-top: 30px;
-    margin-bottom: 50px;
+body {
+    font-family: 'Times new Roman';
+    background-size: cover;     
     width: 100vw; 
-    position: relative;
-    color: #ffffff; 
-    overflow-x: hidden; 
-}*/
-
-.header {
-    background-color: #B098E3;
-}
-
-.title {
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-
-}
-
-.main-title {
-    font-size: 35px;
-    font-family: 'Nunito', sans-serif;
-    margin-left: 4%;
-}
-
-main {
-    width: 100%;
+    height: 100vh;
     display: flex;
-    padding: 30px 40px 40px 40px;
-    /*min-height: calc(100vh - 50px); /* Ensures content can extend beyond the viewport */
+    justify-content: center;
+    position: fixed;
+    align-items: center;
 }
-
-.small-title {
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Navigation menu */
 .nav-menu {
+    background-color: #ffffff00;
     display: flex;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
-    padding: 20px 40px;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
 }
 
+/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    align-items: center; /* Center logo items vertically */
 }
 
 .logo img {
-    width: 32px;
-    height: 32px;
+    width: 37px;
+    height: 37px;
     margin-right: 10px;
 }
 
-/* Style of the h1 in logo class */
 .logo h1 {
-    width: 215px;
-    height: 48px;
-    font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: 400; /* Regular weight */
-    font-style: normal;
+    font-size: 35px;
+    font-family: 'Platypi', sans-serif;
+    font-weight: bolder;
     text-align: center;
     white-space: nowrap;
 }
 
-/* First half title */
-.white-title {
-    color: #ffffff;
-}
-
-/* Second half title */
-.orange-title {
-    color: #FFA500;
-}
-
+/* Styling for navigation menu items */
 .nav-menu ul {
-    list-style: none; /* Removes bullets from the list */
+    list-style: none;
     display: flex;
-    gap: 30px; /* Spacing between navigation items */
-    margin-right: 20px;
+    gap: 20px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0; /* No extra margin */
+    padding: 0;
 }
 
 .nav-menu a {
-    color: white;
+    color: rgb(0, 0, 0); /* Black text */
     text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    font-family: 'Nunito', sans-serif;
-    transition: color 0.3s;
+    font-size: 18px;
+    transition: color 0.3s; /* Smooth color transition on hover */
 }
 
 .nav-menu a:hover {
-    color: black;
+    color: #ffffff; /* White text on hover */
 }
 
-.about-container {
-    background-color: #f4f4f4;
-    width: 100%;
-    border-radius: 18px;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-bottom: 5%;
-    margin-bottom: 8%;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
-    min-height: 500px; 
+.container {
+    width: 90%;
+    max-width: 1000px;
+    max-height:  1500px;
+    padding: 20px;
+    margin-top: 90px;
+    background-color: #e7f5f2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    min-height: 500px;
     font-family: 'Poppins', sans-serif;
+  }
+
+  .content {
+    flex: 1;
+    padding-right: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bolder;
+  }
+
+  .paragraph {
+    line-height: 2.5;
+    color: #000000;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .image {
+    width: 400px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 800px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .content {
+      align-self:center;
+      padding-right: 0;
+    }
+    .image {
+      margin-top: 20px;
+    }
 }
-
-
-.about-text {
-    padding-right: 1%;
-}
-
-
-
-
-.button {
-    background-color: #FFA500; /* Button color */
-    color: white; /* Text color */
-    border: none; /* Remove default border */
-    padding: 12px 24px; /* Padding for button */
-    font-size: 16px; /* Font size */
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth hover transition */
-    position: absolute;
-    right: 28%;
-    top: 65%;
-
-}
-
-/* Button hover effect */
-.button:hover {
-    background-color: #d45900; /* Darker shade of orange on hover */
-}
-
-
-.footer-container {
-    color: white;
-}
-
