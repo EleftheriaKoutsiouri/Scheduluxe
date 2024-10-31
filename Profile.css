@@ -1,16 +1,10 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 /* Body of this page -> background */
 body {
     background-image: url(images/Back.png); /*without brightness*/
     background-size: cover; /* cover all the window */
     height: 100vh;
-    /*margin-top: 30px;
-    margin-bottom: 50px;*/
     width: 100vw; /* width for all the viewpoint */
     position: relative;
     color: #ffffff; /* for the text */
@@ -29,122 +23,76 @@ main {
     width: 100%;
     display: flex;
     padding: 100px 50px 30px 50px;
-    /*min-height: calc(100vh - 50px); /* Ensures content can extend beyond the viewport */
 }
 
 .small-title {
     text-align: left;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 30px;
 }
 
 /* Navigation menu */
 .nav-menu {
     display: flex;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
     position: fixed;
-    justify-content: space-between; /* Space between logo and navigation items */
-    align-items: center; /* Align items vertically in the center */
-    padding: 20px 40px;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
 }
 
+/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    align-items: center; /* Center logo items vertically */
 }
 
-.logo img {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
+.custom-logo-image {
+    width: 37px !important;
+    height: 37px !important;
+    margin-right: 10px !important;
 }
 
-/* Style of the h1 in logo class */
-.logo h1 {
-    color: #115976;
-    width: 215px;
-    height: 48px;
-    font-size: 40px;
-    font-family: 'Poetsen One', sans-serif;
-    font-weight: 400; /* Regular weight */
-    font-style: normal;
-    text-align: center;
-    white-space: nowrap;
+.custom-logo-title{
+    font-size: 35px !important;
+    font-family: 'Platypi', sans-serif !important;
+    font-weight: bolder !important;
+    text-align: center !important;
+    white-space: nowrap !important;
 }
 
-
-.nav-menu ul {
-    list-style: none; /* Removes bullets from the list */
-    display: flex;
-    gap: 30px; /* Spacing between navigation items */
-    margin-right: 20px;
+/* Styling for navigation menu items */
+.nav-ul {
+    list-style: none !important;
+    display: flex !important;
+    gap: 20px !important;
+    font-family: 'Poppins', sans-serif !important;
+    margin: 0 !important; /* No extra margin */
+    padding: 0 !important;
 }
 
 .nav-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    font-family: 'Nunito', sans-serif;
-    transition: color 0.3s;
+    color: rgb(0, 0, 0) !important; /* Black text */
+    text-decoration: none !important;
+    font-size: 18px !important;
+    transition: color 0.3s !important; /* Smooth color transition on hover */
 }
 
 .nav-menu a:hover {
-    color: black;
+    color: #ffffff !important; /* White text on hover */
 }
 
-.preferences-container {
-    background-color: #ffffff;
-    width: 100%;
-    border-radius: 18px;
-    padding: 20px 40px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
-    /*min-height: 500px;  Ensure it is tall enough to cause scrolling */
-    font-family: 'Poppins', sans-serif;
-}
 
-.epikefalida_5 {
-    position: absolute;
-    top: 25%;
-    right: 40%;
-}
-.dropdownAge {
-    position: absolute;
-    top: 30%;
-    right: 32%;
-}
-
-.button {
-    background-color: #FFA500; /* Button color */
-    color: white; /* Text color */
-    border: none; /* Remove default border */
-    padding: 12px 24px; /* Padding for button */
-    font-size: 16px; /* Font size */
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth hover transition */
-    position: absolute;
-    right: 28%;
-    top: 65%;
-
-}
-
-/* Button hover effect */
-.button:hover {
-    background-color: #d45900; /* Darker shade of orange on hover */
-}
 
 .edit-profile {
     background-color: #ffffff;
     width: 100%;
-    border-radius: 18px;
+    border-radius: 8px;
     padding: 2% 2% 2% 2%;
-    margin-bottom: 2%;
+    margin-bottom: auto;
     box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
     margin-right: 2%;
 }
@@ -163,7 +111,7 @@ main {
     width: 100%;
     border-radius: 18px;
     padding: 2% 2% 2% 2%;
-    margin-bottom: 2%;
+    margin-bottom: auto;
     box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
     margin-right: 1%;
 }
@@ -179,8 +127,4 @@ main {
     justify-content: space-between;
     padding: 10px 10px 10px 10px;
     gap: 15%;
-}
-
-.footer-container {
-    color: white;
 }

@@ -7,7 +7,7 @@
 
 /* Body styling */
 body {
-    background-color: rgba(188, 188, 194, 0.7); /* Semi-transparent background */
+    background-color: #e7e3e7; /* Semi-transparent background */
     background-size: cover; /* Cover the entire viewport */
     height: 100vh; /* Full viewport height */
     width: 100vw; /* Full viewport width */
@@ -153,6 +153,24 @@ main {
     align-items: center;
     gap: 10px;
 }
+
+.button-overall {
+    background-color: #a63864bd;
+    padding: 6px 12px; /* Reduced padding for smaller button */
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px; /* Reduced font size for a smaller appearance */
+    font-family: "Poppins", sans-serif;
+    margin-top: -5px; /* Negative margin to move the button higher */
+}
+
+.button-overall:hover {
+    background-color: #941548bd;
+}
+
+
+
 
 /* Container for additional information (map and details) */
 .other-info-container {
