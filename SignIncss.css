@@ -10,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(images/Back.png);
+  background-image: url(images/background.png);
   background-size: cover;
   padding: 80px 50px 30px;
   overflow: hidden;
