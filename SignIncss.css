@@ -21,15 +21,16 @@ body {
 
 /* Center the container horizontally and vertically */
 .container {
-  max-width: 850px;
+  max-width: 700px;
   width: 100%;
   background: #fff;
-  padding: 40px 30px;
+  padding: 20px 20px;
   margin: auto; /* Center horizontally */
   box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
   position: relative;
 }
+
 
 .nav-menu {
   display: flex;
@@ -73,7 +74,7 @@ body {
   transition: color 0.3s;
 }
 
-.nav-menu a:hover {
+.nav-menu ul li a:hover {
   color: #ffffff;
 }
 
@@ -221,14 +222,15 @@ body {
 
 .button input {
   color: #fff;
-  background: #5b6180b3;
+  background: #e3c0bc;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.4s;
+  padding: 5px 5px; 
 }
 
 .button input:hover {
-  background: #5b6180;
+  background: #afb5d0;
 }
 
 label {
