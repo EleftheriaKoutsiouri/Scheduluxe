@@ -6,6 +6,7 @@
 
 /* Body of this page -> background */
 body {
+  background-image: url(images/back.png);
     font-family: 'Times new Roman';
     background-size: cover;     
     width: 100vw; 
@@ -76,11 +77,12 @@ body {
     padding: 20px;
     margin-top: 90px;
     background-color: #e7f5f2;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 20px 28px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     min-height: 500px;
     font-family: 'Poppins', sans-serif;
+    border-radius: 1%;
   }
 
   .content {
@@ -93,14 +95,13 @@ body {
   .header {
     font-size: 3em;
     margin-bottom: 10px;
-    color: #333;
+    color: #000000;
     font-weight: bolder;
   }
 
   .paragraph {
     line-height: 2.5;
     color: #000000;
-    font-weight: bold;
     font-family: 'Poppins', sans-serif;
   }
 
