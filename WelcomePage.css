@@ -84,21 +84,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    /*text-align: left;*/
-    /*padding: 20px;*/
+    height:85%;
     column-gap: 30px;
     padding-left: 40px;
 }
 
-
-/* Main content 
-.main-content {
-    
-    height: 70vh;
-    margin-top: 40px;
-      Προσθέστε padding για να δώσετε λίγο περιθώριο από τα αριστερά 
-}
-*/
 
 .info-container h2 {
     font-size: 2.5rem;
@@ -180,6 +170,8 @@ main {
     width: 600px;    /* Set desired width */
     height: 400px;   /* Set desired height */
     margin: 0 auto;  /* Center the carousel */
+    object-fit: cover;
+    box-shadow: 2px 4px 8px rgba(255, 255, 255, 0.8);
   }
 
   /* Carousel images */
@@ -190,4 +182,14 @@ main {
     color:#000000;
   }
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgb(95, 93, 93); 
+    border-radius: 50%; 
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; 
+}
 
