@@ -4,9 +4,8 @@
     box-sizing: border-box;
   }
 
-/* Body of this page -> background */
 body {
-  background-image: url(images/back.png);
+  background-image: url(images/background.png);
     font-family: 'Times new Roman';
     background-size: cover;     
     width: 100vw; 
@@ -16,59 +15,7 @@ body {
     position: fixed;
     align-items: center;
 }
-.nav-menu {
-    background-color: #ffffff00;
-    display: flex;
-    justify-content: space-between; /* Align logo and menu items in a single line */
-    align-items: center; /* Vertical alignment */
-    padding: 20px 40px; /* Padding around navigation items */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Full-width menu */
-}
 
-/* Logo styling */
-.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* Center logo items vertically */
-}
-
-.logo img {
-    width: 37px;
-    height: 37px;
-    margin-right: 10px;
-}
-
-.logo h1 {
-    font-size: 35px;
-    font-family: 'Platypi', sans-serif;
-    font-weight: bolder;
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* Styling for navigation menu items */
-.nav-menu ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    font-family: 'Poppins', sans-serif;
-    margin: 0; /* No extra margin */
-    padding: 0;
-}
-
-.nav-menu a {
-    color: rgb(0, 0, 0); /* Black text */
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s; /* Smooth color transition on hover */
-}
-
-.nav-menu a:hover {
-    color: #ffffff; /* White text on hover */
-}
 
 .container {
     width: 90%;

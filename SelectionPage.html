@@ -4,7 +4,6 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>SelectionPage</title>  
-    <!-- Link to CSS file -->  
     <link rel="stylesheet" href="SelectionPage.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
     <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">
@@ -19,7 +18,7 @@
         <!-- Navigation bar -->  
         <nav class="nav-menu">  
             <div class="logo">  
-                <img src="images/trav.png" alt="Icon">
+                <img src="images/traveler-logo.png" alt="Icon">
                 <h1><span class="white-title">Schedu</span><span class="orange-title">luxe</span></h1>
             </div>  
             <ul>  
@@ -88,14 +87,14 @@
                   </div>
                   
                   <script>
-                    // Toggle dropdown visibility
+                
                     function toggleDropdown(event) {
-                      event.stopPropagation(); // Prevents dropdown from closing when clicking the button
+                      event.stopPropagation(); 
                       const dropdown = event.currentTarget.closest('.dropdown');
                       dropdown.classList.toggle('active');
                     }
 
-                    // Close dropdown if clicked outside
+                    
                     document.addEventListener('click', function(event) {
                       const activeDropdowns = document.querySelectorAll('.dropdown.active');
                       activeDropdowns.forEach(dropdown => {
@@ -128,10 +127,10 @@
               </div>  
           </div>  
           <div class="image-container">
-            <img src="/images/OG_Colosseum_Ancient-Rome_KIDS_1122_3x2.avif" alt="Image 1">
-            <img src="/images/eiffel3.jpg" alt="Image 2">
-            <img src="/images/parthenon.jpg" alt="Image 3">
-            <img src="/images/topic-london-gettyimages-760251843-feature.jpg" alt="Image 4">
+            <img src="/Sceduluxe/images/OG_Colosseum_Ancient-Rome_KIDS_1122_3x2.avif" alt="Image 1">
+            <img src="/Sceduluxe/images/eiffel3.jpg" alt="Image 2">
+            <img src="/Sceduluxe/images/parthenon.jpg" alt="Image 3">
+            <img src="/Sceduluxe/images/topic-london-gettyimages-760251843-feature.jpg" alt="Image 4">
           </div>
         </main>  
     </div>  
