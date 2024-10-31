@@ -11,7 +11,7 @@ body {
 }
 
 .header-container {
-    background: linear-gradient(to bottom,#b9c3d6e7 65%,#ffffff 75%);
+    background: linear-gradient(to bottom,#d3dff5e7 65%,#ffffff 75%);
     height: 100vh; 
     width: 100vw;
     position: relative;
@@ -238,6 +238,7 @@ select option {
 
 /* Hide the checkbox options initially */
 .dropdown-content {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
     position: absolute;
     font-weight: 100;
@@ -268,43 +269,29 @@ select option {
     text-align: left; /* Ensure placeholder text is aligned left */
 }
 
-.info-section {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    position: fixed; 
-    bottom: -10px; 
-    right: 20px;
-    z-index: 10; 
+
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
 }
 
-.info-box {
-    padding: 15px;
-    border-radius: 10px;
-    width: 185px;
-    text-align: center;
-    box-shadow: 0px 4px 8px rgba(185, 147, 196, 0.8); /* Increased shadow for a more pronounced effect */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border for added definition */
-    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-    
-    background: rgba(255, 255, 255, 0.12); /* Διαφανές λευκό background */
+.image-container img {
+    width: 90%;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
-
-.info-box:hover {
-    box-shadow: 0px 8px 16px rgba(185, 147, 196, 0.5);
-    transform: translateY(-2px);
+/* Adjust height for the first and third images */
+.image-container img:nth-child(1),
+.image-container img:nth-child(3) {
+    height: 200px; /* Adjust as needed */
 }
 
-.info-box h3 {
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-    color: #391458;
-}
-
-.info-box p {
-    font-size: 0.8rem;
-    color: #ffffff;
-    margin-top: 5px;
+/* Set a shorter height for the second and fourth images */
+.image-container img:nth-child(2),
+.image-container img:nth-child(4) {
+    height: 200px; /* Adjust as needed */
+    margin-top: 80px;
 }
