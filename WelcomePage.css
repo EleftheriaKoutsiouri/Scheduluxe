@@ -178,7 +178,7 @@ main {
     cursor: pointer;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .nav-links {
         display: none; /* Hide the links by default on small screens */
         flex-direction: column; /* Stack links vertically when shown */
