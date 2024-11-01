@@ -1,15 +1,15 @@
 /* General reset */
-* {
+/** {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+}*/
 
 body {
     background-image: url(images/background.png);
-    background-size: cover; /* Cover the entire viewport */
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
+    /*background-size: cover; /* Cover the entire viewport */
+    /*height: 100vh;
+    width: 100vw;*/
     position: relative;
     color: #000000;
     overflow: visible;
@@ -20,7 +20,7 @@ main {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 100px 50px 30px 50px;
+    padding: 20px 50px 30px 50px;
     gap: 60px;
     align-content: center;
 }
@@ -29,11 +29,12 @@ main {
 .info-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height:85%;
+    /*justify-content: center;*/
+    /*align-items: flex-start;*/
+    /*height:85%;*/
     column-gap: 30px;
     padding-left: 40px;
+
 }
 
 
@@ -67,7 +68,8 @@ main {
     margin-top: 10px;
     font-size: 17px;
     color: #000000;
-    font-family: 'Poppins', sans-serif
+    font-family: 'Poppins', sans-serif;
+
     
 }
 
@@ -199,4 +201,21 @@ main {
     .logo {
         flex: 1; /* Align logo to the left */
     }
+}
+
+@media (max-width: 1100px) and (max-height: 500px) and (min-width: 600px) {
+
+    #carouselExampleCaptions {
+        width: 400px;   
+        height: 300px;
+        align-items: center; 
+      }
+}
+
+@media (max-width: 600px) {
+
+    #carouselExampleCaptions {
+        width: 0px;   
+        height: 0px;   
+      }
 }
