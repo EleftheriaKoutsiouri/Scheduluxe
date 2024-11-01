@@ -7,7 +7,8 @@
 
 body {
     font-family: 'Times new Roman';
-    overflow: hidden;
+    overflow: visible;
+    overflow-x: hidden;
 }
 
 .header-container {
@@ -16,7 +17,7 @@ body {
     width: 100vw;
     position: relative;
     color:#000000;
-    overflow: hidden; 
+    
 }
 
 .overlay {
@@ -240,3 +241,71 @@ select option {
     height: 200px; /* Adjust as needed */
     margin-top: 80px;
 }
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: rgb(0, 0, 0);
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+  .menu-toggle {
+    display: none; /* Hide the hamburger button by default */
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .nav-links {
+        display: none; /* Hide the links by default on small screens */
+        flex-direction: column; /* Stack links vertically when shown */
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #B1BAC9;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .nav-links.show {
+        display: flex; /* Show links when the menu is open */
+    }
+
+    .menu-toggle {
+        display: block; /* Show the hamburger button */
+    }
+
+    .logo {
+        flex: 1; /* Align logo to the left */
+    }
+}
+
+
+@media (min-width: 568px) and (max-width: 1099px) {
+    .containerrr {
+      flex-direction: column; /* Stack elements vertically on medium screens */
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .container {
+      transform: scale(0.75); /* 95% of the original size */
+    }
+  }
