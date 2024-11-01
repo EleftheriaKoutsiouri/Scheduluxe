@@ -8,7 +8,8 @@ body {
     width: 100vw; /* width for all the viewpoint */
     position: relative;
     color: #ffffff; /* for the text */
-    overflow: hidden; /* Allow vertical scrolling, but prevent horizontal scrolling */
+    overflow: visible; /* Allow vertical scrolling, but prevent horizontal scrolling */
+    overflow-x: hidden;
 }
 
 
@@ -37,32 +38,11 @@ main {
     justify-content: space-between; /* Align logo and menu items in a single line */
     align-items: center; /* Vertical alignment */
     padding: 20px 40px; /* Padding around navigation items */
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%; /* Full-width menu */
 }
-
-/* Logo styling */
-/*.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.logo img {
-    width: 37px !important;
-    height: 37px !important;
-    margin-right: 10px !important;
-}
-
-.custom-logo-title{
-    font-size: 35px !important;
-    font-family: 'Platypi', sans-serif !important;
-    font-weight: bolder !important;
-    text-align: center !important;
-    white-space: nowrap !important;
-}*/
 
 .logo {
     display: flex;
@@ -168,4 +148,46 @@ main {
     background: #B1BAC9 !important;
     color: #000000 !important;
 
+}
+
+.profile-schedules-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically by default */
+}
+
+.edit-profile,
+.past-schedules {
+    width: 100%; /* Full width on small screens */
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    gap: 10px; /* Space between cards */
+}
+
+.card {
+    flex: 1 1 100%; /* Each card takes full width on small screens */
+}
+
+@media (min-width: 576px) {
+    .card {
+        flex: 1 1 48%; /* Two cards side by side on small tablets */
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-schedules-container {
+        flex-direction: row; /* Change to row on larger screens */
+        justify-content: space-between; /* Optional: adds space between sections */
+    }
+
+    .edit-profile,
+    .past-schedules {
+        width: 48%; /* Adjust widths for larger screens */
+    }
+
+    .card {
+        flex: 1 1 48%; /* Two cards side by side on larger screens */
+    }
 }

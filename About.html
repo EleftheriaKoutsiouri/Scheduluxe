@@ -57,13 +57,7 @@
                     isMenuOpen = !isMenuOpen; // Toggle the menu state
                 });
   
-                // Optionally, add a click event listener to close the menu when clicking outside of it
-                document.addEventListener('click', (event) => {
-                    if (!menuToggle.contains(event.target) && !navLinks.contains(event.target) && isMenuOpen) {
-                        navLinks.style.display = 'none'; // Hides the menu
-                        isMenuOpen = false; // Update the menu state
-                    }
-                });
+                
                 window.addEventListener('resize', () => {
                     if (window.innerWidth > 768) { // Adjust this width to your breakpoint
                         navLinks.style.display = 'flex'; // Show the menu
