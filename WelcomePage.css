@@ -1,13 +1,13 @@
 /* General reset */
-/** {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}*/
+}
 
 body {
     background-image: url(images/background.png);
-    /*background-size: cover; /* Cover the entire viewport */
+    background-size: cover;
     /*height: 100vh;
     width: 100vw;*/
     position: relative;
