@@ -5,7 +5,6 @@
     justify-content: space-between; /* Align logo and menu items in a single line */
     align-items: center; /* Vertical alignment */
     padding: 20px 40px; /* Padding around navigation items */
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%; /* Full-width menu */
