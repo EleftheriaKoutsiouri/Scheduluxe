@@ -16,7 +16,11 @@ body {
     height: 100vh; 
     width: 100vw;
     position: relative;
+    left: 0;
+    right: 0;
     color:#000000;
+    transition: transform 0.3s ease; /* Smooth transition for hiding */
+    z-index: 1000; /
     
 }
 
