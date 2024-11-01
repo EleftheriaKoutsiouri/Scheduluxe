@@ -155,7 +155,14 @@ main {
       transform: scale(0.95); /* 95% of the original size */
     }
   }
-
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: rgb(0, 0, 0);
+  }
   .nav-links {
     display: flex;
     list-style: none;
