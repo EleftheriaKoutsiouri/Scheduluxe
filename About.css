@@ -6,13 +6,11 @@
 
 body {
   background-image: url(images/background.png);
-  background-size: cover;     
-  width: 100vw; 
+  background-size: cover;
+  width: 100vw;
   height: 100vh;
   position: relative;
   overflow: hidden;
-  
-  
 }
 
 main {
@@ -20,46 +18,42 @@ main {
   height: 100%;
   width: 100%;
   padding: 100px 20% 30px 20%;
-
-
-  font-family: 'Times new Roman';
+  font-family: 'Times New Roman';
 }
-
 
 .container {
   background-color: #F3F2F4;
   box-shadow: 20px 28px 20px rgba(0, 0, 0, 0.2);
-  
   display: flex;
-
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
-  padding: 10px 30px 10px 30px;
-
-  
+  padding: 20px;
   font-family: 'Poppins', sans-serif;
   border-radius: 1%;
+  max-width: 1000px;
+  margin: auto;
+  gap: 20px;
 }
 
-
 .content {
-  flex: 1;
-  padding-right: 20px;
-  flex-direction: column;
-  align-items: flex-start;
+  flex: 2;
+  flex-basis: 50%;
+  padding: 0 5px 0 15px; 
 }
 
 .header {
-  font-size: 3em;
-  color: #000000;
-  font-weight: bolder;
+  font-size: 2em;
+  color: #b74472bd;
+  font-family: Poppins;
 }
 
 .paragraph {
-  line-height: 2.5;
+  line-height: 1.5;
   color: #000000;
   font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  max-width: 100%;
+  text-align: justify;
 }
 
 .image {
@@ -75,10 +69,12 @@ main {
     text-align: center;
   }
   .content {
-    align-self:center;
-    padding-right: 0;
+    align-self: center;
+    padding: 0 10px; 
   }
   .image {
     margin-top: 20px;
+    width: 100%;
+    height: auto;
   }
 }
