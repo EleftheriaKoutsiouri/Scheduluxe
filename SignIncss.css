@@ -12,11 +12,12 @@ body {
   justify-content: center;
   background-image: url(images/background.png);
   background-size: cover;
-  padding: 80px 50px 30px;
-  overflow: hidden;
-  height: 100vh; /* Full viewport height */
+
+  /*overflow: hidden;
+  /*height: 100vh; /* Full viewport height */
   width: 100%;
   font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
 /* Center the container horizontally and vertically */
@@ -25,7 +26,10 @@ body {
   width: 100%;
   background: #fff;
   padding: 20px 20px;
-  margin: auto; /* Center horizontally */
+  margin-top: 100px;
+  margin-bottom: auto; /* Center horizontally */
+  margin-right: auto;
+  margin-left: auto;
   box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
   position: relative;
