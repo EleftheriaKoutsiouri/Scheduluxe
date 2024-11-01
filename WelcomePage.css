@@ -22,6 +22,7 @@ main {
     justify-content: space-between;
     padding: 100px 50px 30px 50px;
     gap: 60px;
+    align-content: center;
 }
 
 
@@ -110,9 +111,10 @@ main {
 #carouselExampleCaptions {
     width: 600px;   
     height: 400px;   
-    margin: 0 auto;  /* Center the carousel */
     object-fit: cover;
-    box-shadow: 4px 4px 8px rgba(255, 255, 255, 0.8);
+    margin-top: 2%;
+    margin-bottom: 10%
+    /*box-shadow: 4px 4px 8px rgba(255, 255, 255, 0.8)*/;
   }
 
   /* Carousel images */
