@@ -23,12 +23,16 @@
         <header>
           <nav class="nav-menu">
               <!-- Logo with image and title -->
-              <a class="logo" href="#logo">  
+              <!--<a class="logo" href="#logo">  
                   <img class="custom-logo-image" src="images/traveler-logo.png" alt="Icon">
                   <h1>
                       <span class="custom-logo-title">Scheduluxe</span>
                   </h1>
-              </a> 
+              </a>-->
+              <div class="logo">  
+                <img src="images/traveler-logo.png" alt="Icon">
+                <h1><span class="white-title">Scheduluxe</span></h1>
+            </div>
               <!-- Navigation links for Home, About, Login, Signup, and Profile -->
               <ul class="nav-ul">  
                   <li><a href="WelcomePage.html">Home</a></li>  
@@ -42,7 +46,7 @@
         <main>
 
             <div class="edit-profile">
-                <h4 class="small-title"><strong>Profile</strong></h4>
+                <h4 class="small-title"><strong>Edit your Profile</strong></h4>
             <form class="row g-3">
                 <div class="col-md-4">
                   <label for="specificSizeInputName" class="form-label">First Name</label>
@@ -69,20 +73,20 @@
                   <input type="password" class="form-control" id="inputPassword4" placeholder="New Password">
                 </div>
                 <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="start-button">Save Changes</button>
                 </div>
               </form>
             </div>
             <div class="past-schedules">
-                <h4 class="small-title"><strong>Schedules</strong></h4>
+                <h4 class="small-title"><strong>See your Past Schedules</strong></h4>
 
                 <div class="card-container">
                 <div class="card" style="width: 19rem;">
-                    <img src="images\Paris2.jpg" class="card-img-top" alt="...">
+                    <img src="images\Germany.png" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">Paris</h5>
                       <!--<p class="card-text">Experience again your trip in Paris. See the detailed program we provided for you in the past.</p>-->
-                      <a href="#" class="btn btn-primary">Press here</a>
+                      <button type="button" class="start-button">Press here</button>
                     </div>
                   </div>
 
@@ -92,7 +96,7 @@
                     <div class="card-body">
                       <h5 class="card-title">London</h5>
                       <!--<p class="card-text">Experience again your trip in Paris. See the detailed program we provided for you in the past.</p>-->
-                      <a href="#" class="btn btn-primary">Press here</a>
+                      <button type="button" class="start-button">Press here</button>
                     </div>
                   </div>
                 </div>
