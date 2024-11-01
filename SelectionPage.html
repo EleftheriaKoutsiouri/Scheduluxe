@@ -24,15 +24,21 @@
         <nav class="nav-menu">  
             <div class="logo">  
                 <img src="images/traveler-logo.png" alt="Icon">
-                <h1><span class="white-title">Schedu</span><span class="orange-title">luxe</span></h1>
-            </div>  
-            <ul>  
+                <h1><span class="white-title">Scheduluxe</span></h1>
+            </div> 
+
+            <!-- Hamburger Menu Button -->
+            <button class="menu-toggle">
+              <span class="hamburger-icon">&#9776;</span>
+            </button>
+
+            <ul class="nav-links">  
                 <li><a href="WelcomePage.html">Home</a></li>  
                 <li><a href="About.html">About us</a></li>  
                 <li><a href="SignIn.html">Sign in</a></li>  
                 <li><a href="SignIn.html">Sign up</a></li>  
                 <li><a href="SignIn.html"><span class="material-symbols-outlined">account_circle</span></a></li>  
-            </ul>  
+            </ul> 
         </nav>  
 
         <!-- Main content section -->  
@@ -131,5 +137,14 @@
         </main>  
     </div>  
   </header>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+  </script> 
 </body>  
 </html>
