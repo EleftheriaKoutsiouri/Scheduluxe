@@ -8,7 +8,8 @@ body {
     width: 100vw; /* width for all the viewpoint */
     position: relative;
     color: #ffffff; /* for the text */
-    overflow: hidden; /* Allow vertical scrolling, but prevent horizontal scrolling */
+    overflow: visible; /* Allow vertical scrolling, but prevent horizontal scrolling */
+    overflow-x: hidden;
 }
 
 
@@ -22,7 +23,7 @@ main {
     height: 100%;
     width: 100%;
     display: flex;
-    padding: 100px 50px 30px 50px;
+    padding: 20px 50px 30px 50px;
 }
 
 .small-title {
@@ -37,32 +38,32 @@ main {
     justify-content: space-between; /* Align logo and menu items in a single line */
     align-items: center; /* Vertical alignment */
     padding: 20px 40px; /* Padding around navigation items */
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%; /* Full-width menu */
 }
 
-/* Logo styling */
 .logo {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Center logo items vertically */
+    align-items: center; 
 }
 
-.custom-logo-image {
-    width: 37px !important;
-    height: 37px !important;
-    margin-right: 10px !important;
+.logo img {
+    width: 37px;
+    height: 37px;
+    margin-right: 10px;
 }
 
-.custom-logo-title{
-    font-size: 35px !important;
-    font-family: 'Platypi', sans-serif !important;
-    font-weight: bolder !important;
-    text-align: center !important;
-    white-space: nowrap !important;
+.logo h1 {
+    font-size: 35px;
+    font-family: 'Platypi', sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    white-space: nowrap;
 }
+
 
 /* Styling for navigation menu items */
 .nav-ul {
@@ -109,7 +110,7 @@ main {
 .past-schedules {
     background-color: #ffffff;
     width: 100%;
-    border-radius: 18px;
+    border-radius: 8px;
     padding: 2% 2% 2% 2%;
     margin-bottom: auto;
     box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
@@ -126,5 +127,117 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 10px 10px 10px 10px;
-    gap: 15%;
+    gap: 10%;
 }
+
+.start-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: rgb(218, 178, 174);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-family:Poppins;
+}
+
+.start-button:hover {
+    background: #B1BAC9 !important;
+    color: #000000 !important;
+
+}
+
+.profile-schedules-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically by default */
+}
+
+.edit-profile,
+.past-schedules {
+    width: 100%; /* Full width on small screens */
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    gap: 10px; /* Space between cards */
+}
+
+.card {
+    flex: 1 1 100%; /* Each card takes full width on small screens */
+}
+
+@media (min-width: 576px) {
+    .card {
+        flex: 1 1 48%; /* Two cards side by side on small tablets */
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-schedules-container {
+        flex-direction: row; /* Change to row on larger screens */
+        justify-content: space-between; /* Optional: adds space between sections */
+    }
+
+    .edit-profile,
+    .past-schedules {
+        width: 48%; /* Adjust widths for larger screens */
+    }
+
+    .card {
+        flex: 1 1 48%; /* Two cards side by side on larger screens */
+    }
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+  }
+  
+  .nav-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  }
+  
+  /* Hamburger Menu Styles */
+  .menu-toggle {
+    display: none; /* Hide the hamburger button by default */
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  
+  /* Media Query for Small Screens */
+  @media (max-width: 768px) {
+    .nav-links {
+        border-radius: 5%;
+        display: none; /* Hide the links by default on small screens */
+        flex-direction: column; /* Stack links vertically when shown */
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #B1BAC9;
+        width: 200px;
+        padding: 10px;
+    }
+  
+    .nav-links.show {
+        display: flex; /* Show links when the menu is open */
+    }
+  
+    .menu-toggle {
+        display: block; /* Show the hamburger button */
+    }
+  
+    .logo {
+        flex: 1; /* Align logo to the left */
+    }
+  }

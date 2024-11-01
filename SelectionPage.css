@@ -7,29 +7,35 @@
 
 body {
     font-family: 'Times new Roman';
-    overflow: hidden;
+    overflow: visible;
+    overflow-x: hidden;
+    background-size: cover;
 }
 
 .header-container {
     background: linear-gradient(to bottom,#d3dff5e7 65%,#ffffff 75%);
-    height: 100vh; 
+    /*height: 100vh; 
     width: 100vw;
     position: relative;
+    left: 0;
+    right: 0;*/
     color:#000000;
-    overflow: hidden; 
+    transition: transform 0.3s ease;
+    /*z-index: 1000;*/
+    
 }
 
-.overlay {
+/*.overlay {
     height: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+}*/
 
 /* Main content */
 .main-content {
-    display: flex;
+    display: relative;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* Ανυψώνει την ενότητα */
@@ -83,7 +89,7 @@ h2 {
     border: 5px solid transparent; /* Set a solid transparent border */
     border-radius: 10px; /* Ensure the corners are rounded */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 75%;
+    /*width: 75%;*/
     max-width: 820px;
     margin: 10px auto 0 auto; 
     padding: 10px; /* Προσθήκη padding για να φαίνεται πιο ευχάριστο */
@@ -240,3 +246,73 @@ select option {
     height: 200px; /* Adjust as needed */
     margin-top: 80px;
 }
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: rgb(0, 0, 0);
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+  .menu-toggle {
+    display: none; /* Hide the hamburger button by default */
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        border-radius: 5%;
+        display: none; /* Hide the links by default on small screens */
+        flex-direction: column; /* Stack links vertically when shown */
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #B1BAC9;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .nav-links.show {
+        display: flex; /* Show links when the menu is open */
+    }
+
+    .menu-toggle {
+        display: block; /* Show the hamburger button */
+    }
+
+    .logo {
+        flex: 1; /* Align logo to the left */
+    }
+}
+
+
+@media (min-width: 568px) and (max-width: 1099px) {
+    .containerrr {
+      flex-direction: column; /* Stack elements vertically on medium screens */
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .container {
+      transform: scale(0.75); /* 95% of the original size */
+    }
+  }
+
