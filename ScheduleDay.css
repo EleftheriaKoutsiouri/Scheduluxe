@@ -25,60 +25,6 @@ main {
     gap: 60px; /* Gap between main sections */
 }
 
-/* Navigation Menu Container */
-.nav-menu {
-    display: flex;
-    justify-content: space-between; /* Align logo and menu items in a single line */
-    align-items: center; /* Vertical alignment */
-    padding: 20px 40px; /* Padding around navigation items */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Full-width menu */
-}
-
-/* Logo styling */
-.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* Center logo items vertically */
-}
-
-.logo img {
-    width: 37px;
-    height: 37px;
-    margin-right: 10px;
-}
-
-.logo h1 {
-    font-size: 35px;
-    font-family: 'Platypi', sans-serif;
-    font-weight: bolder;
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* Styling for navigation menu items */
-.nav-menu ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    font-family: 'Poppins', sans-serif;
-    margin: 0; /* No extra margin */
-    padding: 0;
-}
-
-.nav-menu a {
-    color: rgb(0, 0, 0); /* Black text */
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s; /* Smooth color transition on hover */
-}
-
-/* Hover effect */
-.nav-menu ul li a:hover {
-    color: #ffffff;
-}
 
 /* Schedule container styling */
 .schedule-container {
@@ -100,6 +46,12 @@ main {
     font-size: 25px;
     font-family: 'Poppins', sans-serif;
     border-radius: 8px;
+}
+
+.day-container i {
+    padding-right: 3%;
+    padding-left: 3%;
+
 }
 
 /* Activity list container */
@@ -179,7 +131,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 50%; /* Takes half of the main section's width */
+    width: 50%; 
     gap: 40px;
 }
 
@@ -199,14 +151,14 @@ main {
 
 /* Details container styling */
 .details-container {
-    background: rgba(241, 216, 213, 0.806); /* Soft pink background */
+    background: rgba(241, 216, 213, 0.806);
     width: 100%;
     height: 40%; /* Full height for details section */
     border-radius: 8px;
     padding: 20px 40px; /* Inner padding */
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
     font-family: "Poppins", sans-serif;
-    text-align: left; /* Left-align text */
+    text-align: left;
 }
 
 .details-container h2 {
