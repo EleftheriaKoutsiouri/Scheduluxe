@@ -21,16 +21,52 @@
             <!-- Navigation bar -->  
             <nav class="nav-menu">  
                 <div class="logo">  
-                    <img src="images/traveler-logo.png" alt="Scheduluxe Icon">
+                    <img src="images/traveler-logo.png" alt="Icon">
                     <h1><span class="white-title">Scheduluxe</span></h1>
                 </div>  
-                <ul>  
+            
+                <!-- Hamburger Menu Button -->
+                <button class="menu-toggle">
+                    <span class="hamburger-icon">&#9776;</span>
+                </button>
+            
+                <ul class="nav-links">  
                     <li><a href="WelcomePage.html">Home</a></li>  
                     <li><a href="About.html">About us</a></li>
                     <li><a href="SignIn.html">Sign in</a></li>  
-                    <li><a href="SignIn.html">Sign up</a></li>  
-                    <li><a href="SignIn.html"><span class="material-symbols-outlined">account_circle</span></a></li>  
+                    <li><a href="SignUp.html">Sign up</a></li>  
+                    <li><a href="Profile.html"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul>  
+            </nav>
+            <script>
+                const menuToggle = document.querySelector('.menu-toggle');
+                const navLinks = document.querySelector('.nav-links');
+  
+                // Initialize the menu state
+                let isMenuOpen = true;
+  
+                // Function to handle hamburger menu toggle
+                menuToggle.addEventListener('click', () => {
+                    if (isMenuOpen) {
+                        // If the menu is open, hide it
+                        navLinks.style.display = 'none'; // Hides the menu
+                    } else {
+                        // If the menu is closed, show it
+                        navLinks.style.display = 'flex'; // Show the menu
+                    }
+                    isMenuOpen = !isMenuOpen; // Toggle the menu state
+                });
+  
+                
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) { // Adjust this width to your breakpoint
+                        navLinks.style.display = 'flex'; // Show the menu
+                        isMenuOpen = false; // Reset the menu state
+                    } else {
+                        navLinks.style.display = 'none'; // Hide the menu for smaller screens
+                    }
+                });
+            </script> 
             </nav>
         </header>
         <main>
