@@ -242,4 +242,7 @@ main {
     .logo {
         flex: 1; /* Align logo to the left */
     }
+    .past-schedules{
+        margin-top: 20px;
+    }
   }
