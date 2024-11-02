@@ -95,34 +95,34 @@
         </div>
     </main>
     <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
 
-        // Initialize the menu state
-        let isMenuOpen = false;
-        navLinks.style.display = 'none'; // Ensure the menu is initially hidden
+    // Initialize the menu state based on the screen width
+    let isMenuOpen = window.innerWidth > 768;
 
-        // Function to handle hamburger menu toggle
-        menuToggle.addEventListener('click', () => {
-            if (isMenuOpen) {
-                // If the menu is open, hide it
-                navLinks.style.display = 'none'; // Hides the menu
-            } else {
-                // If the menu is closed, show it
-                navLinks.style.display = 'flex'; // Show the menu
-            }
-            isMenuOpen = !isMenuOpen; // Toggle the menu state
-        });
+    // Set initial display for nav links based on screen width
+    navLinks.style.display = isMenuOpen ? 'flex' : 'none';
 
-        
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) { // Adjust this width to your breakpoint
-                navLinks.style.display = 'flex'; // Show the menu
-                isMenuOpen = false; // Reset the menu state
-            } else {
-                navLinks.style.display = 'none'; // Hide the menu for smaller screens
-            }
-        });
+    // Function to handle hamburger menu toggle
+    menuToggle.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        navLinks.style.display = isMenuOpen ? 'flex' : 'none';
+    });
+
+    // Adjust menu display on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            navLinks.style.display = 'flex'; // Show the menu on larger screens
+            isMenuOpen = true; // Reset the menu state
+        } else {
+            navLinks.style.display = 'none'; // Hide the menu on smaller screens
+            isMenuOpen = false; // Ensure menu starts hidden on smaller screens
+        }
+    });
+});
+
     </script> 
     
 
