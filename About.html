@@ -41,10 +41,11 @@
             <script>
                 const menuToggle = document.querySelector('.menu-toggle');
                 const navLinks = document.querySelector('.nav-links');
-  
+            
                 // Initialize the menu state
-                let isMenuOpen = true;
-  
+                let isMenuOpen = false;
+                navLinks.style.display = 'none'; // Ensure the menu is initially hidden
+            
                 // Function to handle hamburger menu toggle
                 menuToggle.addEventListener('click', () => {
                     if (isMenuOpen) {
@@ -56,8 +57,7 @@
                     }
                     isMenuOpen = !isMenuOpen; // Toggle the menu state
                 });
-  
-                
+            
                 window.addEventListener('resize', () => {
                     if (window.innerWidth > 768) { // Adjust this width to your breakpoint
                         navLinks.style.display = 'flex'; // Show the menu
@@ -66,7 +66,8 @@
                         navLinks.style.display = 'none'; // Hide the menu for smaller screens
                     }
                 });
-            </script> 
+            </script>
+            
             </nav>
         </header>
         <main>
