@@ -225,6 +225,7 @@ main {
 
     #carouselExampleCaptions {
         width: 0px;   
-        height: 0px;   
+        height: 0px;  
+        align-items: center;  
       }
 }
