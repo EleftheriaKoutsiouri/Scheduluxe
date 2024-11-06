@@ -35,10 +35,12 @@
 .nav-menu ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 5px;
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    margin-left: auto; /* Align the menu to the right */
+    justify-content: center; /* Center the items within the menu */
 }
 
 .nav-menu a {
@@ -51,3 +53,4 @@
 .nav-menu a:hover {
     color: #ffffff; /* White text on hover */
 }
+
