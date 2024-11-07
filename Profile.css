@@ -196,6 +196,7 @@ main {
 .nav-links {
     display: flex;
     list-style: none;
+    font-family: "Poppins";
   }
   
   .nav-links li {
