@@ -8,11 +8,16 @@
 body {
     background-image: url(images/background.png);
     background-size: cover;
-    /*height: 100vh;
-    width: 100vw;*/
     position: relative;
     color: #000000;
-    /*overflow-x: hidden;*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100vw;
+    height: auto;
+    position: relative;
+    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
 
 }
 
@@ -24,9 +29,12 @@ main {
     padding: 20px 50px 30px 50px;
     gap: 60px;
     align-content: center;
+    align-items: left;
+    min-height: 100%; 
+    padding-bottom: 30px;
+
 }
-
-
+    
 .info-container {
     display: flex;
     flex-direction: column;
@@ -35,13 +43,11 @@ main {
 
 }
 
-
 .info-container h2 {
     font-size: 2.5rem;
     margin: 20px 0;
 }
 
-/* Title styling */
 .discover-text {
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
@@ -66,12 +72,9 @@ main {
     margin-top: 10px;
     font-size: 17px;
     color: #000000;
-    font-family: 'Poppins', sans-serif;
-
-    
+    font-family: 'Poppins', sans-serif;   
 }
 
-/* Button styling */
 .start-button {
     margin-top: 20px;
     padding: 12px 10px;
@@ -92,8 +95,6 @@ main {
 
 }
 
-
-/* Additional styles */
 .search-container {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -111,6 +112,7 @@ main {
     position: relative;
     padding-left: 50px;  
     max-height: 80vh; 
+    
 }
 
 .carousel img {
@@ -119,6 +121,7 @@ main {
     display: none;
     object-fit: cover;
     margin-left: -10%
+    
 }
 
 .carousel img.active {
@@ -131,17 +134,6 @@ main {
     gap: 20px;
   }
 
-@media (min-width: 568px) and (max-width: 1099px) {
-    .containerrr {
-      flex-direction: column; /* Stack elements vertically on medium screens */
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .container {
-      transform: scale(0.95); /* 95% of the original size */
-    }
-  }
   .nav-menu {
     display: flex;
     align-items: center;
@@ -165,7 +157,7 @@ main {
 }
 
   .menu-toggle {
-    display: none; /* Hide the hamburger button by default */
+    display: none; 
     font-size: 24px;
     background: none;
     border: none;
@@ -173,11 +165,43 @@ main {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 568px) and (max-width: 1099px) {
+    .containerrr {
+      flex-direction: column; 
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .container {
+      transform: scale(0.95); 
+    }
+    .content, .carousel {
+        max-width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .carousel {
+        max-width: 100%; 
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        padding-left: 0;
+        max-height: 50vh; 
+        margin-top: 20px; 
+
+    }
+
+    .carousel img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin: 0 auto;
+    }
+  
     .nav-links {
         border-radius: 5%;
-        display: none; /* Hide the links by default on small screens */
-        flex-direction: column; /* Stack links vertically when shown */
+        display: none;
+        flex-direction: column; 
         position: absolute;
         top: 60px;
         right: 0;
@@ -187,32 +211,15 @@ main {
     }
 
     .nav-links.show {
-        display: flex; /* Show links when the menu is open */
+        display: flex; 
     }
 
     .menu-toggle {
-        display: block; /* Show the hamburger button */
+        display: block; 
     }
 
     .logo {
-        flex: 1; /* Align logo to the left */
+        flex: 1; 
     }
-}
-
-@media (max-width: 1100px) and (max-height: 500px) and (min-width: 600px) {
-
-    #carouselExampleCaptions {
-        width: 400px;   
-        height: 300px;
-        align-items: center; 
-      }
-}
-
-@media (max-width: 660px) {
-
-    #carouselExampleCaptions {
-        width: 0px;   
-        height: 0px;  
-        align-items: center;  
-      }
-}
+  }
+  
