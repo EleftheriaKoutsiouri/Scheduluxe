@@ -35,10 +35,51 @@
                 <ul class="nav-links">
                     <li><a href="WelcomePage.html">Home</a></li>
                     <li><a href="About.html">About us</a></li>
-                    <li><a href="SignIn.html">Sign in</a></li>
-                    <li><a href="SignIn.html">Sign up</a></li>
+                    <li><a href="SignIn.html">Get Started</a></li>
                     <li><a href="Profile.html"><span class="material-symbols-outlined">account_circle</span></a></li>
                 </ul>
+                <script>
+                    // Toggle dropdown menu for categories
+                    function toggleDropdown(event) {
+                        event.stopPropagation();
+                        const dropdown = event.currentTarget.closest('.dropdown');
+                        dropdown.classList.toggle('active');
+                    }
+            
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', function(event) {
+                        const activeDropdowns = document.querySelectorAll('.dropdown.active');
+                        activeDropdowns.forEach(dropdown => {
+                            if (!dropdown.contains(event.target)) {
+                                dropdown.classList.remove('active');
+                            }
+                        });
+                    });
+            
+                    // Hamburger menu toggle logic for mobile view
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const menuToggle = document.querySelector('.menu-toggle');
+                        const navLinks = document.querySelector('.nav-links');
+            
+                        let isMenuOpen = window.innerWidth > 768;
+                        navLinks.style.display = isMenuOpen ? 'flex' : 'none';
+            
+                        menuToggle.addEventListener('click', () => {
+                            isMenuOpen = !isMenuOpen;
+                            navLinks.style.display = isMenuOpen ? 'flex' : 'none';
+                        });
+            
+                        window.addEventListener('resize', () => {
+                            if (window.innerWidth > 768) {
+                                navLinks.style.display = 'flex';
+                                isMenuOpen = true;
+                            } else {
+                                navLinks.style.display = 'none';
+                                isMenuOpen = false;
+                            }
+                        });
+                    });
+                </script>
             </nav>
         </div>
     </header>
@@ -121,49 +162,6 @@
             <img src="images/Athens.jpg" alt="Image 3">
             <img src="images/London2.jpg" alt="Image 4">
         </div>
-    </main>
-
-    <script>
-        // Toggle dropdown menu for categories
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.currentTarget.closest('.dropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const activeDropdowns = document.querySelectorAll('.dropdown.active');
-            activeDropdowns.forEach(dropdown => {
-                if (!dropdown.contains(event.target)) {
-                    dropdown.classList.remove('active');
-                }
-            });
-        });
-
-        // Hamburger menu toggle logic for mobile view
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            let isMenuOpen = window.innerWidth > 768;
-            navLinks.style.display = isMenuOpen ? 'flex' : 'none';
-
-            menuToggle.addEventListener('click', () => {
-                isMenuOpen = !isMenuOpen;
-                navLinks.style.display = isMenuOpen ? 'flex' : 'none';
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    navLinks.style.display = 'flex';
-                    isMenuOpen = true;
-                } else {
-                    navLinks.style.display = 'none';
-                    isMenuOpen = false;
-                }
-            });
-        });
-    </script>
+    </main>    
 </body>
 </html>

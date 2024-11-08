@@ -15,13 +15,6 @@ body {
     background-size: cover;
 }
 
-.header-container {
-    color: #000000;
-    transition: transform 0.3s ease;
-}
-
-
-/* Main content */
 .main-content {
     display: relative;
     flex-direction: column;
@@ -217,15 +210,6 @@ select option {
     margin-top: 50px;
 }
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #000000;
-    color: rgb(0, 0, 0);
-}
-
 .nav-links {
     display: flex;
     list-style: none;
@@ -240,8 +224,8 @@ select option {
     text-decoration: none;
 }
 
-.menu-toggle {
-    display: none; /* Hide the hamburger button by default */
+  .menu-toggle {
+    display: none; 
     font-size: 24px;
     background: none;
     border: none;
