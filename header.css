@@ -54,3 +54,7 @@
     color: #d042a5; /* White text on hover */
 }
 
+.nav-links a.active {
+    color: #c8349c; 
+    border-bottom: 2px solid #c8349c; 
+}
