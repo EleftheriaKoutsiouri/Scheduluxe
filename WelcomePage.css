@@ -102,42 +102,32 @@ main {
     margin-left: 0px;
 }
 
-/*.carousel slide {
-    position: relative !important;
-    height: 50px !important;
-    width: 50px !important;
-}*/
+.carousel {
+    flex: 1;
+    max-width: 100%; 
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    padding-left: 50px;  
+    max-height: 80vh; 
+}
 
-#carouselExampleCaptions {
-    width: 600px;   
-    height: 400px;   
+.carousel img {
+    width: 140%;
+    height: 100%;
+    display: none;
     object-fit: cover;
-    margin-top: 2%;
-    margin-bottom: 10%
-    /*box-shadow: 4px 4px 8px rgba(255, 255, 255, 0.8)*/;
-  }
-
-  /* Carousel images */
-  #carouselExampleCaptions .carousel-item img {
-    height: 100%;   
-    width: 100%;   
-    object-fit: cover; /* Ensures images cover the area without stretching */
-    color:#000000;
-  }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgb(95, 93, 93); 
-    border-radius: 50%; 
+    margin-left: -10%
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-    width: 5%; 
+.carousel img.active {
+    display: block;
 }
+  
 .containerrr {
     display: flex;
-    flex-direction: row; /* Sections appear side-by-side by default */
+    flex-direction: row; 
     gap: 20px;
   }
 
