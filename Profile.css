@@ -32,61 +32,6 @@ main {
     font-size: 30px;
 }
 
-/* Navigation menu */
-.nav-menu {
-    color: #000000;
-    display: flex;
-    justify-content: space-between; /* Align logo and menu items in a single line */
-    align-items: center; /* Vertical alignment */
-    padding: 20px 40px; /* Padding around navigation items */
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%; /* Full-width menu */
-}
-
-.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-}
-
-.logo img {
-    width: 37px;
-    height: 37px;
-    margin-right: 10px;
-}
-
-.logo h1 {
-    font-size: 35px;
-    font-family: 'Platypi', sans-serif;
-    font-weight: bolder;
-    text-align: center;
-    white-space: nowrap;
-}
-
-
-/* Styling for navigation menu items */
-.nav-ul {
-    list-style: none !important;
-    display: flex !important;
-    gap: 20px !important;
-    font-family: 'Poppins', sans-serif !important;
-    margin: 0 !important; /* No extra margin */
-    padding: 0 !important;
-}
-
-.nav-menu a {
-    color: rgb(0, 0, 0) !important; /* Black text */
-    text-decoration: none !important;
-    font-size: 18px !important;
-    transition: color 0.3s !important; /* Smooth color transition on hover */
-}
-
-.nav-menu a:hover {
-    color: #ffffff !important; /* White text on hover */
-}
-
 
 
 .edit-profile {
@@ -193,56 +138,8 @@ main {
     }
 }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    font-family: "Poppins";
-  }
-  
-  .nav-links li {
-    margin-left: 20px;
-  }
-  
-  .nav-links a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-  }
-  
-  /* Hamburger Menu Styles */
-  .menu-toggle {
-    display: none; /* Hide the hamburger button by default */
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-  }
-  
   /* Media Query for Small Screens */
-  @media (max-width: 768px) {
-    .nav-links {
-        border-radius: 5%;
-        display: none; /* Hide the links by default on small screens */
-        flex-direction: column; /* Stack links vertically when shown */
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: #B1BAC9;
-        width: 200px;
-        padding: 10px;
-    }
-  
-    .nav-links.show {
-        display: flex; /* Show links when the menu is open */
-    }
-  
-    .menu-toggle {
-        display: block; /* Show the hamburger button */
-    }
-  
-    .logo {
-        flex: 1; /* Align logo to the left */
-    }
+  @media (max-width: 768px) {  
     .past-schedules{
         margin-top: 20px;
     }
