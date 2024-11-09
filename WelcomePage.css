@@ -134,46 +134,17 @@ main {
     gap: 20px;
   }
 
-  .nav-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #333;
-    color: rgb(0, 0, 0);
-  }
-  .nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 20px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-}
-
-  .menu-toggle {
-    display: none; 
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-}
 
 @media (min-width: 568px) and (max-width: 1099px) {
     .containerrr {
       flex-direction: column; 
     }
-  }
+}
 
-  @media (max-width: 1200px) {
+@media (max-width: 1200px) {
+    /*why do we need that?-TODO*/
     .container {
-      transform: scale(0.95); 
+        transform: scale(0.95); 
     }
     .content, .carousel {
         max-width: 100%;
@@ -197,29 +168,5 @@ main {
         object-fit: cover;
         margin: 0 auto;
     }
-  
-    .nav-links {
-        border-radius: 5%;
-        display: none;
-        flex-direction: column; 
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: #B1BAC9;
-        width: 200px;
-        padding: 10px;
-    }
-
-    .nav-links.show {
-        display: flex; 
-    }
-
-    .menu-toggle {
-        display: block; 
-    }
-
-    .logo {
-        flex: 1; 
-    }
-  }
+}
   
