@@ -124,23 +124,23 @@ main {
 
 @media (min-width: 768px) {
     .profile-schedules-container {
-        flex-direction: row; /* Change to row on larger screens */
-        justify-content: space-between; /* Optional: adds space between sections */
+        flex-direction: row;/* Arrange items in a row on larger screens */
+        justify-content: space-between; /* Space between sections */
     }
 
     .edit-profile,
     .past-schedules {
-        width: 48%; /* Adjust widths for larger screens */
+        width: 48%; 
     }
 
     .card {
-        flex: 1 1 48%; /* Two cards side by side on larger screens */
+        flex: 1 1 48%; /* Display two cards side by side on larger screens */
     }
 }
 
-  /* Media Query for Small Screens */
-  @media (max-width: 768px) {  
-    .past-schedules{
-        margin-top: 20px;
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+    .past-schedules {
+        margin-top: 20px; /* Add spacing on top for small screens */
     }
-  }
+}
