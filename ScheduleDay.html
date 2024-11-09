@@ -24,16 +24,17 @@
     <body>
         <!-- Header section with navigation menu -->
         <header>
-                <nav class="nav-menu">
+            <nav class="nav-menu">
                 <div class="logo">  
                       <img src="images/logo.png" alt="Icon">
-                      <h1><span class="white-title">Scheduluxe</span></h1>
+                      <h1>Scheduluxe</h1>
                 </div>
-                </a> 
+                 
                 <!-- Hamburger Menu Button -->
                 <button class="menu-toggle">
                     <span class="hamburger-icon">&#9776;</span>
                 </button>
+
                 <!-- Navigation links for Home, About us and Profile -->
                 <ul class="nav-links">  
                     <li><a href="WelcomePage.html">Home</a></li>  
@@ -122,35 +123,9 @@
                 </div>
             </div>
         </main>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+        
+        <!-- Link to the external JavaScript file that handles the hamburger of the menu -->
+        <script src="menuToggle.js"></script>
 
-    // Initialize the menu state based on the screen width
-    let isMenuOpen = window.innerWidth > 768;
-
-    // Set initial display for nav links based on screen width
-    navLinks.style.display = isMenuOpen ? 'flex' : 'none';
-
-    // Function to handle hamburger menu toggle
-    menuToggle.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
-        navLinks.style.display = isMenuOpen ? 'flex' : 'none';
-    });
-
-    // Adjust menu display on window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            navLinks.style.display = 'flex'; // Show the menu on larger screens
-            isMenuOpen = true; // Reset the menu state
-        } else {
-            navLinks.style.display = 'none'; // Hide the menu on smaller screens
-            isMenuOpen = false; // Ensure menu starts hidden on smaller screens
-        }
-    });
-});
-
-        </script> 
     </body>
 </html>

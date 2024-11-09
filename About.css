@@ -36,7 +36,7 @@ main {
     max-width: 50%;
 }
 
-.header {
+.heading {
     font-size: 3em;
     color: #c8349c;
     font-family: "Platypi";
@@ -96,65 +96,10 @@ main {
   }
 }
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #333;
-    color: rgb(0, 0, 0);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 20px;
-}
-
-.nav-links a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-}
-
-/* Hamburger Menu Styles */
-.menu-toggle {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-}
 
 /* Media Query for Small Screens */
 @media (max-width: 768px) {
     
-    .nav-links {
-        border-radius: 5%;
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: #B1BAC9;
-        width: 200px;
-        padding: 10px;
-    }
-  
-    .nav-links.show {
-        display: flex;
-    }
-  
-    .menu-toggle {
-        display: block;
-    }
-  
-    .logo {
-        flex: 1;
-    }
     body {
       height: auto; 
       overflow-y: scroll;  
