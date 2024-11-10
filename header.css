@@ -41,13 +41,6 @@ header {
     white-space: nowrap;
 }
 
-
-.dropdown{
-    position: relative;
-    z-index: 9999;  
-    margin-top: 10%;
-}
-
 /* Styling for navigation menu items */
 .nav-links {
     list-style: none;
@@ -93,6 +86,10 @@ header {
 
 /* Media Query for Small Screens that handles the header*/
 @media (max-width: 768px) {
+    .dropdown{
+        margin-top: 10%;
+        z-index: 9999;
+    }
     
     .nav-links {
         border-radius: 5%;
@@ -100,7 +97,6 @@ header {
         display: none;
         flex-direction: column;
         position: absolute;
-        margin-top: 13%;
         right: 0;
         background-color: #d0dcf0;
         width: 150px;
