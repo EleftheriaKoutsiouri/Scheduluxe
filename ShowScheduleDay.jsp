@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.ScheduleClasses.*" %> 
 <%
     String path = request.getContextPath();
     int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
@@ -9,7 +12,7 @@
 <head>
     <title>Scheduluxe Schedule</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="ScheduleDay.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>ScheduleDay.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -17,7 +20,7 @@
     <header>
         <nav class="nav-menu">
             <div class="logo">  
-                <img src="<%= path %>/images/logo.png" alt="Icon">
+                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
             
@@ -50,18 +53,22 @@
                 <%
                     String[] times = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
                     List<Activity> activities = Schedule.getActivitiesForDay(day);  
+                    
+                    for (int i = 0; i < times.length; i++) {
+                        Activity activity = activities.get(i);
                 %>
-                <c:forEach var="i" begin="0" end="${times.length - 1}">
-                    <div class="activity-item" onclick="loadActivityDetails('<%= activities.get(i).getId() %>')">
-                        <div class="icon-activity">
-                            <div class="icon-container">
-                                <img src="<%= path %>/images/todo.png" alt="Activity Icon">
+                        <div class="activity-item" onclick="loadActivityDetails('<%= activity.getId() %>')">
+                            <div class="icon-activity">
+                                <div class="icon-container">
+                                    <img src="<%=request.getContextPath()%>/images/todo.png" alt="Activity Icon">
+                                </div>
+                                <h3><%= activity.getActivityName() %></h3>
                             </div>
-                            <h3><%= activities.get(i).getActivityName() %></h3>
+                            <h4><%= times[i] %></h4>
                         </div>
-                        <h4><%= times[i] %></h4>
-                    </div>
-                </c:forEach>
+                <%
+                    }
+                %>
                 <a href="ScheduleOverall.jsp">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
@@ -103,6 +110,6 @@
     </script>
 
     <!-- External JavaScript for menu toggle -->
-    <script src="<%= path %>/js/menuToggle.js"></script>
+    <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
 </body>
 </html>
