@@ -1,4 +1,17 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!--
+<%@ page import="Scheduluxe.*,java.util.*" %>
+util για την λιστα, η κλαση scheduluxe και καλα εχει ολα τα αρχεια class μεσα στον web-inf/classes
+
+<%
+Εδω θα φτιαχνω ενα αντικειμενο της κλασης schedule με το οποιο θα καλω μεθοδους για να παρω το destinations, preferences κλπ σε μορφη λιστας.
+
+Schedule sch = new Schedule();
+List<Destination> destinations = sch.getDestinations();
+List<Preferences> preferences = sch.getPreferences();
+List<Budget> budget = sch.getBudget();
+%>
+-->
 
 
 <!DOCTYPE html>
@@ -57,14 +70,24 @@
                 <div class="form-group">
                     <label for="destination">Destination</label>
                     <select id="destination" name="destination" required>
-                        <option value="" disabled selected hidden>Select destination</option>
-                        <option value="france">France</option>
-                        <option value="england">England</option>
-                        <option value="new-york">New York</option>
-                        <option value="italy">Italy</option>
-                        <option value="germany">Germany</option>
-                        <option value="greece">Greece</option>
+<!--
+<%
+for (Destination dest : destinations) {
+%>
+                    <option value="<%=dest.getId() %>"><%=dest.getName() %></option>
                     </select>
+<%
+}
+%>
+-->
+                        <option value="" disabled selected hidden>Select destination</option> <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="france">France</option>  <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="england">England</option> <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="new-york">New York</option><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="italy">Italy</option><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="germany">Germany</option><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                        <option value="greece">Greece</option><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
+                    </select><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
                 </div>
 
                 <div class="form-group">
@@ -77,7 +100,19 @@
                     <div class="dropdown" onclick="event.stopPropagation()">
                         <button type="button" onclick="toggleDropdown(event)">Select Categories</button>
                         <div class="dropdown-content">
+<!--
+<%
+for (Preferences prf : preferences) {
+%>
                             <div>
+                                <input type="checkbox" id="<%=prf.getId() %>" name="type" value="<%=prf.getId()%>">
+                                <label for="<%=prf.getId() %>"> <%=prf.getName() %> </label>
+                            </div>
+<%
+}
+%>
+-->
+                            <div>                                                                           <!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
                                 <input type="checkbox" id="educational" name="type" value="educational">
                                 <label for="educational">Educational</label>
                             </div>
@@ -105,10 +140,22 @@
                     <label for="budget">Budget</label>
                     <select id="budget" name="budget" required>
                         <option value="" disabled selected hidden>Select budget</option>
-                        <option value="low">Low Budget</option>
-                        <option value="medium">Budget</option>
-                        <option value="high">High Budget</option>
-                    </select>
+
+<!--
+<%
+for (Budget bdg : budget) {
+%>
+                        <option value="<%= bdg.getid() %>"> <%= bdg.getName()%> </option>
+                        </select>
+<%
+}
+%>
+-->
+                        <option value="" disabled selected hidden>Select budget</option> <!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
+                        <option value="low">Low Budget</option><!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
+                        <option value="medium">Budget</option><!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
+                        <option value="high">High Budget</option><!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
+                    </select><!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
                 </div>
 
                 <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
