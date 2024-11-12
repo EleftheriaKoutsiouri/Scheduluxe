@@ -70,17 +70,18 @@ List<Budget> budget = sch.getBudget();
                 <div class="form-group">
                     <label for="destination">Destination</label>
                     <select id="destination" name="destination" required>
+                        <option value="" disabled selected hidden>Select destination</option>
 <!--
 <%
 for (Destination dest : destinations) {
 %>
                     <option value="<%=dest.getId() %>"><%=dest.getName() %></option>
-                    </select>
+                    
 <%
 }
 %>
+                    </select>
 -->
-                        <option value="" disabled selected hidden>Select destination</option> <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
                         <option value="france">France</option>  <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
                         <option value="england">England</option> <!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
                         <option value="new-york">New York</option><!-- ΑΥΤΑ ΕΔΩ ΘΑ ΦΥΓΟΥΝ -->
@@ -146,10 +147,11 @@ for (Preferences prf : preferences) {
 for (Budget bdg : budget) {
 %>
                         <option value="<%= bdg.getid() %>"> <%= bdg.getName()%> </option>
-                        </select>
+                        
 <%
 }
 %>
+                        </select>
 -->
                         <option value="" disabled selected hidden>Select budget</option> <!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
                         <option value="low">Low Budget</option><!--ΑΥΤΑ ΘΑ ΦΥΓΟΥΝ-->
