@@ -66,7 +66,7 @@ List<Budget> budget = sch.getBudget();
 
         <!-- Search form -->
         <div class="search-container">
-            <form action="PreferenceServlet.java" method="post">
+            <form action="PreferenceServlet.java" method="post"> <!-- ΕΔΩ ΟΔΗΓΟΥΜΑΣΤΕ ΣΤΟ SERVLET ΠΟΥ ΧΕΙΡΙΖΕΤΑΙ ΤΑ ΔΕΔΟΜΕΝΑ-->
                 <div class="form-group">
                     <label for="destination">Destination</label>
                     <select id="destination" name="destination" required>
