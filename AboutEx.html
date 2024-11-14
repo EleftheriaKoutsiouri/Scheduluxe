@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>About Us</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+
+    <!-- Link to CSS, fonts, and icons from Google -->
+    <link rel="stylesheet" href="AboutEx.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Praise&display=swap"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    
+    <!-- Link to CSS of header -->
+    <link rel="stylesheet" href="header.css">    
+</head>
+<body>
+    <header>   
+        <!-- Navigation bar -->  
+        <nav class="nav-menu">  
+            <div class="logo">  
+                <img src="images/logo.png" alt="Icon">
+                <h1><span class="white-title">Scheduluxe</span></h1>
+            </div>  
+        
+            <!-- Hamburger Menu Button -->
+            <button class="menu-toggle">
+                <span class="hamburger-icon">&#9776;</span>
+            </button>
+        
+            <ul class="nav-links">  
+                <li><a href="WelcomePage.html">Home</a></li>  
+                <li><a href="About.html">About us</a></li>
+                <li><a href="SignIn.html">Sign in</a></li>  
+                <li><a href="SignIn.html">Sign up</a></li>  
+                <li><a href="Profile.html"><span class="material-symbols-outlined">account_circle</span></a></li>  
+            </ul> 
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const menuToggle = document.querySelector('.menu-toggle');
+                  const navLinks = document.querySelector('.nav-links');
+              
+                  // Initialize the menu state based on the screen width
+                  let isMenuOpen = window.innerWidth > 768;
+              
+                  // Set initial display for nav links based on screen width
+                  navLinks.style.display = isMenuOpen ? 'flex' : 'none';
+              
+                  // Function to handle hamburger menu toggle
+                  menuToggle.addEventListener('click', () => {
+                      isMenuOpen = !isMenuOpen;
+                      navLinks.style.display = isMenuOpen ? 'flex' : 'none';
+                  });
+              
+                  // Adjust menu display on window resize
+                  window.addEventListener('resize', () => {
+                      if (window.innerWidth > 768) {
+                          navLinks.style.display = 'flex'; // Show the menu on larger screens
+                          isMenuOpen = true; // Reset the menu state
+                      } else {
+                          navLinks.style.display = 'none'; // Hide the menu on smaller screens
+                          isMenuOpen = false; // Ensure menu starts hidden on smaller screens
+                      }
+                  });
+              });
+            </script> 
+        </nav>
+    </header>
+    
+    <main>
+            <!-- Left-aligned content -->
+            <div class="content">
+                <h1 class="header">About Us</h1><br>
+                <p class="paragraph">
+                    At Scheduluxe, we're passionate about making travel planning effortless and personalized.
+                    Simply choose your destination, dates, group size, and preferences, and our 
+                    platform will create a unique itinerary tailored just for you. Our team of dedicated undergraduate 
+                    students is building this innovative tool to help travelers discover the best experiences, no matter where they go. 
+                    Whether you're seeking adventure, relaxation, or something in between, we’ve got your next trip covered!
+                </p>
+            </div>
+
+            <!-- Carousel on the right side -->
+            <div class="carousel">
+                <img src="images/Rome.png" class="active"alt="Image 1">
+                <img src="images/Spain.png" alt="Image 2">
+                <img src="images/Hamburg.png" alt="Image 3">
+                <img src="images/London2.jpg" alt="Image 4">
+            </div>
+    </main>
+
+    <script>
+        // JavaScript for the carousel
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 3500); // Change image every 3 seconds
+    </script>
+</body>
+</html>
