@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: 
+    linear-gradient(to bottom, rgba(247, 247, 248, 0.806) 60%, rgba(240, 225, 225, 0.728) 80%, #d0b9e3ab 100%),
+    url(images/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: visible;
+    overflow-x: hidden;
+}
+
+main {
+    display: flex;
+    align-items: left;
+    height: 100%;
+    width: 100%;
+    padding: 30px 10%;
+    font-family: 'Times New Roman';
+}
+
+.content {
+    flex: 1;
+    padding-right: 20px;
+    max-width: 50%;
+}
+
+.header {
+    font-size: 3em;
+    color: #c8349c;
+    font-family: "Platypi";
+    font-weight: 400;
+}
+
+.paragraph {
+    line-height: 2.5;
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    text-align: justify;
+}
+
+.carousel {
+    flex: 1;
+    max-width: 70%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    padding-left: 100px; 
+}
+
+.carousel img {
+    width: 100%;
+    height: 400px; 
+    display: none;
+    object-fit: cover;
+}
+
+.carousel img.active {
+    display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    main {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .content, .carousel {
+        max-width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .carousel {
+        margin-top: 20px;
+    }
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: rgb(0, 0, 0);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+/* Hamburger Menu Styles */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+    .nav-links {
+        border-radius: 5%;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #B1BAC9;
+        width: 200px;
+        padding: 10px;
+    }
+  
+    .nav-links.show {
+        display: flex;
+    }
+  
+    .menu-toggle {
+        display: block;
+    }
+  
+    .logo {
+        flex: 1;
+    }
+}
