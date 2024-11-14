@@ -93,21 +93,22 @@ public class Schedule {
     }
 
     /*
-    we need to:
-    1) match the preferences of the user with the activities of the database through a sql query and then
-    2) take the data we want to show in the schdule such as (activityName, details) and then
-    3) take the data we want to have for the logic IN THE BACKGROUND to work. 
-        i) This means that we take the name or coordinates depending the api's and do the logic of the maps
-        ii) take the available hours of each activity and find the optimal overall programme that will match each activity through all of the days of the journey (this is the logic of the whole programme!!!!!)
-        NOTE: we have to figure out what will happen if we make the query and the cativities are many but the travel is only one day. How do we choose?
-    */
+     * we need to:
+     * 1) match the preferences of the user with the activities of the database
+     * through a sql query and then
+     * 2) take the data we want to show in the schdule such as (activityName,
+     * details) and then
+     * 3) take the data we want to have for the logic IN THE BACKGROUND to work.
+     * i) This means that we take the name or coordinates depending the api's and do
+     * the logic of the maps
+     * ii) take the available hours of each activity and find the optimal overall
+     * programme that will match each activity through all of the days of the
+     * journey (this is the logic of the whole programme!!!!!)
+     * NOTE: we have to figure out what will happen if we make the query and the
+     * cativities are many but the travel is only one day. How do we choose?
+     */
 
     public void viewMap() {
         // Code to integrate map display here
-    }
-
-    // Comment and rate (Implementation depends on the comment and rating system)
-    public void commentRate() {
-        // Code to handle comments and ratings
     }
 }
