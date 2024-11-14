@@ -93,7 +93,7 @@ for (Destination dest : destinations) {
 
                 <div class="form-group">
                     <label for="date">Days</label>
-                    <input type="number" min="1" max="4" id="date" name="date" placeholder="Select days" required>
+                    <input type="number" min="1" max="4" id="days" name="days" placeholder="Select days" required>
                 </div>
 
                 <div class="form-group">
