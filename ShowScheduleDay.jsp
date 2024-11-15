@@ -1,9 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.ScheduleClasses.*" %> 
 <%
-    String path = request.getContextPath();
     int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
 %>
 
@@ -12,7 +10,7 @@
 <head>
     <title>Scheduluxe Schedule</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>ScheduleDay.css">
+    <link rel="stylesheet" href="<ScheduleDay.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -20,7 +18,7 @@
     <header>
         <nav class="nav-menu">
             <div class="logo">  
-                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
+                <img src="<images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
             
@@ -30,7 +28,7 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.jsp">Home</a></li>  
+                    <li><a href="WelcomePage.html">Home</a></li>  
                     <li><a href="About.jsp">About us</a></li>  
                     <li><a href="Profile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a></li>  
                 </ul>
@@ -110,6 +108,6 @@
     </script>
 
     <!-- External JavaScript for menu toggle -->
-    <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
+    <script src="js/menuToggle.js"></script>
 </body>
 </html>

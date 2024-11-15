@@ -1,9 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="your.ScheduleClasses.*" %> 
 <%
-    String path = request.getContextPath();
-%>
-<%
     Schedule schedule = new Schedule();
     List<Activity> day1Activities = schedule.getActivitiesForDay(1);
     List<Activity> day2Activities = schedule.getActivitiesForDay(2);
@@ -16,7 +13,7 @@
 <head> 
     <title>Scheduluxe Overall Schedule</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>ScheduleOverall.css">
+    <link rel="stylesheet" href="ScheduleOverall.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>  
@@ -25,7 +22,7 @@
     <header>
         <nav class="nav-menu">  
             <div class="logo">  
-                <img src="<%=request.getContextPath()%>images/logo.png" alt="Icon">
+                <img src="images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>  
             <button class="menu-toggle">
@@ -33,7 +30,7 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.jsp">Home</a></li>  
+                    <li><a href="WelcomePage.html">Home</a></li>  
                     <li><a href="About.jsp">About us</a></li> 
                     <li><a href="Profile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul>  
@@ -141,7 +138,7 @@
         </script>
     </main>
     
-    <script src="<%=request.getContextPath()%>js/menuToggle.js"></script>
+    <script src="js/menuToggle.js"></script>
     
 </body>
 </html>
