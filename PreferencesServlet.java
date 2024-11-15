@@ -5,22 +5,32 @@ import ScheduluxeClasses.*;
 
 public class PreferencesServlet extends HttpServlet {
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
     response.setContentType("text/html; charset=UTF-8");
-    PrintWriter out = new PrintWriter(response.getWriter(), true);
+    PrintWriter out = response.getWriter();
 
+    // Παίρνουμε τις τιμές από τη φόρμα
     String destination = request.getParameter("destination");
-    String daystr = request.getParameter("days");
-    int days = Integer.parseInt(daystr); // String to int
-    String[] triptype = request.getParameter("type");
+    int days = request.getParameter("days");
+    String[] tripType = request.getParameterValues("type");
     String budget = request.getParameter("budget");
 
-    Schedule sch = new Schedule(0, destination, days, null, days)
+    // Αντιπροσωπευτικό userId (πρέπει να το λάβουμε από το session του χρήστη)
+    HttpSession session = request.getSession(false);
+    int userId = (int) session.getAttribute("userId");
 
+    // Αποθήκευση δεδομένων στη βάση
+    Preferences preferences = new Preferences();
+    boolean isSaved = preferences.saveUserPreferences(userId, destination, days, tripType, budget);
 
+    // if (isSaved) {
+    // out.println("<h3>Your preferences have been saved successfully!</h3>");
+    // } else {
+    // out.println("<h3>Failed to save your preferences. Please try again.</h3>");
+    // }
 
-
-      }
+    out.close();
+  }
 }

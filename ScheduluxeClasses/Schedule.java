@@ -1,72 +1,47 @@
 package ScheduluxeClasses;
 
-import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Schedule {
-    private int scheduleId;
-    private List<Activity> activities;
-    private String destination;
-    private String budget;
-    private List<String> type;
+    // Attributes
+    private List<String> destination;
     private int days;
+    private List<String> type;
+    private List<String> budget;
 
-
-    // Constructor
-    public Schedule(String destination, String budget, List<String> type, int days) {
-        this.destination = destination;
-        this.budget = budget;
-        this.type = type;
-        this.days = days;
-        this.activities = new ArrayList<>();
+    // Default Constructor
+    public Schedule() {
+        this.destination = new ArrayList<>();
+        this.days = 0;
+        this.type = new ArrayList<>();
+        this.budget = new ArrayList<>();
     }
 
-
-
-    // Fetch destination details -> TODO ONLY GET THE NAMES
-    public String fetchDestination() {
-        String destination = "";
+    // Fetch Destinations
+    public List<String> fetchDestinations() {
+        List<String> destinations = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT name FROM Destinations")) {
-            stmt.setInt(1, destinationId);
+                PreparedStatement stmt = conn.prepareStatement("SELECT destinationName FROM Destinations")) {
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                destination = rs.getString("name");
+            while (rs.next()) {
+                destinations.add(rs.getString("destinationName"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return destination;
+        return destinations;
     }
 
-    // Fetch budget details
-    public String fetchBudget() {
-        String budget = "";
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT range FROM Budgets WHERE id = ?")) {
-            stmt.setInt(1, budgetId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                budget = rs.getString("range");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return budget;
-    }
-
-    // Fetch types based on type IDs
-    public List<String> fetchType() {
+    // Fetch Types
+    public List<String> fetchTypes() {
         List<String> types = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT type FROM Types WHERE id = ?")) {
-            for (Integer typeId : typeIds) {
-                stmt.setInt(1, typeId);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    types.add(rs.getString("type"));
-                }
+                PreparedStatement stmt = conn.prepareStatement("SELECT typeName FROM ActivityTypes")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                types.add(rs.getString("typeName"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,43 +49,31 @@ public class Schedule {
         return types;
     }
 
-    // Search activities based on criteria
-    public List<Activity> searchActivities() {
-        List<Activity> activityList = new ArrayList<>();
+    // Fetch Budgets
+    public List<String> fetchBudgets() {
+        List<String> budgets = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn
-                        .prepareStatement("SELECT * FROM Activities WHERE destination_id = ? AND budget_id = ?")) {
-            stmt.setInt(1, destinationId);
-            stmt.setInt(2, budgetId);
+                PreparedStatement stmt = conn.prepareStatement("SELECT budgetName FROM BudgetType")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Activity activity = new Activity(rs.getInt("id"), rs.getString("name"), rs.getString("type"),
-                        rs.getTime("startTime"), rs.getTime("endTime"));
-                activityList.add(activity);
+                budgets.add(rs.getString("budgetName"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return activityList;
+        return budgets;
     }
 
-    /*
-     * we need to:
-     * 1) match the preferences of the user with the activities of the database
-     * through a sql query and then
-     * 2) take the data we want to show in the schdule such as (activityName,
-     * details) and then
-     * 3) take the data we want to have for the logic IN THE BACKGROUND to work.
-     * i) This means that we take the name or coordinates depending the api's and do
-     * the logic of the maps
-     * ii) take the available hours of each activity and find the optimal overall
-     * programme that will match each activity through all of the days of the
-     * journey (this is the logic of the whole programme!!!!!)
-     * NOTE: we have to figure out what will happen if we make the query and the
-     * cativities are many but the travel is only one day. How do we choose?
-     */
+    // Getters
+    public List<String> getDestinations() {
+        return fetchDestinations();
+    }
 
-    public void viewMap() {
-        // Code to integrate map display here
+    public List<String> getPreferences() {
+        return fetchTypes();
+    }
+
+    public List<String> getBudget() {
+        return fetchBudgets();
     }
 }
