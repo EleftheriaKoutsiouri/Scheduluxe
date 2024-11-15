@@ -109,18 +109,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         
         <script>
-            document.querySelector('.download-btn').addEventListener('click', function() {
-                const element = document.querySelector('.schedule-container');
-                const options = {
-                    margin:       1,
-                    filename:     'schedule.pdf',
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, width: element.offsetWidth },
-                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' }
-                };
-                html2pdf().set(options).from(element).save();
-            });
-
+            src="js/DownloadSchedule.js">
             function submitRating(starValue) {
                 const xhr = new XMLHttpRequest();
                 xhr.open("POST", "FeedbackServlet", true);
