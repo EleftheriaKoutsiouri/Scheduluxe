@@ -7,26 +7,28 @@ import java.util.ArrayList;
 public class Schedule {
     private int scheduleId;
     private List<Activity> activities;
-    private int destinationId;
-    private int budgetId;
-    private List<Integer> typeIds;
+    private String destination;
+    private String budget;
+    private List<String> type;
     private int days;
 
+
     // Constructor
-    public Schedule(int scheduleId, int destinationId, int budgetId, List<Integer> typeIds, int days) {
-        this.scheduleId = scheduleId;
-        this.destinationId = destinationId;
-        this.budgetId = budgetId;
-        this.typeIds = typeIds;
+    public Schedule(String destination, String budget, List<String> type, int days) {
+        this.destination = destination;
+        this.budget = budget;
+        this.type = type;
         this.days = days;
         this.activities = new ArrayList<>();
     }
 
-    // Fetch destination details
+
+
+    // Fetch destination details -> TODO ONLY GET THE NAMES
     public String fetchDestination() {
         String destination = "";
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT name FROM Destinations WHERE id = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT name FROM Destinations")) {
             stmt.setInt(1, destinationId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

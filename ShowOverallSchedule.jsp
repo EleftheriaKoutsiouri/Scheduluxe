@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="your.ScheduleClasses.*" %> 
+<%@ page import="ScheduleClasses.*" %> 
 <%
     Schedule schedule = new Schedule();
     List<Activity> day1Activities = schedule.getActivitiesForDay(1);
