@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class Preferences {
 
     public boolean saveUserPreferences(int userId, String destination, int days, String[] tripType, String budget) {
-        // Μετατροπή της λίστας tripType σε μία ενιαία συμβολοσειρά
+        // Μετατροπή της λίστας tripType σε μία ενιαία συμβολοσειρά επειδή ο χρηστής
+        // μπορεί να διαλέξει πολλά types
         String tripTypeStr = String.join(", ", tripType);
 
         String sql = "INSERT INTO Preferences (userId, destination, days, tripType, budget) VALUES (?, ?, ?, ?, ?)";
