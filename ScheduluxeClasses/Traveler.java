@@ -15,6 +15,7 @@ public class Traveler {
         this.email = email;
     }
 
+    
 
     public boolean checkRegister() {
 

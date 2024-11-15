@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.ScheduleClasses.*" %> 
+<%@ page import="ScheduleClasses.*" %> 
 <%
     int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
 %>

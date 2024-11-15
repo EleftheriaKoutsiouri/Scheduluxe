@@ -1,5 +1,5 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.ScheduleClasses.*" %>
+<%@ page import="ScheduleClasses.*" %>
 
 <!--θα γινει με session-->
 <%
