@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <%@ include file="header.jsp" %>
-    <title>About Us</title>">
-    <link rel="stylesheet" href="About.css">    
+    <%@ include file="header.jsp"%>
+    <title>About Us</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/About.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
 </head>
 <body>
@@ -13,7 +13,7 @@
         <!-- Navigation bar -->  
         <nav class="nav-menu">  
             <div class="logo">  
-                <img src="images/logo.png" alt="Icon">
+                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>  
         
@@ -23,7 +23,7 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.html">Home</a></li>  
+                    <li><a href="WelcomePage.jsp">Home</a></li>  
                     <li><a href="About.jsp" class="active">About us</a></li>
                     <li><a href="SignIn.jsp">Get Started</a></li>  
                     <li><a href="Profile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
@@ -47,19 +47,19 @@
 
             <!-- Carousel on the right side -->
             <div class="carousel">
-                <img src="images/Berlin.avif" class="active"alt="Image 1">
-                <img src="images/Ellada.jpg" alt="Image 2">
-                <img src="images/Statue of liberty.jpg" alt="Image 3">
-                <img src="images/Brussel.jpg" alt="Image 4">
-                <img src="images/Akropoli.jpg" alt="Image 5">
-                <img src="images/Snow.jpg" alt="Image 5">
+                <img src="<%=request.getContextPath()%>/images/Berlin.avif" class="active"alt="Image 1">
+                <img src="<%=request.getContextPath()%>/images/Ellada.jpg" alt="Image 2">
+                <img src="<%=request.getContextPath()%>/images/Statue of liberty.jpg" alt="Image 3">
+                <img src="<%=request.getContextPath()%>/images/Brussel.jpg" alt="Image 4">
+                <img src="<%=request.getContextPath()%>/images/Akropoli.jpg" alt="Image 5">
+                <img src="<%=request.getContextPath()%>/images/Snow.jpg" alt="Image 5">
             </div>
     </main>
 
     <!-- Link to the external JavaScript file that handles the carousel of photos -->
-    <script src="js/carousel.js"></script>
+    <script src="<%=request.getContextPath()%>/js/carousel.js"></script>
 
     <!-- Link to the external JavaScript file that handles the hamburger of the menu -->
-    <script src="js/menuToggle.js"></script>
+    <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
 </body>
 </html>

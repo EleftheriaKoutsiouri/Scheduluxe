@@ -15,4 +15,4 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
         <!--Link to css of header-->
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/header.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/header.css">

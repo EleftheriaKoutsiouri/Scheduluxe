@@ -1,5 +1,5 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="ScheduluxeClasses.Schedule" %>
+<%@ page import="ScheduluxeClasses.*" %>
 <%
     // Creating an object of the Schedule class
     Schedule sch = new Schedule();
@@ -14,7 +14,8 @@
 <head>
     <title>Preferences</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/SelectionPage.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/SelectionPage.css">
+    
 </head>
 
 <body>
