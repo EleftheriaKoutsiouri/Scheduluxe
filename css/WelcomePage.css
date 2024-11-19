@@ -127,29 +127,8 @@ main {
     display: block;
 }
   
-.containerrr {
-    display: flex;
-    flex-direction: row; 
-    gap: 20px;
-  }
-
-
-@media (min-width: 568px) and (max-width: 1099px) {
-    .containerrr {
-      flex-direction: column; 
-    }
-}
 
 @media (max-width: 1200px) {
-    /*why do we need that?-TODO*/
-    .container {
-        transform: scale(0.95); 
-    }
-    .content, .carousel {
-        max-width: 100%;
-        padding: 0;
-        text-align: center;
-    }
     .carousel {
         max-width: 100%; 
         width: 100%;
@@ -158,7 +137,7 @@ main {
         padding-left: 0;
         max-height: 50vh; 
         margin-top: 20px; 
-
+        text-align: center;
     }
 
     .carousel img {
