@@ -1,35 +1,123 @@
 package ScheduluxeClasses;
 
+import java.sql.*;
+
 public class Traveler {
-
-    private String userName;
-    private String password;
-    private String firtsName, lastName;
+    private String username;
+    private String firstname;
+    private String lastname;
     private String email;
-    private String originCountry;
-    private int userId;
+    private String country;
+    private String password;
 
-    public Traveler(String userName, String password, String email) {
-        this.userName = userName;
+    public Traveler(String username, String firstname, String lastname, String email, String country, String password) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.country = country;
         this.password = password;
+    }
+
+    public Traveler() {
+    }
+
+    // Getters και Setters
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    
-
-    public boolean checkRegister() {
-
-    }
-    public registerUser() {
-
+    public String getCountry() {
+        return country;
     }
 
-    public editProfile() {
-
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    
-    public getCredentials() {
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Μέθοδος ανάκτησης χρήστη από τη βάση
+    public static Traveler getTravelerByUsername(String username) {
+        Traveler traveler = null;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT * FROM Travelers WHERE username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                traveler = new Traveler(
+                        rs.getString("username"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getString("email"),
+                        rs.getString("country"),
+                        rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return traveler;
+    }
+
+    // Μέθοδος αποθήκευσης ή ενημέρωσης χρήστη στη βάση
+    public boolean saveOrUpdate() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
+                    "VALUES (?, ?, ?, ?, ?, ?) " +
+                    "ON DUPLICATE KEY UPDATE firstname = ?, lastname = ?, email = ?, country = ?, password = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, this.username);
+            pstmt.setString(2, this.firstname);
+            pstmt.setString(3, this.lastname);
+            pstmt.setString(4, this.email);
+            pstmt.setString(5, this.country);
+            pstmt.setString(6, this.password);
+            pstmt.setString(7, this.firstname);
+            pstmt.setString(8, this.lastname);
+            pstmt.setString(9, this.email);
+            pstmt.setString(10, this.country);
+            pstmt.setString(11, this.password);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
