@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/FeedbackServlet")
+import ScheduluxeClasses.DatabaseConnection;
+
 public class FeedbackServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -21,70 +22,77 @@ public class FeedbackServlet extends HttpServlet {
         String commentText = request.getParameter("commentText");
         String ratingStr = request.getParameter("rating");
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            if (scheduleIdStr != null) {
+        // Ελέγχουμε αν το scheduleId είναι έγκυρο και αν υπάρχει
+        if (scheduleIdStr != null && !scheduleIdStr.trim().isEmpty()) {
+            try {
                 int scheduleId = Integer.parseInt(scheduleIdStr);
 
-                // Handle comment submission
+                // Αν υπάρχει σχόλιο, το αποθηκεύουμε στη βάση
                 if (commentText != null && !commentText.trim().isEmpty()) {
-                    saveComment(conn, userId, scheduleId, commentText);
+                    saveComment(request, response, userId, scheduleId, commentText);
                 }
 
-                // Handle rating submission
+                // Αν υπάρχει βαθμολογία, την αποθηκεύουμε στη βάση
                 if (ratingStr != null && !ratingStr.trim().isEmpty()) {
                     int rating = Integer.parseInt(ratingStr);
-                    saveRating(conn, userId, scheduleId, rating);
+                    saveRating(request, response, userId, scheduleId, rating);
                 }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+            } catch (NumberFormatException e) {
+                // Αν η τιμή του scheduleId ή rating δεν είναι έγκυρη, καταγράφουμε το σφάλμα
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         response.sendRedirect("ScheduleOverall.jsp");
     }
 
-    private void saveComment(Connection conn, int userId, int scheduleId, String commentText) throws Exception {
+    private void saveComment(HttpServletRequest request, HttpServletResponse response, int userId, int scheduleId,
+            String commentText) throws Exception {
         String sql = "INSERT INTO Comments (user_id, schedule_id, comment_text) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        DatabaseConnection db = new DatabaseConnection(); // Δημιουργούμε την σύνδεση με τη βάση δεδομένων
+        try (Connection conn = db.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, userId);
             stmt.setInt(2, scheduleId);
             stmt.setString(3, commentText);
             stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error saving comment: " + e.getMessage());
+        } finally {
+            try {
+                db.close(); // Κλείνουμε τη σύνδεση με τη βάση δεδομένων
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void saveRating(Connection conn, int userId, int scheduleId, int rating) throws Exception {
+    private void saveRating(HttpServletRequest request, HttpServletResponse response, int userId, int scheduleId,
+            int rating) throws Exception {
         String sql = "INSERT INTO Ratings (user_id, schedule_id, rating) VALUES (?, ?, ?) "
                 + "ON DUPLICATE KEY UPDATE rating = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        DatabaseConnection db = new DatabaseConnection();
+        try (Connection conn = db.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, userId);
             stmt.setInt(2, scheduleId);
             stmt.setInt(3, rating);
             stmt.setInt(4, rating);
             stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error saving rating: " + e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
-
-// DATABASE TABLES
-// CREATE TABLE Comments (
-// comment_id INT PRIMARY KEY AUTO_INCREMENT,
-// user_id INT,
-// schedule_id INT,
-// comment_text TEXT,
-// comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-// FOREIGN KEY (user_id) REFERENCES Travellers(user_id),
-// FOREIGN KEY (schedule_id) REFERENCES Itinerary(schedule_id)
-// );
-
-// CREATE TABLE Ratings (
-// rating_id INT PRIMARY KEY AUTO_INCREMENT,
-// user_id INT,
-// schedule_id INT,
-// rating INT CHECK (rating BETWEEN 1 AND 5),
-// rating_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-// FOREIGN KEY (user_id) REFERENCES Travellers(user_id),
-// FOREIGN KEY (schedule_id) REFERENCES Itinerary(schedule_id),
-// UNIQUE (user_id, schedule_id) -- Prevents duplicate ratings from the same
-// user for the same schedule
-// );

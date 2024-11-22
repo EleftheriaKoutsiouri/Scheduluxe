@@ -5,75 +5,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-    // Attributes
-    private List<String> destination;
-    private int days;
-    private List<String> type;
-    private List<String> budget;
-
-    // Default Constructor
-    public Schedule() {
-        this.destination = new ArrayList<>();
-        this.days = 0;
-        this.type = new ArrayList<>();
-        this.budget = new ArrayList<>();
-    }
-
     // Fetch Destinations
-    public List<String> fetchDestinations() {
+    public List<String> fetchDestinations() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT destinationName FROM Destinations";
         List<String> destinations = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT destinationName FROM Destinations")) {
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 destinations.add(rs.getString("destinationName"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rs.close();
+            stmt.close();
+            return destinations;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
         }
-        return destinations;
     }
 
     // Fetch Types
-    public List<String> fetchTypes() {
+    public List<String> fetchTypes() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT typeName FROM ActivityTypes";
         List<String> types = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT typeName FROM ActivityTypes")) {
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 types.add(rs.getString("typeName"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rs.close();
+            stmt.close();
+            return types;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
         }
-        return types;
     }
 
     // Fetch Budgets
-    public List<String> fetchBudgets() {
+    public List<String> fetchBudgets() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT budgetName FROM BudgetType";
         List<String> budgets = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT budgetName FROM BudgetType")) {
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 budgets.add(rs.getString("budgetName"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rs.close();
+            stmt.close();
+            return budgets;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
         }
-        return budgets;
-    }
-
-    // Getters
-    public List<String> getDestinations() {
-        return fetchDestinations();
-    }
-
-    public List<String> getPreferences() {
-        return fetchTypes();
-    }
-
-    public List<String> getBudget() {
-        return fetchBudgets();
     }
 }
