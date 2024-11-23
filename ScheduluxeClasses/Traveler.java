@@ -1,7 +1,10 @@
 package ScheduluxeClasses;
-
-import java.sql.*;
-
+ 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+ 
 public class Traveler {
     private String username;
     private String firstname;
@@ -9,7 +12,8 @@ public class Traveler {
     private String email;
     private String country;
     private String password;
-
+ 
+    // Constructor
     public Traveler(String username, String firstname, String lastname, String email, String country, String password) {
         this.username = username;
         this.firstname = firstname;
@@ -18,68 +22,44 @@ public class Traveler {
         this.country = country;
         this.password = password;
     }
-
-    public Traveler() {
-    }
-
-    // Getters και Setters
+ 
+    // Getters
     public String getUsername() {
         return username;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+ 
     public String getFirstname() {
         return firstname;
     }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
+ 
     public String getLastname() {
         return lastname;
     }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
+ 
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+ 
     public String getCountry() {
         return country;
     }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+ 
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+ 
     // Μέθοδος ανάκτησης χρήστη από τη βάση
-    public static Traveler getTravelerByUsername(String username) {
+    public static Traveler getTravelerByUsername(String username) throws Exception {
         Traveler traveler = null;
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "SELECT * FROM Travelers WHERE username = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+        String query = "SELECT * FROM Travelers WHERE username = ?";
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-
+ 
             if (rs.next()) {
                 traveler = new Traveler(
                         rs.getString("username"),
@@ -89,19 +69,28 @@ public class Traveler {
                         rs.getString("country"),
                         rs.getString("password"));
             }
+ 
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return traveler;
     }
-
+ 
     // Μέθοδος αποθήκευσης ή ενημέρωσης χρήστη στη βάση
-    public boolean saveOrUpdate() {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
-                    "VALUES (?, ?, ?, ?, ?, ?) " +
-                    "ON DUPLICATE KEY UPDATE firstname = ?, lastname = ?, email = ?, country = ?, password = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+    public boolean saveOrUpdate() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String query = """
+                INSERT INTO Travelers (username, firstname, lastname, email, country, password)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                firstname = ?, lastname = ?, email = ?, country = ?, password = ?
+                """;
+ 
+        try {
+            con = db.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, this.username);
             pstmt.setString(2, this.firstname);
             pstmt.setString(3, this.lastname);
@@ -113,7 +102,7 @@ public class Traveler {
             pstmt.setString(9, this.email);
             pstmt.setString(10, this.country);
             pstmt.setString(11, this.password);
-
+ 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,3 +110,4 @@ public class Traveler {
         }
     }
 }
+ 
