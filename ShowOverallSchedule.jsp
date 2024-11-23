@@ -13,7 +13,7 @@
 <head> 
     <title>Scheduluxe Overall Schedule</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="ScheduleOverall.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/ScheduleOverall.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>  
@@ -22,7 +22,7 @@
     <header>
         <nav class="nav-menu">  
             <div class="logo">  
-                <img src="images/logo.png" alt="Icon">
+                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>  
             <button class="menu-toggle">
@@ -30,9 +30,9 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.html">Home</a></li>  
+                    <li><a href="WelcomePage.jsp">Home</a></li>  
                     <li><a href="About.jsp">About us</a></li> 
-                    <li><a href="Profile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
+                    <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul>  
             </div>
         </nav>
@@ -54,7 +54,7 @@
                 </thead>
                 <tbody>
                     <% 
-                        String[] timeSlots = { "9:00 - 11:00", "12:00 - 14:00", "15:00 - 17:00", "18:00 - 20:00", "21:00 - 23:00" };
+                        String[] timeSlots = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
                         List<List<Activity>> daysActivities = List.of(day1Activities, day2Activities, day3Activities, day4Activities);
 
                         for (int i = 0; i < timeSlots.length; i++) { 
@@ -127,7 +127,7 @@
         </script>
     </main>
     
-    <script src="js/menuToggle.js"></script>
+    <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
     
 </body>
 </html>
