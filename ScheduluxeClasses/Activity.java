@@ -8,11 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
-    private int activityId;
     private String activityName;
     private String details;
-    private String startTime;
-    private String endTime;
 
     // Constructor
     public Activity(int activityId, String activityName, String details, String startTime, String endTime) {
@@ -35,8 +32,10 @@ public class Activity {
     // Search Activities
     public List<Activity> searchActivities() {
         List<Activity> activityList = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(
+       try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
                         "SELECT * FROM Activities WHERE destination = ? AND budget = ? AND type IN (?)")) {
             stmt.setString(1, destination);
             stmt.setString(2, budget);
