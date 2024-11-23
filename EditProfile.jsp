@@ -1,5 +1,5 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="ScheduleClasses.*" %>
+<%@ page import="ScheduluxeClasses.*" %>
 
 <%
 // Έλεγχος αν ο χρήστης είναι συνδεδεμένος
@@ -10,8 +10,8 @@
     }
 
     // Λήψη του username από το session
-    String username = (String) session.getAttribute("username");
-    Traveler traveler = Traveler.getTravelerByUsername(username); // Έλεγχος αν υπάρχει ο χρήστης
+    String userID = (String) session.getAttribute("userID");
+    Traveler traveler = Traveler.getTravelerByUsername(userID); // Έλεγχος αν υπάρχει ο χρήστης
 
     // Αν ο χρήστης υπάρχει, φορτώνονται τα δεδομένα του
     String firstname = traveler != null ? traveler.getFirstname() : "";
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" value="<%= password %>">
+                            <input type="password" name="password" class="form-control" id="password" value="New Password">
                         </div>
                         <div class="col-12">
                             <button type="submit" class="start-button">Save Changes</button>
