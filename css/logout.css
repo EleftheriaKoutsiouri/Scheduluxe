@@ -1,0 +1,67 @@
+.center-screen-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #d1aaaa; /* Optional background color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Image container */
+.image-container {
+    position: relative; /* Enables positioning for overlay text */
+    max-width: 90%; /* Restrict image size within the viewport */
+    height: auto; /* Maintain aspect ratio */
+    text-align: center; /* Center text horizontally */
+}
+
+/* Responsive image */
+.responsive-image {
+    width: 100%; /* Make image fully responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional rounded corners */
+    box-shadow: 100px 100px 156px rgba(0, 0, 0, 0.2); /* Optional shadow for design */
+}
+
+/* Overlay text */
+.overlay-text {
+    position: absolute; /* Place text over the image */
+    top: 7%; /* Center vertically */
+    left: 65%; /* Center horizontally */
+    color: white; /* Text color */
+    font-size: 1.5rem; /* Text size */
+    font-weight: bold; /* Optional bold font */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* Add shadow for readability */
+    padding: 10px; /* Optional padding */
+    text-align: right; /* Align text */
+    white-space: nowrap;
+}
+
+
+
+@media (max-width: 1330px) {
+    .overlay-text {
+        font-size: 1.3rem; /* Reduce text size */
+        top: 5%; /* Adjust position to keep it inside the image */
+        left: 60%; /* Adjust position to keep it inside the image */
+        text-align: center; /* Center text if needed for smaller screens */
+    }
+}
+
+/* Media query for very small screens (e.g., mobile devices) */
+@media (max-width: 980px) {
+    .overlay-text {
+        font-size: 1rem; /* Further reduce text size */
+        top: 5%; /* Keep text inside the image */
+        left: 45%; /* Ensure text doesn't go outside the image */
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay-text {
+        font-size: 0.6rem; /* Further reduce text size */
+        top: 5%; /* Keep text inside the image */
+        left: 15%; /* Ensure text doesn't go outside the image */
+    }
+}
