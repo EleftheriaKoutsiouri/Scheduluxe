@@ -1,10 +1,18 @@
 package ScheduluxeClasses;
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
 public class Traveler {
     private String username;
     private String firstname;
@@ -12,7 +20,11 @@ public class Traveler {
     private String email;
     private String country;
     private String password;
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
     // Constructor
     public Traveler(String username, String firstname, String lastname, String email, String country, String password) {
         this.username = username;
@@ -22,11 +34,16 @@ public class Traveler {
         this.country = country;
         this.password = password;
     }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
     // Getters
     public String getUsername() {
         return username;
     }
+<<<<<<< HEAD
  
     public String getFirstname() {
         return firstname;
@@ -48,6 +65,29 @@ public class Traveler {
         return password;
     }
  
+=======
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
     // Μέθοδος ανάκτησης χρήστη από τη βάση
     public static Traveler getTravelerByUsername(String username) throws Exception {
         Traveler traveler = null;
@@ -69,7 +109,11 @@ public class Traveler {
                         rs.getString("country"),
                         rs.getString("password"));
             }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,7 +131,11 @@ public class Traveler {
                 ON DUPLICATE KEY UPDATE
                 firstname = ?, lastname = ?, email = ?, country = ?, password = ?
                 """;
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 87665b02b5107868a4a6f1a036c74b74f8d40636
         try {
             con = db.getConnection();
             PreparedStatement pstmt = con.prepareStatement(query);
