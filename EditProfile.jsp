@@ -50,7 +50,8 @@
                 <ul class="nav-links">  
                     <li><a href="WelcomePage.jsp">Home</a></li>  
                     <li><a href="About.jsp">About us</a></li> 
-                    <li><a href="EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>  
+                    <li><a href="EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
+                    <li><a href="logout.jsp">Log out</a></li> 
                 </ul>  
             </div>
           </nav>
