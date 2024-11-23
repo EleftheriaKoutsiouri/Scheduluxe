@@ -24,7 +24,7 @@
         <!-- Navigation bar -->
         <nav class="nav-menu">
             <div class="logo">
-                <img src="images/logo.png" alt="Icon">
+                <img src="%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
 

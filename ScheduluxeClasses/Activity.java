@@ -48,15 +48,13 @@ public class Activity {
         Connection con = null;
 
         // SQL query to find matching activities based on user preferences
-        String sql = """
-                SELECT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime
-                FROM Activities a
-                JOIN Preferences p ON a.DestinationID = p.DestinationID
-                    AND a.BudgetID = p.BudgetID
-                    AND a.TypeID = p.TypeID
-                WHERE p.UserID = ?
-                ORDER BY a.StartTime
-                """;
+        String sql = "SELECT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
+                "FROM Activities a " +
+                "JOIN Preferences p ON a.DestinationID = p.DestinationID " +
+                "AND a.BudgetID = p.BudgetID " +
+                "AND a.TypeID = p.TypeID " +
+                "WHERE p.UserID = ? " +
+                "ORDER BY a.StartTime";
 
         try {
             con = db.getConnection();
