@@ -18,16 +18,51 @@ public class EditProfileUserServlet extends HttpServlet {
         String userID = (String) session.getAttribute("userID");
         Traveler traveler = Traveler.getTravelerByUsername(userID);
 
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         String password = request.getParameter("password");
+
+        // Φτιαχνω νεο αντικειμενο traveler με ορισματα τις νεες παραμετρους (με ελεγχους οτι εχει αλλαξει κατι) και καλω με το νεο αντικειμενο την saveOrUpdate()
+        if (firstname == null || firstname.isEmpty()) {
+            firstname = traveler.getFirstname();
+        }
+
+        if (lastname == null || lastname.isEmpty()) {
+            lastname = traveler.getLastname();
+        }
+
+        if (username == null || username.isEmpty()) {
+            username = traveler.getUsername();
+        }
+
+        if (email == null || email.isEmpty()) {
+            email = traveler.getEmail();
+        }
+
+        if (country == null || country.isEmpty()) {
+            country = traveler.getCountry();
+        }
         
-        traveler.setfirstName(firstName)
-        traveler.saveOrUpdate()
-    
+        if (password == null || password.isEmpty()) {
+            password = traveler.getPassword();
+        }
+
+        Traveler traveler2 = new Traveler(username, firstname, lastname, email, country, password);
+
+        boolean updated = traveler2.saveOrUpdate();
+
+        if (updated) {
+            request.setAttribute("message", "Success");
+        } else {
+            request.setAttribute("message", "Failure");
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("EditProfile.jsp");
+        dispatcher.forward(request, response);
+
     }
 
 

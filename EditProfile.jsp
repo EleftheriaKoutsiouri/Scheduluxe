@@ -4,10 +4,11 @@
 <%
 // Έλεγχος αν ο χρήστης είναι συνδεδεμένος
     HttpSession session = request.getSession(false);
-    if (session == null || session.getAttribute("username") == null) {
+    if (session == null || session.getAttribute("userID") == null) {
         response.sendRedirect("Login.jsp");
         return;
     }
+
 
     // Λήψη του username από το session
     String userID = (String) session.getAttribute("userID");
@@ -16,6 +17,7 @@
     // Αν ο χρήστης υπάρχει, φορτώνονται τα δεδομένα του
     String firstname = traveler != null ? traveler.getFirstname() : "";
     String lastname = traveler != null ? traveler.getLastname() : "";
+    String username = traveler != null ? traveler.getUsername() : "";
     String email = traveler != null ? traveler.getEmail() : "";
     String country = traveler != null ? traveler.getCountry() : "";
     String password = traveler != null ? traveler.getPassword() : "";
@@ -60,6 +62,13 @@
             <div class="profile-schedules-container">
                 <div class="edit-profile">
                     <h4 class="small-title"><strong>Edit your Profile</strong></h4>
+                    <% if(request.getAttribute("message").equals("Success")) { %>		
+                            <h4>Changes were saved</h4>
+                    <% } else {
+                    %>      <h4>Failed to save changes</h4>
+                    <%
+                    }
+                    %>
                     <form class="row g-3" method="post" action="EditProfileUserServlet">
                         <div class="col-md-4">
                             <label for="firstname" class="form-label">First Name</label>
