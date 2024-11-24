@@ -12,33 +12,34 @@ session.invalidate();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="Lab exercises 2024-2025">
-	<meta name="author" content="t8220134@aueb.gr">
-	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico">
+	<title>Scheduluxe</title>
+    <link rel="icon" href="<%=request.getContextPath()%>/images/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/logout.css">  
 
-	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">	
-	<!-- Bootstrap Optional theme -->
+	 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
-	<!-- Custom styles for this template -->
-	<link href="<%=request.getContextPath()%>/css/theme_8220134.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 
-	<meta http-equiv="refresh" content="10;url=WelcomePage.jsp" />	
+
+	<meta http-equiv="refresh" content="300;url=WelcomePage.jsp" />	
 	<title>Logout</title>
-	
+
 	</head>
 <body>	
 
-	<div class="container theme-showcase" role="main">
-        
-		<div class="alert alert-success text-center" role="alert">You’ve logged out. Safe travels and see you soon!</div>		
-
-	</div>
+	<div class="center-screen-container">
+        <div class="image-container">
+            <!-- Image -->
+            <img 
+                src="<%=request.getContextPath()%>/images/parthenon.jpg" 
+                alt="Logout photo" 
+                class="responsive-image">
+            <!-- Text over the image -->
+            <div class="overlay-text">
+                You’ve logged out. Safe travels and see you soon!
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
