@@ -3,7 +3,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     height: 100vh; /* Full height of the viewport */
-    background-color: #d1aaaa; /* Optional background color */
+    background-color: #eecaca; /* Optional background color */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
 }
@@ -21,14 +21,14 @@
     width: 100%; /* Make image fully responsive */
     height: auto; /* Maintain aspect ratio */
     border-radius: 8px; /* Optional rounded corners */
-    box-shadow: 100px 100px 156px rgba(0, 0, 0, 0.2); /* Optional shadow for design */
+    box-shadow: 10px 50px 85px rgba(0, 0, 0, 0.662); /* Optional shadow for design */
 }
 
 /* Overlay text */
 .overlay-text {
     position: absolute; /* Place text over the image */
     top: 7%; /* Center vertically */
-    left: 65%; /* Center horizontally */
+    left: 70%; /* Center horizontally */
     color: white; /* Text color */
     font-size: 1.5rem; /* Text size */
     font-weight: bold; /* Optional bold font */
