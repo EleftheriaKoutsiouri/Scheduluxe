@@ -47,6 +47,30 @@ public class Traveler {
     public String getPassword() {
         return password;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
  
     // Μέθοδος ανάκτησης χρήστη από τη βάση
     public static Traveler getTravelerByUsername(String username) throws Exception {
