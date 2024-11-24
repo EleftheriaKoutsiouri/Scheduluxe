@@ -9,6 +9,20 @@
     List<String> destinations = sch.fetchDestinations();
     List<String> types = sch.fetchTypes();
     List<String> budget = sch.fetchBudgets();
+
+    Traveler trv = (Traveler) session.getAttribute("travelerObj");
+        
+    if (trv == null) {
+        request.setAttribute("message","You are not authorized to access this resource. Please login.");
+    %>
+        <jsp:forward page="Signin.jsp"/>
+    <% 
+        return;
+    }
+    %>
+
+
+    
 %>
 <!DOCTYPE html>
 <html lang="en">

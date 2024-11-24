@@ -6,6 +6,18 @@
     List<Activity> day2Activities = schedule.getActivitiesForDay(2);
     List<Activity> day3Activities = schedule.getActivitiesForDay(3);
     List<Activity> day4Activities = schedule.getActivitiesForDay(4);
+
+
+        Traveler trv = (Traveler) session.getAttribute("travelerObj");
+        
+        if (trv == null) {
+            request.setAttribute("message","You are not authorized to access this resource. Please login.");
+        %>
+            <jsp:forward page="Signin.jsp"/>
+        <% 
+            return;
+        }
+        %>
 %>
 
 <!DOCTYPE html>
