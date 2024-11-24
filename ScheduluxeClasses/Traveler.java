@@ -73,15 +73,16 @@ public class Traveler {
     }
  
     // Μέθοδος ανάκτησης χρήστη από τη βάση
-    public static Traveler getTravelerByUsername(String username) throws Exception {
+    public static Traveler getTraveler(String username, String password) throws Exception {
         Traveler traveler = null;
-        String query = "SELECT * FROM Travelers WHERE username = ?";
+        String query = "SELECT * FROM Travelers WHERE username = ? AND password = ?";
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         try {
             con = db.getConnection();
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, username);
+            pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
  
             if (rs.next()) {
@@ -97,6 +98,14 @@ public class Traveler {
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return traveler;
     }
