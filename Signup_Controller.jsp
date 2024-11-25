@@ -7,7 +7,15 @@ String email = request.getParameter("email");
 String password = request.getParameter("password");
 
 Traveler trv = new Traveler();
-trv.signupcheck(username,email)
-trv.createTraveler(username,email,password)
+boolean exists;
+exists = trv.signupcheck(username,email);
 
+if(!exists){
+trv.createTraveler(username,email,password);
+}else{
+    request.setAttribute("message", "Wrong username or password.");
+%>
+    <jsp:forward page="SignIn.jsp"/>
+<%
+}
 %>

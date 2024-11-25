@@ -177,6 +177,7 @@ public class Traveler {
     }
 
     public boolean signupcheck(String username, String email) throws Exception {
+        boolean userexists = false;
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String query = "SELECT COUNT(*) FROM Travelers WHERE username = ? OR email = ?";
@@ -186,8 +187,16 @@ public class Traveler {
             pstmt.setString(1, username);
             pstmt.setString(2, email);
             ResultSet rs = pstmt.executeQuery();
-            
-
+            if (rs.next() && rs.getInt(1) > 0) {
+                userexists = true;
+            }
+            rs.close();
+            pstmt.close();
+            con.close();
+        }catch (Exception e) {
+            e.printStackTrace(); // Log the error for debugging
+        }
+        return userexists;
+    }
 }
-
 
