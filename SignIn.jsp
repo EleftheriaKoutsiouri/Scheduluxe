@@ -63,7 +63,7 @@
                                     <input type="submit" value="Sign In" id="submit-button">
                                 </div>
                                 <div class="text sign-up-text">Don't have an account? 
-                                    <label for="flip">Sign up now</label>
+                                    <label for="flip" style="text-decoration: underline" >Sign up now</label>
                                 </div>
                             </div>
                     </form>
@@ -86,7 +86,7 @@
                                     <input type="submit" value="Sign Up" id="submit-button">
                                 </div>
                                 <div class="text sign-up-text">Already have an account? 
-                                    <label for="flip">Sign In now</label>
+                                    <label for="flip" style="text-decoration: underline">Sign In now</label>
                                 </div>
                             </div>
                     </form>
