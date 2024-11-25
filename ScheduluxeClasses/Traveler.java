@@ -142,37 +142,31 @@ public class Traveler {
             return false;
         }
     }
-    public boolean createTraveler() throws Exception {       // Η ΜΕΘΟΔΟΣ ΠΟΥ ΑΡΧΙΚΑ ΘΑ ΚΑΛΕΙΤΑΙ ΓΙΑ ΝΑ ΔΗΜΙΟΥΡΓΗΘΕΙ Ο ΧΡΗΣΤΗΣ ΤΟΥ SIGN UP
-        DatabaseConnection db = new DatabaseConnection();    // ΕΦΟΣΟΝ ΔΗΜΙΟΥΡΓΕΙΤΑΙ ACCOUNT ΜΟΝΟ ΜΕ USERNAME,EMAIL,PASSWORD ΠΡΕΠΕΙ ΝΑ ΦΤΙΑΞΟΥΜΕ ΕΝΑΝ ΑΛΛΟ ΠΙΝΑΚΑ
-                                                            // ΕΝΑΝ ΑΛΛΟ ΠΙΝΑΚΑ ΜΕ ΜΟΝΟ ΑΥΤΑ ΤΑ ΤΡΙΑ ΠΕΔΙΑ     Η    ΝΑ ΠΑΙΡΝΑΜΕ ΣΤΟΝ ΣΥΓΚΕΚΡΙΜΕΝΟ ΠΙΝΑΚΑ Travelers
-                                                            // ΜΟΝΟ ΤΑ 3 ΠΕΔΙΑ ΠΟΥ ΔΙΝΕΙ ΚΑΙ ΤΑ ΥΠΟΛΟΙΠΑ (ΟΠΩΣ COUNTRY) ΝΑ ΤΑ ΠΕΡΝΑΕΙ ΩΣ NULL
+    public void createTraveler(String username, String email,String password) throws Exception {       // Η ΜΕΘΟΔΟΣ ΠΟΥ ΑΡΧΙΚΑ ΘΑ ΚΑΛΕΙΤΑΙ ΓΙΑ ΝΑ ΔΗΜΙΟΥΡΓΗΘΕΙ Ο ΧΡΗΣΤΗΣ ΤΟΥ SIGN UP
+        DatabaseConnection db = new DatabaseConnection();    // ΕΦΟΣΟΝ ΔΗΜΙΟΥΡΓΕΙΤΑΙ ACCOUNT ΜΟΝΟ ΜΕ USERNAME,EMAIL,PASSWORD ΠΡΕΠΕΙ ΝΑ ΠΕΡΝΑΜΕ ΣΤΟΝ ΣΥΓΚΕΚΡΙΜΕΝΟ ΠΙΝΑΚΑ Travelers
+        PreparedStatement pstmt = null;                                                   // ΜΟΝΟ ΤΑ 3 ΠΕΔΙΑ ΠΟΥ ΔΙΝΕΙ ΚΑΙ ΤΑ ΥΠΟΛΟΙΠΑ (ΟΠΩΣ COUNTRY) ΝΑ ΤΑ ΠΕΡΝΑΕΙ ΩΣ NULL
         Connection con = null;
         String query = """
                 INSERT INTO Travelers (username, firstname, lastname, email, country, password)
                 VALUES (?, ?, ?, ?, ?, ?)
-                ON DUPLICATE KEY UPDATE
-                firstname = ?, lastname = ?, email = ?, country = ?, password = ?
                 """;
  
         try {
             con = db.getConnection();
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, this.username);
-            pstmt.setString(2, this.firstname);
-            pstmt.setString(3, this.lastname);
-            pstmt.setString(4, this.email);
-            pstmt.setString(5, this.country);
-            pstmt.setString(6, this.password);
-            pstmt.setString(7, this.firstname);
-            pstmt.setString(8, this.lastname);
-            pstmt.setString(9, this.email);
-            pstmt.setString(10, this.country);
-            pstmt.setString(11, this.password);
- 
-            return pstmt.executeUpdate() > 0;
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.setNull(2, java.sql.Types.VARCHAR);
+            pstmt.setNull(3, java.sql.Types.VARCHAR);
+            pstmt.setString(4, email);
+            pstmt.setNull(5, java.sql.Types.VARCHAR);
+            pstmt.setString(6, password);
+
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+        } finally {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
         }
     }
 
