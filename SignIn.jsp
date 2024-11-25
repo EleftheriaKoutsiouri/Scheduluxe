@@ -72,7 +72,7 @@
                             <div class="input-boxes">
                                 <div class="input-box">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" name="name" placeholder="Enter your name" required>
+                                    <input type="text" name="username" placeholder="Enter your username" required>
                                 </div>
                                 <div class="input-box">
                                     <i class="fas fa-envelope"></i>
