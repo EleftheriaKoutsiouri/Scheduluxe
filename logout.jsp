@@ -14,16 +14,15 @@ session.invalidate();
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Scheduluxe</title>
     <link rel="icon" href="<%=request.getContextPath()%>/images/logo.png" type="image/x-icon">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/logout.css">  
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/logoutt.css">  
 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">	
 	 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
 
 
-	<meta http-equiv="refresh" content="300;url=WelcomePage.jsp" />	
+	<meta http-equiv="refresh" content="2;url=WelcomePage.jsp" />	
 	<title>Logout</title>
-
 	</head>
 <body>	
 
@@ -36,7 +35,7 @@ session.invalidate();
                 class="responsive-image">
             <!-- Text over the image -->
             <div class="overlay-text">
-                You’ve logged out. Safe travels and see you soon!
+                Logged out. See you on your next adventure with Scheduluxe!
             </div>
         </div>
     </div>
