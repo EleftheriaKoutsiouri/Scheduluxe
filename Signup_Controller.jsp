@@ -11,9 +11,9 @@ boolean exists;
 exists = trv.signupcheck(username,email);
 
 if(!exists){
-trv.createTraveler(username,email,password);
+    trv.createTraveler(username,email,password);
 }else{
-    request.setAttribute("message", "Wrong username or password.");
+    request.setAttribute("message", "The username or the email are already in use!");
 %>
     <jsp:forward page="SignIn.jsp"/>
 <%
