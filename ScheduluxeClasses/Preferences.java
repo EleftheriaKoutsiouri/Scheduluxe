@@ -82,4 +82,58 @@ public class Preferences {
             }
         }
     }
+
+    public void savePreferences(int userId, int destinationId, int budgetId, String[] tripTypes) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        String sql = "INSERT INTO Preferences (UserID, TypeID, BudgetID, DestinationID) VALUES (?, ?, ?, ?)";
+        try {
+            con = db.getConnection();
+            for (String tripType : tripTypes) {
+                int typeId = getIdFromDatabase("ActivityTypes", "TypeName", tripType, "TypeID");
+                PreparedStatement stmt = con.prepareStatement(sql);
+                stmt.setInt(1, userId);
+                stmt.setInt(2, typeId);
+                stmt.setInt(3, budgetId);
+                stmt.setInt(4, destinationId);
+                stmt.executeUpdate();
+                stmt.close();
+            }
+        } catch (Exception e) {
+            throw new Exception("Error saving preferences: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public int getIdFromDatabase(String tableName, String columnName, String value, String idColumn) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        int id = 0;
+
+        String query = "SELECT " + idColumn + " FROM " + tableName + " WHERE " + columnName + " = ?";
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, value);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            throw new Exception("Error retrieving ID from " + tableName + ": " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return id;
+    }
 }
