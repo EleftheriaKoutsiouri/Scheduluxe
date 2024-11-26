@@ -1,13 +1,10 @@
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import ScheduluxeClasses.Schedule;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/SaveDayScheduleServlet")
 public class SaveDayScheduleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +37,13 @@ public class SaveDayScheduleServlet extends HttpServlet {
             }
 
             // Αποθήκευση του προγράμματος για την δραστηριότητα
-            if (!schedule.saveSchedule(userId, activityId, day, timeSlot)) {
-                success = false;
-                break;
+            try {
+                if (!schedule.saveSchedule(userId, activityId, day, timeSlot)) {
+                    success = false;
+                    break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
