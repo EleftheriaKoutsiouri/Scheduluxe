@@ -2,28 +2,25 @@
 <%@ page import="ScheduluxeClasses.*" %>
 <%@ page import="java.util.List" %>
 <%
-    // Creating an object of the Schedule class
-    Schedule sch = new Schedule();
+    // Δημιουργία αντικειμένου της κλάσης Preferences
+    Preferences prefs = new Preferences();
 
-    // Fetching data from the database
-    List<String> destinations = sch.fetchDestinations();
-    List<String> types = sch.fetchTypes();
-    List<String> budget = sch.fetchBudgets();
+    // Ανάκτηση δεδομένων από τη βάση δεδομένων
+    List<String> destinations = prefs.fetchDestinations();
+    List<String> types = prefs.fetchTypes();
+    List<String> budget = prefs.fetchBudgets();
 
     Traveler trv = (Traveler) session.getAttribute("travelerObj");
         
     if (trv == null) {
-        request.setAttribute("message","You are not authorized to access this resource. Please login.");
+        request.setAttribute("message", "You are not authorized to access this resource. Please login.");
     %>
         <jsp:forward page="Signin.jsp"/>
     <% 
         return;
     }
-    %>
-
-
-    
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +35,7 @@
         <!-- Navigation bar -->
         <nav class="nav-menu">
             <div class="logo">
-                <img src="%=request.getContextPath()%>/images/logo.png" alt="Icon">
+                <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
 
@@ -80,6 +77,7 @@
                     <input type="number" min="1" max="4" id="date" name="date" placeholder="Select days" required>
                 </div>
 
+                <!-- Type Selection -->
                 <div class="form-group">
                     <label for="type">Type</label>
                     <div class="dropdown">
@@ -99,7 +97,6 @@
                     // Function to toggle dropdown visibility
                     function toggleDropdown() {
                         var content = document.querySelector('.dropdown-content');
-                        // Toggle the visibility of the dropdown content
                         content.style.display = content.style.display === "block" ? "none" : "block";
                     }
                 
@@ -108,7 +105,7 @@
                         var dropdownContent = document.querySelector('.dropdown-content');
                         var dropdownButton = document.querySelector('.dropdown button');
                         if (!dropdownButton.contains(event.target) && !dropdownContent.contains(event.target)) {
-                            dropdownContent.style.display = "none";  // Close dropdown if clicked outside
+                            dropdownContent.style.display = "none";
                         }
                     };
                 </script>
