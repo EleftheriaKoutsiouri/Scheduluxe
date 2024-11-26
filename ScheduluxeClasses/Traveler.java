@@ -1,10 +1,10 @@
 package ScheduluxeClasses;
- 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
- 
+
 public class Traveler {
     private String username;
     private String firstname;
@@ -12,7 +12,7 @@ public class Traveler {
     private String email;
     private String country;
     private String password;
- 
+
     // Constructor
     public Traveler(String username, String firstname, String lastname, String email, String country, String password) {
         this.username = username;
@@ -22,28 +22,28 @@ public class Traveler {
         this.country = country;
         this.password = password;
     }
- 
+
     // Getters
     public String getUsername() {
         return username;
     }
- 
+
     public String getFirstname() {
         return firstname;
     }
- 
+
     public String getLastname() {
         return lastname;
     }
- 
+
     public String getEmail() {
         return email;
     }
- 
+
     public String getCountry() {
         return country;
     }
- 
+
     public String getPassword() {
         return password;
     }
@@ -71,7 +71,7 @@ public class Traveler {
     public void setPassword(String password) {
         this.password = password;
     }
- 
+
     // Μέθοδος ανάκτησης χρήστη από τη βάση
     public static Traveler getTraveler(String username, String password) throws Exception {
         Traveler traveler = null;
@@ -84,7 +84,7 @@ public class Traveler {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
- 
+
             if (rs.next()) {
                 traveler = new Traveler(
                         rs.getString("username"),
@@ -94,7 +94,7 @@ public class Traveler {
                         rs.getString("country"),
                         rs.getString("password"));
             }
- 
+
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class Traveler {
         }
         return traveler;
     }
- 
+
     // Μέθοδος αποθήκευσης ή ενημέρωσης χρήστη στη βάση
     public boolean saveOrUpdate() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
@@ -120,7 +120,7 @@ public class Traveler {
                 ON DUPLICATE KEY UPDATE
                 firstname = ?, lastname = ?, email = ?, country = ?, password = ?
                 """;
- 
+
         try {
             con = db.getConnection();
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -135,22 +135,30 @@ public class Traveler {
             pstmt.setString(9, this.email);
             pstmt.setString(10, this.country);
             pstmt.setString(11, this.password);
- 
+
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public void createTraveler(String username, String email,String password) throws Exception {       // Η ΜΕΘΟΔΟΣ ΠΟΥ ΑΡΧΙΚΑ ΘΑ ΚΑΛΕΙΤΑΙ ΓΙΑ ΝΑ ΔΗΜΙΟΥΡΓΗΘΕΙ Ο ΧΡΗΣΤΗΣ ΤΟΥ SIGN UP
-        DatabaseConnection db = new DatabaseConnection();    // ΕΦΟΣΟΝ ΔΗΜΙΟΥΡΓΕΙΤΑΙ ACCOUNT ΜΟΝΟ ΜΕ USERNAME,EMAIL,PASSWORD ΠΡΕΠΕΙ ΝΑ ΠΕΡΝΑΜΕ ΣΤΟΝ ΣΥΓΚΕΚΡΙΜΕΝΟ ΠΙΝΑΚΑ Travelers
-        PreparedStatement pstmt = null;                                                   // ΜΟΝΟ ΤΑ 3 ΠΕΔΙΑ ΠΟΥ ΔΙΝΕΙ ΚΑΙ ΤΑ ΥΠΟΛΟΙΠΑ (ΟΠΩΣ COUNTRY) ΝΑ ΤΑ ΠΕΡΝΑΕΙ ΩΣ NULL
+
+    public void createTraveler(String username, String email, String password) throws Exception { // Η ΜΕΘΟΔΟΣ ΠΟΥ
+                                                                                                  // ΑΡΧΙΚΑ ΘΑ ΚΑΛΕΙΤΑΙ
+                                                                                                  // ΓΙΑ ΝΑ ΔΗΜΙΟΥΡΓΗΘΕΙ
+                                                                                                  // Ο ΧΡΗΣΤΗΣ ΤΟΥ SIGN
+                                                                                                  // UP
+        DatabaseConnection db = new DatabaseConnection(); // ΕΦΟΣΟΝ ΔΗΜΙΟΥΡΓΕΙΤΑΙ ACCOUNT ΜΟΝΟ ΜΕ
+                                                          // USERNAME,EMAIL,PASSWORD ΠΡΕΠΕΙ ΝΑ ΠΕΡΝΑΜΕ ΣΤΟΝ ΣΥΓΚΕΚΡΙΜΕΝΟ
+                                                          // ΠΙΝΑΚΑ Travelers
+        PreparedStatement pstmt = null; // ΜΟΝΟ ΤΑ 3 ΠΕΔΙΑ ΠΟΥ ΔΙΝΕΙ ΚΑΙ ΤΑ ΥΠΟΛΟΙΠΑ (ΟΠΩΣ COUNTRY) ΝΑ ΤΑ ΠΕΡΝΑΕΙ ΩΣ
+                                        // NULL
         Connection con = null;
         String query = """
                 INSERT INTO Travelers (username, firstname, lastname, email, country, password)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
- 
+
         try {
             con = db.getConnection();
             pstmt = con.prepareStatement(query);
@@ -165,8 +173,10 @@ public class Traveler {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (pstmt != null) pstmt.close();
-            if (con != null) con.close();
+            if (pstmt != null)
+                pstmt.close();
+            if (con != null)
+                con.close();
         }
     }
 
@@ -187,10 +197,9 @@ public class Traveler {
             rs.close();
             pstmt.close();
             con.close();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace(); // Log the error for debugging
         }
         return userexists;
     }
 }
-
