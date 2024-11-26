@@ -71,6 +71,21 @@
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>
+            <form id="dayScheduleForm" action="SaveDayScheduleServlet" method="post">
+                <input type="hidden" name="userId" value="<%= session.getAttribute("userId") %>">
+                <input type="hidden" name="day" value="<%= day %>">
+                <% 
+                    for (int i = 0; i < times.length; i++) {
+                        Activity activity = activities.get(i);
+                %>
+                    <input type="hidden" name="activityIds" value="<%= activity.getActivityId() %>">
+                    <input type="hidden" name="timeSlot<%= i %>" value="<%= times[i] %>">
+                <% 
+                    } 
+                %>
+                <button type="submit">Save Schedule</button>
+            </form>
+            
         </div>
 
         <!-- Additional information container with map and details section -->
