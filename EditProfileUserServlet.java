@@ -7,16 +7,15 @@ public class EditProfileUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userID") == null) {
             response.sendRedirect("Login.jsp");
             return;
         }
-        
+
         String userID = (String) session.getAttribute("userID");
-        Traveler traveler = Traveler.getTravelerByUsername(userID);
+        Traveler traveler = Traveler.getTraveler(userID, password);
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -25,7 +24,9 @@ public class EditProfileUserServlet extends HttpServlet {
         String country = request.getParameter("country");
         String password = request.getParameter("password");
 
-        // Φτιαχνω νεο αντικειμενο traveler με ορισματα τις νεες παραμετρους (με ελεγχους οτι εχει αλλαξει κατι) και καλω με το νεο αντικειμενο την saveOrUpdate()
+        // Φτιαχνω νεο αντικειμενο traveler με ορισματα τις νεες παραμετρους (με
+        // ελεγχους οτι εχει αλλαξει κατι) και καλω με το νεο αντικειμενο την
+        // saveOrUpdate()
         if (firstname == null || firstname.isEmpty()) {
             firstname = traveler.getFirstname();
         }
@@ -45,7 +46,7 @@ public class EditProfileUserServlet extends HttpServlet {
         if (country == null || country.isEmpty()) {
             country = traveler.getCountry();
         }
-        
+
         if (password == null || password.isEmpty()) {
             password = traveler.getPassword();
         }
@@ -64,6 +65,5 @@ public class EditProfileUserServlet extends HttpServlet {
         dispatcher.forward(request, response);
 
     }
-
 
 }
