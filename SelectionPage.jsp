@@ -1,6 +1,9 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="ScheduluxeClasses.*" %>
 <%@ page import="java.util.List" %>
+
+
+<%@ include file="AuthenticationGuard.jsp" %>
 <%
     // Δημιουργία αντικειμένου της κλάσης Preferences
     Preferences prefs = new Preferences();
@@ -10,15 +13,8 @@
     List<String> types = prefs.fetchTypes();
     List<String> budget = prefs.fetchBudgets();
 
-    Traveler trv = (Traveler) session.getAttribute("travelerObj");
-        
-    if (trv == null) {
-        request.setAttribute("message", "You are not authorized to access this resource. Please login.");
-    %>
-        <jsp:forward page="Signin.jsp"/>
-    <% 
-        return;
-    }
+    //we do not need that now
+    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 %>
 
 <!DOCTYPE html>
@@ -73,8 +69,8 @@
 
                 <!-- Days Input -->
                 <div class="form-group">
-                    <label for="date">Days</label>
-                    <input type="number" min="1" max="4" id="date" name="date" placeholder="Select days" required>
+                    <label for="days">Days</label>
+                    <input type="number" min="1" max="4" id="days" name="days" placeholder="Select days" required>
                 </div>
 
                 <!-- Type Selection -->
