@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Preferences {
+public class TripCharacteristics {
     // Fetch Destinations
     public List<String> fetchDestinations() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
@@ -83,20 +83,21 @@ public class Preferences {
         }
     }
 
-    public void savePreferences(int userId, int destinationId, int budgetId, String[] tripTypes) throws Exception {
+    public void saveTripCharacteristics(int destinationId, int Days, int budgetId, String[] tripTypes)
+            throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
-        String sql = "INSERT INTO Preferences (UserID, TypeID, BudgetID, DestinationID) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO TripCharacteristics (DestinationID, Days, TypeID, BudgetID) VALUES (?, ?, ?, ?)";
         try {
             con = db.getConnection();
             for (String tripType : tripTypes) {
                 int typeId = getIdFromDatabase("ActivityTypes", "TypeName", tripType, "TypeID");
                 PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, userId);
-                stmt.setInt(2, typeId);
-                stmt.setInt(3, budgetId);
-                stmt.setInt(4, destinationId);
+                stmt.setInt(1, destinationId);
+                stmt.setInt(2, Days);
+                stmt.setInt(3, typeId);
+                stmt.setInt(4, budgetId);
                 stmt.executeUpdate();
                 stmt.close();
             }
