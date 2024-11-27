@@ -1,9 +1,9 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import ScheduluxeClasses.Preferences;
+import ScheduluxeClasses.TripCharacteristics;
 
-public class PreferencesServlet extends HttpServlet {
+public class TripCharacteristicsServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
@@ -17,26 +17,20 @@ public class PreferencesServlet extends HttpServlet {
       int days = Integer.parseInt(request.getParameter("days"));
       String[] tripTypes = request.getParameterValues("type");
       String budget = request.getParameter("budget");
-
-      // Retrieve the userId from the session
-      HttpSession session = request.getSession(false);
-      int userId = (int) session.getAttribute("userId");
-
-      Preferences preferences = new Preferences();
+      TripCharacteristics trip = new TripCharacteristics();
 
       // Convert destination and budget to corresponding IDs
-      int destinationId = preferences.getIdFromDatabase("Destinations", "DestinationName", destination,
+      int destinationId = trip.getIdFromDatabase("Destinations", "DestinationName", destination,
           "DestinationID");
-      int budgetId = preferences.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
+      int budgetId = trip.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
 
-      // Save preferences in the database
-      preferences.savePreferences(userId, destinationId, budgetId, tripTypes);
+      trip.saveTripCharacteristics(destinationId, days, budgetId, tripTypes);
 
       // Send a confirmation message
-      out.println("<h3>Your preferences have been saved successfully!</h3>");
+      out.println("<h3>TripCharacteristicshave been saved successfully!</h3>");
     } catch (Exception e) {
       e.printStackTrace();
-      out.println("<h3>Failed to save your preferences: " + e.getMessage() + "</h3>");
+      out.println("<h3>Failed to save TripCharacteristics: " + e.getMessage() + "</h3>");
     } finally {
       out.close();
     }
