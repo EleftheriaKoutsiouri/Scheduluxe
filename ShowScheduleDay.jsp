@@ -3,6 +3,7 @@
 <%@ page import="ScheduleClasses.*" %> 
 <%
     int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+    session.getAttribute("travelerObj")
 %>
 
 <!DOCTYPE html>
