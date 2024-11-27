@@ -6,16 +6,16 @@ String username = request.getParameter("username");
 String email = request.getParameter("email");
 String password = request.getParameter("password");
 
-Traveler trv = new Traveler();
-boolean exists;
-exists = trv.signupcheck(username,email);
+TravelerService travService = new TravelerService();
+try {
+    Traveler traveler = travService.createTraveler(username,email,password);
+    session.setAttribute("travelerObj", traveler);
+    response.sendRedirect("SelectionPage.jsp");
 
-if(!exists){
-    trv.createTraveler(username,email,password);
-}else{
-    request.setAttribute("message", "The username or the email are already in use!");
+}catch (Exception e){
+    request.setAttribute("message", e.getMessage());
 %>
-    <jsp:forward page="SignIn.jsp"/>
+    <jsp:forward page="Register.jsp"/>
 <%
 }
 %>
