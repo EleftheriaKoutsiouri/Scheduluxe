@@ -4,7 +4,8 @@
 <html lang="en" dir="ltr">
 <head>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/SignIn.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
 </head>
@@ -49,7 +50,7 @@
             <div class="forms">
                 <div class="form-content">
                     <form class="login-form" method="post" action="Signin_Controller.jsp">
-                        <div class="title">Sign In</div>
+                        <div class="title">Sign in</div>
                             <div class="input-boxes">
                                 <div class="input-box">
                                     <i class="fas fa-user"></i>
@@ -86,7 +87,7 @@
                                     <input type="submit" value="Sign Up" id="submit-button">
                                 </div>
                                 <div class="text sign-up-text">Already have an account? 
-                                    <label for="flip" style="text-decoration: underline">Sign In now</label>
+                                    <label for="flip" style="text-decoration: underline">Sign in now</label>
                                 </div>
                             </div>
                     </form>
