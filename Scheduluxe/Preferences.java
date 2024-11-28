@@ -1,10 +1,10 @@
-package ScheduluxeClasses;
+package Scheduluxe;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripCharacteristics {
+public class Preferences {
     // Fetch Destinations
     public List<String> fetchDestinations() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
@@ -83,21 +83,22 @@ public class TripCharacteristics {
         }
     }
 
-    public void saveTripCharacteristics(int destinationId, int Days, int budgetId, String[] tripTypes)
+    public void savePreferences(int userId, int destinationId, int Days, String[] tripTypes, int budgetId)
             throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
-        String sql = "INSERT INTO TripCharacteristics (DestinationID, Days, TypeID, BudgetID) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Preferences (UserID, DestinationID, Days, TypeID, BudgetID, ) VALUES (?, ?, ?, ?, ?)";
         try {
             con = db.getConnection();
             for (String tripType : tripTypes) {
                 int typeId = getIdFromDatabase("ActivityTypes", "TypeName", tripType, "TypeID");
                 PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, destinationId);
-                stmt.setInt(2, Days);
-                stmt.setInt(3, typeId);
-                stmt.setInt(4, budgetId);
+                stmt.setInt(1, userId);
+                stmt.setInt(2, destinationId);
+                stmt.setInt(3, Days);
+                stmt.setInt(4, typeId);
+                stmt.setInt(5, budgetId);
                 stmt.executeUpdate();
                 stmt.close();
             }

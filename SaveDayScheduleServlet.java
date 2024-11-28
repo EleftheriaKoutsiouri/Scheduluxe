@@ -1,7 +1,6 @@
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-import ScheduluxeClasses.Schedule;
+import Scheduluxe.Schedule;
 
 import java.io.IOException;
 
