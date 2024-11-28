@@ -1,8 +1,7 @@
-package ScheduluxeClasses;
+package Scheduluxe;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Activity {
@@ -43,7 +42,7 @@ public class Activity {
     }
 
     // Method to search activities based on user preferences
-    public static List<Activity> searchActivities() throws Exception {
+    public static List<Activity> searchActivities(int userid) throws Exception {
         List<Activity> activityList = new ArrayList<>();
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -51,8 +50,10 @@ public class Activity {
         // SQL query to find matching activities based on preferences
         String sql = "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
                 "FROM Activities a " +
-                "JOIN TripCharacteristics t ON a.DestinationID = t.DestinationID " +
-                "WHERE t.DestinationID = ? AND t.BudgetID = ? AND t.TypeID IN " +
+                "JOIN Preferences p ON a.DestinationID = p.DestinationID " +
+                "AND a.TypeID = p.TypeID " +
+                "AND a.BudgetID = p.BudgetID " +
+                "WHERE p.UserID = ? " +
                 "ORDER BY a.StartTime";
 
         try {

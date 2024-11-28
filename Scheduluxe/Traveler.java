@@ -1,4 +1,4 @@
-package ScheduluxeClasses;
+package Scheduluxe;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,9 +48,7 @@ public class Traveler {
         return password;
     }
 
-
-
-    //getter that has retrieve the id of the user from the database
+    // getter that has retrieve the id of the user from the database
     public int getId(String username, String password) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -66,7 +64,6 @@ public class Traveler {
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
 
-
             if (!rs.next()) {
                 throw new Exception("The user with this id does not exist");
             }
@@ -78,21 +75,19 @@ public class Traveler {
             db.close();
 
             return id;
-            
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
             try {
                 db.close();
             } catch (Exception e) {
-                
+
             }
         }
     }
 
-
-    
-    //Setters
+    // Setters
     public void setUsername(String username) {
         this.username = username;
     }
@@ -117,25 +112,23 @@ public class Traveler {
         this.password = password;
     }
 
-
-    
-    //TODO
+    // TODO
     // Μέθοδος αποθήκευσης ή ενημέρωσης χρήστη στη βάση
     public boolean saveOrUpdate() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String query = "INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
-               "VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE firstname = VALUES(firstname), " +
-               "lastname = VALUES(lastname), email = VALUES(email), country = VALUES(country), " +
-               "password = VALUES(password)";
+                "VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE firstname = VALUES(firstname), " +
+                "lastname = VALUES(lastname), email = VALUES(email), country = VALUES(country), " +
+                "password = VALUES(password)";
         /*
-        "INSERT INTO Travelers (username, firstname, lastname, email, country, password)
-        VALUES (?, ?, ?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE
-        firstname = ?, lastname = ?, email = ?, country = ?, password = ?
-        ";
-        */
-            
+         * "INSERT INTO Travelers (username, firstname, lastname, email, country,
+         * password)
+         * VALUES (?, ?, ?, ?, ?, ?)
+         * ON DUPLICATE KEY UPDATE
+         * firstname = ?, lastname = ?, email = ?, country = ?, password = ?
+         * ";
+         */
 
         try {
             con = db.getConnection();
