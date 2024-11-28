@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="ScheduluxeClasses.*" %>
+<%@ page import="Scheduluxe.*" %>
 
 <%
 String username = request.getParameter("username");
