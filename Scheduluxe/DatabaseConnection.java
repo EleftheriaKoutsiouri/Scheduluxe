@@ -1,4 +1,4 @@
-package ScheduluxeClasses;
+package Scheduluxe;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
