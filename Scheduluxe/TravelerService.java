@@ -53,7 +53,7 @@ public class TravelerService {
         }
     }
 
-    public static Traveler creatTraveler(String username, String email, String password) throws Exception {
+    public static Traveler createTraveler(String username, String email, String password) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         PreparedStatement pstmt;
