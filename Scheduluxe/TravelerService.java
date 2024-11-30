@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 public class TravelerService {
 
-    // Μέθοδος ανάκτησης χρήστη από τη βάση
+    // get the Traveler if has sign in with the right credentials
     public static Traveler getTraveler(String username, String password) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -33,7 +33,7 @@ public class TravelerService {
                     rs.getString("firstname"),
                     rs.getString("lastname"),
                     rs.getString("email"),
-                    rs.getString("country"),
+                    rs.getString("origincountry"),
                     rs.getString("password"));
 
             rs.close();
@@ -53,50 +53,78 @@ public class TravelerService {
         }
     }
 
-    public static Traveler createTraveler(String username, String email, String password) throws Exception {
+    // check if the user with this username or email exists
+    private static boolean userExists(String username, String email) throws Exception {
+
+        boolean userExists = false;
+
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        PreparedStatement pstmt;
-
-        String queryOfExistance = "SELECT COUNT(*) FROM Travelers WHERE username = ? OR email = ?";
-        String queryOfCreation = "INSERT INTO Travelers (username, firstname, lastname, email, country, password)" +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "SELECT COUNT(*) FROM Travelers WHERE username = ? OR email = ?";
 
         try {
             con = db.getConnection();
-            pstmt = con.prepareStatement(queryOfExistance);
+            PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, username);
             pstmt.setString(2, email);
+        
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) > 0) {
-                rs.close();
-                pstmt.close();
+                userExists = true;
+                return userExists;
+            }
+
+        rs.close();
+        pstmt.close();
+        con.close();
+
+        return userExists;
+
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+    //create Traveler when has sign up and the username or email do not already exist
+    public static Traveler createTraveler(String username, String email, String password) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        String query = "INSERT INTO Travelers (username, password, email, firstname, lastname, origincountry)" +
+                "VALUES (?, ?, ?, ?, ?, ?);";
+
+        try {
+            boolean userexists = userExists(username,email);
+
+            if (userexists) {
                 db.close();
                 throw new Exception("The username or the email are already in use. Please type something different!");
             }
 
-            pstmt = con.prepareStatement(queryOfCreation);
+            con = db.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, username);
-            pstmt.setNull(2, java.sql.Types.VARCHAR);
-            pstmt.setNull(3, java.sql.Types.VARCHAR);
-            pstmt.setString(4, email);
+            pstmt.setString(2, password);
+            pstmt.setString(3, email);
+            pstmt.setNull(4, java.sql.Types.VARCHAR);
             pstmt.setNull(5, java.sql.Types.VARCHAR);
-            pstmt.setString(6, password);
+            pstmt.setNull(6, java.sql.Types.VARCHAR);
+            
 
             pstmt.executeUpdate();
 
-            Traveler traveler = new Traveler(
-                    rs.getString("username"),
-                    rs.getString("firstname"),
-                    rs.getString("lastname"),
-                    rs.getString("email"),
-                    rs.getString("country"),
-                    rs.getString("password"));
+            Traveler traveler = new Traveler(username, null, null, email, null, password);
 
-            rs.close();
             pstmt.close();
             db.close();
 
@@ -113,72 +141,4 @@ public class TravelerService {
         }
 
     }
-
-    /*
-     * public void createTraveler(String username, String email, String password)
-     * throws Exception { // Η ΜΕΘΟΔΟΣ ΠΟΥ
-     * // ΑΡΧΙΚΑ ΘΑ ΚΑΛΕΙΤΑΙ
-     * // ΓΙΑ ΝΑ ΔΗΜΙΟΥΡΓΗΘΕΙ
-     * // Ο ΧΡΗΣΤΗΣ ΤΟΥ SIGN
-     * // UP
-     * DatabaseConnection db = new DatabaseConnection(); // ΕΦΟΣΟΝ ΔΗΜΙΟΥΡΓΕΙΤΑΙ
-     * ACCOUNT ΜΟΝΟ ΜΕ
-     * // USERNAME,EMAIL,PASSWORD ΠΡΕΠΕΙ ΝΑ ΠΕΡΝΑΜΕ ΣΤΟΝ ΣΥΓΚΕΚΡΙΜΕΝΟ
-     * // ΠΙΝΑΚΑ Travelers
-     * PreparedStatement pstmt = null; // ΜΟΝΟ ΤΑ 3 ΠΕΔΙΑ ΠΟΥ ΔΙΝΕΙ ΚΑΙ ΤΑ ΥΠΟΛΟΙΠΑ
-     * (ΟΠΩΣ COUNTRY) ΝΑ ΤΑ ΠΕΡΝΑΕΙ ΩΣ
-     * // NULL
-     * Connection con = null;
-     * String query =
-     * "INSERT INTO Travelers (username, firstname, lastname, email, country, password)"
-     * +
-     * "VALUES (?, ?, ?, ?, ?, ?)";
-     * 
-     * try {
-     * con = db.getConnection();
-     * pstmt = con.prepareStatement(query);
-     * pstmt.setString(1, username);
-     * pstmt.setNull(2, java.sql.Types.VARCHAR);
-     * pstmt.setNull(3, java.sql.Types.VARCHAR);
-     * pstmt.setString(4, email);
-     * pstmt.setNull(5, java.sql.Types.VARCHAR);
-     * pstmt.setString(6, password);
-     * 
-     * pstmt.executeUpdate();
-     * } catch (SQLException e) {
-     * e.printStackTrace();
-     * } finally {
-     * if (pstmt != null)
-     * pstmt.close();
-     * if (con != null)
-     * con.close();
-     * }
-     * }
-     * 
-     * 
-     * public boolean signupcheck(String username, String email) throws Exception {
-     * boolean userexists = false;
-     * DatabaseConnection db = new DatabaseConnection();
-     * Connection con = null;
-     * String query =
-     * "SELECT COUNT(*) FROM Travelers WHERE username = ? OR email = ?";
-     * try {
-     * con = db.getConnection();
-     * PreparedStatement pstmt = con.prepareStatement(query);
-     * pstmt.setString(1, username);
-     * pstmt.setString(2, email);
-     * ResultSet rs = pstmt.executeQuery();
-     * if (rs.next() && rs.getInt(1) > 0) {
-     * userexists = true;
-     * }
-     * rs.close();
-     * pstmt.close();
-     * con.close();
-     * } catch (Exception e) {
-     * e.printStackTrace(); // Log the error for debugging
-     * }
-     * return userexists;
-     * }
-     */
-
 }

@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="input-box">
                                     <i class="fas fa-envelope"></i>
-                                    <input type="text" name="email"placeholder=" Enter your email" required>
+                                    <input type="text" name="email" placeholder=" Enter your email" required>
                                 </div>
                                 <div class="input-box">
                                     <i class="fas fa-lock"></i>
