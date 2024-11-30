@@ -1,39 +1,142 @@
 package Scheduluxe;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Schedule {
     // Constructor
-    public Schedule(int userId) {
+    public Schedule() {
     }
 
-    // Αποθήκευση προγράμματος
-    public boolean saveSchedule(int userId, int activityId, int day, String timeSlot) throws Exception {
+    // Method to search activities based on user preferences
+    public List<Activity> searchActivities(int destinationId, int typeId, int budgetId) throws Exception {
+        List<Activity> activityList = new ArrayList<>();
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String query = "INSERT INTO Schedules (UserID, ActivityID, Day, time_slot) VALUES (?, ?, ?, ?)";
+
+        // SQL query to find matching activities based on preferences
+        String sql = "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
+                "FROM Activities a " +
+                "WHERE destinationID = ? AND typeId = ? AND budgetId = ? " +
+                "ORDER BY a.StartTime";
 
         try {
             con = db.getConnection();
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, userId);
-            stmt.setInt(2, activityId);
-            stmt.setInt(3, day);
-            stmt.setString(4, timeSlot);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, destinationId);
+            stmt.setInt(2, typeId);
+            stmt.setInt(3, budgetId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Activity activity = new Activity(
+                        rs.getInt("ActivityID"),
+                        rs.getString("ActivityName"),
+                        rs.getString("Details"),
+                        rs.getString("StartTime"),
+                        rs.getString("EndTime"));
+                activityList.add(activity);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            throw new Exception("Error retrieving activities: " + e.getMessage());
         } finally {
-            try {
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                con.close();
             }
         }
-        return false;
+        return activityList;
+    }
+
+    public Map<Integer, Map<String, Activity>> assignActivitiesToTimeSlots(List<Activity> activities, int totalDays)
+            throws Exception {
+        // Χάρτης που περιέχει τις δραστηριότητες για κάθε ημέρα και time slot
+        Map<Integer, Map<String, Activity>> schedule = new HashMap<>();
+
+        // Fixed time slots
+        String[] timeSlots = { "09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00",
+                "19:00-21:00" };
+
+        // Προετοιμασία για κατανομή
+        int day = 1;
+        int currentTimeSlotIndex = 0;
+
+        // Επανάληψη για όλες τις δραστηριότητες
+        for (Activity activity : activities) {
+            // Δημιουργία χάρτη για την ημέρα αν δεν υπάρχει
+            schedule.computeIfAbsent(day, k -> new HashMap<>());
+
+            // Εύρεση κατάλληλου time slot
+            while (currentTimeSlotIndex < timeSlots.length) {
+                String slot = timeSlots[currentTimeSlotIndex];
+                String[] times = slot.split("-");
+                String slotStartTime = times[0] + ":00";
+                String slotEndTime = times[1] + ":00";
+
+                // Έλεγχος αν η δραστηριότητα ταιριάζει στο time slot
+                if (activity.getStartTime().compareTo(slotStartTime) >= 0
+                        && activity.getStartTime().compareTo(slotEndTime) < 0) {
+                    // Αντιστοίχιση δραστηριότητας στο time slot
+                    schedule.get(day).put(slot, activity);
+                    break;
+                }
+                currentTimeSlotIndex++;
+            }
+
+            // Μετάβαση στην επόμενη ημέρα αν όλα τα time slots έχουν γεμίσει
+            if (schedule.get(day).size() == timeSlots.length && day < totalDays) {
+                day++;
+                currentTimeSlotIndex = 0; // Επαναφορά στο πρώτο slot
+            }
+        }
+
+        return schedule;
+    }
+
+    public void saveSchedule(Map<Integer, Map<String, Activity>> schedule) throws Exception {
+        // Δημιουργία σύνδεσης με τη βάση δεδομένων
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        // SQL εντολή για εισαγωγή δεδομένων στον πίνακα Schedules
+        String sql = "INSERT INTO Schedules (activityId, day, timeSlot) VALUES (?, ?, ?)";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // Επανάληψη μέσω του χάρτη για κάθε ημέρα
+            for (Map.Entry<Integer, Map<String, Activity>> dayEntry : schedule.entrySet()) {
+                int day = dayEntry.getKey();
+                Map<String, Activity> activitiesBySlot = dayEntry.getValue();
+
+                // Επανάληψη μέσω των δραστηριοτήτων ανά time slot
+                for (Map.Entry<String, Activity> slotEntry : activitiesBySlot.entrySet()) {
+                    String timeSlot = slotEntry.getKey();
+                    Activity activity = slotEntry.getValue();
+
+                    // Εισαγωγή δεδομένων στη βάση
+                    stmt.setInt(1, activity.getActivityId());
+                    stmt.setInt(2, day);
+                    stmt.setString(3, timeSlot);
+
+                    stmt.executeUpdate();
+                }
+            }
+
+            stmt.close();
+        } catch (Exception e) {
+            throw new Exception("Error saving schedule to database: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 
     // Αποθήκευση σχολίων και αξιολογήσεων

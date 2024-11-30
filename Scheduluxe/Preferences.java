@@ -83,34 +83,6 @@ public class Preferences {
         }
     }
 
-    public void savePreferences(int userId, int destinationId, int Days, String[] tripTypes, int budgetId)
-            throws Exception {
-        DatabaseConnection db = new DatabaseConnection();
-        Connection con = null;
-
-        String sql = "INSERT INTO Preferences (UserID, DestinationID, Days, TypeID, BudgetID, ) VALUES (?, ?, ?, ?, ?)";
-        try {
-            con = db.getConnection();
-            for (String tripType : tripTypes) {
-                int typeId = getIdFromDatabase("ActivityTypes", "TypeName", tripType, "TypeID");
-                PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, userId);
-                stmt.setInt(2, destinationId);
-                stmt.setInt(3, Days);
-                stmt.setInt(4, typeId);
-                stmt.setInt(5, budgetId);
-                stmt.executeUpdate();
-                stmt.close();
-            }
-        } catch (Exception e) {
-            throw new Exception("Error saving preferences: " + e.getMessage());
-        } finally {
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
-
     public int getIdFromDatabase(String tableName, String columnName, String value, String idColumn) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
