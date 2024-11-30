@@ -1,5 +1,7 @@
+<%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map" %>
 <%@ page import="ScheduleClasses.*" %>
+<%@ page errorPage="ErrorPage.jsp" %>
 
 <%
     int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
