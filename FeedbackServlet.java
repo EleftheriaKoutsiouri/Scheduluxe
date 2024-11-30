@@ -21,7 +21,7 @@ public class FeedbackServlet extends HttpServlet {
 
         try {
             // Create a Schedule object to save feedback
-            Schedule schedule = new Schedule(userId);
+            Schedule schedule = new Schedule();
 
             // Save the comment if provided
             if (commentText != null && !commentText.trim().isEmpty()) {

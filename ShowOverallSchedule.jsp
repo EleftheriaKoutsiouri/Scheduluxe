@@ -1,10 +1,12 @@
-<%@ page import="java.util.List" %>
-<%@ page import="ScheduleClasses.*" %> 
+<%@ page import="java.util.List, java.util.Map" %>
+<%@ page import="ScheduleClasses.*" %>
 
 <%
-    int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+    int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
     Schedule schedule = new Schedule();
-    List<Activity> activities = schedule.getActivitiesForDay(day); // Δραστηριότητες για τη συγκεκριμένη ημέρα
+    // Assuming you have a method to get the schedule data for multiple days
+    Map<Integer, List<Activity>> fullSchedule = schedule.getFullSchedule(totalDays); 
+    String[] timeSlots = schedule.getTimeSlots(); // This should return an array of time slots, e.g. "9:00 AM", "11:00 AM", etc.
 %>
 
 <!DOCTYPE html>
@@ -50,15 +52,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (int i = 0; i < timeSlots.length; i++) { %>
+                    <% 
+                        for (int i = 0; i < timeSlots.length; i++) { 
+                    %>
                     <tr>
                         <td><%= timeSlots[i] %></td>
-                        <% for (List<Activity> dayActivities : daysActivities) { %>
-                            <td>
-                                <% if (dayActivities.size() > i) { %>
-                                    <%= dayActivities.get(i).getActivityName() %>
-                                <% } 
-                            </td>
+                        <% 
+                            // For each day, get the activity for this time slot
+                            for (int day = 1; day <= totalDays; day++) { 
+                                List<Activity> dayActivities = fullSchedule.get(day);
+                                Activity activity = (dayActivities != null && dayActivities.size() > i) ? dayActivities.get(i) : null;
+                        %>
+                        <td>
+                            <% if (activity != null) { %>
+                                <%= activity.getActivityName() %>
+                            <% } else { %>
+                                No activity
+                            <% } %>
+                        </td>
                         <% } %>
                     </tr>
                     <% } %>
@@ -69,7 +80,7 @@
         <div class="feedback-container">
             <div class="comment-box">
                 <h3>Leave a Comment</h3>
-                <form action="FeedbackServlet" method="POST">
+                <form action="servlet/FeedbackServlet" method="POST">
                     <div class="comment-input">
                         <textarea name="commentText" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                         <input type="hidden" name="scheduleId" value="${scheduleId}"/>
