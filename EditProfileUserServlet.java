@@ -1,7 +1,7 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import ScheduluxeClasses.Traveler;
+import Scheduluxe.Traveler;
 
 public class EditProfileUserServlet extends HttpServlet {
 
@@ -10,7 +10,7 @@ public class EditProfileUserServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userID") == null) {
-            response.sendRedirect("Login.jsp");
+            response.sendRedirect("SigninController.jsp");
             return;
         }
 
