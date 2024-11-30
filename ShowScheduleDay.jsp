@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map, Scheduluxe.*" %> 
+<%@ page errorPage="ErrorPage.jsp" %>
 
 <%
     // Ανάκτηση των δεδομένων από το request
@@ -64,7 +65,7 @@
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = daySchedule.get(times[i]);
                 %>
-                        <div class="activity-item" onclick="loadActivityDetails('<%= activity.getId() %>')">
+                        <div class="activity-item" onclick="loadActivityDetails('<%= activity.getActivityId() %>')">
                             <div class="icon-activity">
                                 <div class="icon-container">
                                     <img src="<%=request.getContextPath()%>/images/todo.png" alt="Activity Icon">
@@ -87,7 +88,7 @@
             <!-- Map container with Leaflet library -->
             <div class="map-container" id="map">
                 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                <script src="<%= path %>/js/map.js"></script> <!-- Link to custom map JavaScript file -->
+                <script src="<%= request.getContextPath() %>/js/map.js"></script> <!-- Link to custom map JavaScript file -->
             </div>
 
             <!-- Details section with title and description -->

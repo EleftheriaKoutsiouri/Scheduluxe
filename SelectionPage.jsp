@@ -1,6 +1,7 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="Scheduluxe.*" %>
 <%@ page import="java.util.List" %>
+<%@ page errorPage="ErrorPage.jsp" %>
 
 
 <%@ include file="AuthenticationGuard.jsp" %>
@@ -39,7 +40,6 @@
                 <ul class="nav-links">
                     <li><a href="WelcomePage.jsp">Home</a></li>
                     <li><a href="About.jsp">About us</a></li>
-                    <li><a href="SignIn.jsp">Get Started</a></li>
                     <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>
                 </ul>
             </div>
