@@ -1,23 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ScheduleClasses.*" %> 
+
 <%
+    int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
     Schedule schedule = new Schedule();
-    List<Activity> day1Activities = schedule.getActivitiesForDay(1);
-    List<Activity> day2Activities = schedule.getActivitiesForDay(2);
-    List<Activity> day3Activities = schedule.getActivitiesForDay(3);
-    List<Activity> day4Activities = schedule.getActivitiesForDay(4);
-
-
-        Traveler trv = (Traveler) session.getAttribute("travelerObj");
-        
-        if (trv == null) {
-            request.setAttribute("message","You are not authorized to access this resource. Please login.");
-        %>
-            <jsp:forward page="Signin.jsp"/>
-        <% 
-            return;
-        }
-        %>
+    List<Activity> activities = schedule.getActivitiesForDay(day); // Δραστηριότητες για τη συγκεκριμένη ημέρα
 %>
 
 <!DOCTYPE html>
@@ -52,29 +39,26 @@
     
     <main>
         <div class="schedule-container">
-            <h2>Schedule Overall</h2>
-            <br>
-            <table class="table">
+            <h2>Overall Schedule</h2>
+            <table class="table table-bordered">
                 <thead>
-                    <tr class="table-color">
-                        <th scope="col"></th>
-                        <th scope="col">Day 1</th>
-                        <th scope="col">Day 2</th>
-                        <th scope="col">Day 3</th>
-                        <th scope="col">Day 4</th>
+                    <tr>
+                        <th>Time Slot</th>
+                        <% for (int day = 1; day <= totalDays; day++) { %>
+                            <th>Day <%= day %></th>
+                        <% } %>
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
-                        String[] timeSlots = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
-                        List<List<Activity>> daysActivities = List.of(day1Activities, day2Activities, day3Activities, day4Activities);
-
-                        for (int i = 0; i < timeSlots.length; i++) { 
-                    %>
-                    <tr class="table-color">
-                        <th scope="row"><%= timeSlots[i] %></th>
+                    <% for (int i = 0; i < timeSlots.length; i++) { %>
+                    <tr>
+                        <td><%= timeSlots[i] %></td>
                         <% for (List<Activity> dayActivities : daysActivities) { %>
-                            <td><%= dayActivities.size() > i ? dayActivities.get(i).getActivityName() : "Rest" %></td>
+                            <td>
+                                <% if (dayActivities.size() > i) { %>
+                                    <%= dayActivities.get(i).getActivityName() %>
+                                <% } 
+                            </td>
                         <% } %>
                     </tr>
                     <% } %>
@@ -113,8 +97,10 @@
                 </form>
             </div>
             <div class="download-box">
-                <button class="btn download-btn">Download Schedule</button>
-            </div>
+                <button class="btn download-btn">
+                    <span class="glyphicon glyphicon-download-alt"></span> Schedule
+                </button>
+            </div>            
         </div>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

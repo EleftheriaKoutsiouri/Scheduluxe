@@ -138,4 +138,8 @@ public class Preferences {
         }
         return id;
     }
+
+    public int getDays(int Days) {
+        return Days;
+    }
 }

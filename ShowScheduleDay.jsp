@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ScheduleClasses.*" %> 
-<%
-    int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
-%>
+
+Preferences preferences = new Preferences();
+int totalDays = preferences.getDays(Integer.parseInt(request.getParameter("days")));
+int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,9 +42,13 @@
         <div class="schedule-container">
             <!-- Day container with navigation arrows -->
             <div class="day-container">
-                <a href="Schedule.jsp?day=<%= day - 1 %>" class="arrow"><i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i></a>
+                <a href="Schedule.jsp?day=<%= day > 1 ? day - 1 : 1 %>&days=<%= totalDays %>" class="arrow">
+                    <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
+                </a>
                 <h2>Day <%= day %></h2>
-                <a href="Schedule.jsp?day=<%= day + 1 %>" class="arrow"><i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i></a>
+                <a href="Schedule.jsp?day=<%= day < totalDays ? day + 1 : totalDays %>&days=<%= totalDays %>" class="arrow">
+                    <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
+                </a>
             </div>
 
             <!-- List of activities for the day -->
@@ -74,6 +79,7 @@
             <form id="dayScheduleForm" action="SaveDayScheduleServlet" method="post">
                 <input type="hidden" name="userId" value="<%= session.getAttribute("userId") %>">
                 <input type="hidden" name="day" value="<%= day %>">
+                <input type="hidden" name="totalDays" value="<%= totalDays %>">
                 <% 
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = activities.get(i);
