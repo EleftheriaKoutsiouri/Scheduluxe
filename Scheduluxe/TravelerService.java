@@ -60,7 +60,7 @@ public class TravelerService {
 
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String query = "SELECT COUNT(*) FROM Travelers WHERE username = ? OR email = ?";
+        String query = "SELECT * FROM Travelers WHERE username = ? OR email = ?";
 
         try {
             con = db.getConnection();
@@ -71,16 +71,16 @@ public class TravelerService {
         
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next() && rs.getInt(1) > 0) {
+            if (rs.next()) {
                 userExists = true;
                 return userExists;
             }
 
-        rs.close();
-        pstmt.close();
-        con.close();
+            rs.close();
+            pstmt.close();
+            con.close();
 
-        return userExists;
+            return userExists;
 
 
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class TravelerService {
 
             if (userexists) {
                 db.close();
-                throw new Exception("The username or the email are already in use. Please type something different!");
+                throw new Exception("The username or the email are already in use. Please try again!");
             }
 
             con = db.getConnection();
