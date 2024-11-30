@@ -5,13 +5,11 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-    // Δημιουργία αντικειμένου της κλάσης Preferences
-    Preferences prefs = new Preferences();
-
+    CreationSchedule creationSchedule = new CreationSchedule();
     // Ανάκτηση δεδομένων από τη βάση δεδομένων
-    List<String> destinations = prefs.fetchDestinations();
-    List<String> types = prefs.fetchTypes();
-    List<String> budget = prefs.fetchBudgets();
+    List<String> destinations = creationSchedule.fetchDestinations();
+    List<String> types = creationSchedule.fetchTypes();
+    List<String> budget = creationSchedule.fetchBudgets();
 
 %>
 
@@ -53,7 +51,7 @@
             <span class="second-text">by simply sharing your preferences</span>
         </h2>
         <div class="search-container">   
-            <form action="CreationScheduleServlet.java" method="post">
+            <form action="<%= request.getContextPath()%>/servlet/CreationScheduleServlet" method="post">
                 <!-- Destination Dropdown -->
                 <div class="form-group">
                     <label for="destination">Destination</label>
@@ -68,7 +66,7 @@
                 <!-- Days Input -->
                 <div class="form-group">
                     <label for="days">Days</label>
-                    <input type="number" min="1" max="4" id="days" name="days" placeholder="Select days" required>
+                    <input type="number" min="1" max="4" id="days" name="totalDays" placeholder="Select days" required>
                 </div>
 
                 <!-- Type Selection -->
