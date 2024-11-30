@@ -18,11 +18,11 @@ public class CreationScheduleServlet extends HttpServlet {
 
     try {
       // Ανάκτηση IDs από τη βάση
-      Preferences preferences = new Preferences();
-      int destinationId = preferences.getIdFromDatabase("Destinations", "DestinationName", destination,
+      CreationSchedule creationSchedule = new CreationSchedule();
+      int destinationId = creationSchedule.getIdFromDatabase("Destinations", "DestinationName", destination,
           "DestinationID");
-      int typeId = preferences.getIdFromDatabase("ActivityTypes", "TypeName", type, "typeID");
-      int budgetId = preferences.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
+      int typeId = creationSchedule.getIdFromDatabase("ActivityTypes", "TypeName", type, "typeID");
+      int budgetId = creationSchedule.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
 
       // Δημιουργία προγράμματος
       Schedule schedule = new Schedule();
@@ -37,13 +37,14 @@ public class CreationScheduleServlet extends HttpServlet {
       request.setAttribute("activities", activities);
 
       // Προώθηση στη JSP για προβολή
-      RequestDispatcher dispatcher = request.getRequestDispatcher("ShowScheduleDay.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/ShowScheduleDay.jsp");
+
       dispatcher.forward(request, response);
 
     } catch (Exception e) {
       // Διαχείριση σφαλμάτων
       request.setAttribute("error", "An error occurred: " + e.getMessage());
-      RequestDispatcher dispatcher = request.getRequestDispatcher("ErrorPage.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/ErrorPage.jsp");
       dispatcher.forward(request, response);
     }
   }

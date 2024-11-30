@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Preferences {
+public class CreationSchedule {
     // Fetch Destinations
     public List<String> fetchDestinations() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
