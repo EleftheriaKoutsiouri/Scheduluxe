@@ -139,6 +139,72 @@ public class Schedule {
         }
     }
 
+    public void saveScheduleForUser(int userId, int scheduleId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        // SQL query για την εισαγωγή δεδομένων στον πίνακα schedulebytraveler
+        String sql = "INSERT INTO schedulebytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // Ορισμός των παραμέτρων του PreparedStatement
+            stmt.setInt(1, userId); // Χρησιμοποιούμε το userId από το session ή τη βάση
+            stmt.setInt(2, scheduleId); // Χρησιμοποιούμε το scheduleId από το πρόγραμμα
+            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis())); // Χρησιμοποιούμε την τρέχουσα
+                                                                                      // ημερομηνία και ώρα
+
+            // Εκτέλεση της εισαγωγής
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Schedule successfully linked to the user.");
+            } else {
+                System.out.println("Error occurred while associating schedule with user.");
+            }
+
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error inserting schedule for user: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public int getScheduleId() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        int scheduleId = -1;
+
+        String sql = "SELECT LAST_INSERT_ID() AS scheduleId FROM Schedules";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                scheduleId = rs.getInt("scheduleId");
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error retrieving scheduleId: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return scheduleId; // Επιστρέφουμε το scheduleId
+    }
+
     // Αποθήκευση σχολίων και αξιολογήσεων
     public boolean saveFeedback(int scheduleId, String comment, int rating) throws Exception {
         DatabaseConnection db = new DatabaseConnection();

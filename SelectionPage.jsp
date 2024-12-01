@@ -51,7 +51,7 @@
             <span class="second-text">by simply sharing your preferences</span>
         </h2>
         <div class="search-container">   
-            <form action="<%= request.getContextPath()%>/servlet/CreationScheduleServlet" method="post">
+            <form action="CreationSchedule.jsp" method="post">
                 <!-- Destination Dropdown -->
                 <div class="form-group">
                     <label for="destination">Destination</label>
@@ -66,7 +66,7 @@
                 <!-- Days Input -->
                 <div class="form-group">
                     <label for="days">Days</label>
-                    <input type="number" min="1" max="4" id="days" name="totalDays" placeholder="Select days" required>
+                    <input type="number" min="1" max="3" id="days" name="totalDays" placeholder="Select days" required>
                 </div>
 
                 <!-- Type Selection -->
