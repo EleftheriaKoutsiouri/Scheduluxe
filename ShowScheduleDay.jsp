@@ -3,13 +3,16 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
-    // Ανάκτηση των δεδομένων από το request
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) request.getAttribute("totalSchedule");
-    List<Activity> activities = (List<Activity>) request.getAttribute("activities");
-
-    // Ανάκτηση του αριθμού των ημερών
-    int totalDays = Integer.parseInt(request.getParameter("days"));
+    // Ανάκτηση παραμέτρων από το request, αν υπάρχουν
+    int totalDays = Integer.parseInt(request.getParameter("days") != null ? request.getParameter("days") : "1");
     int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+
+    // Αν το totalSchedule είναι null, δείξε μήνυμα σφάλματος
+    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) request.getAttribute("totalSchedule");
+    if (totalSchedule == null) {
+        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
+        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
+    }
 %>
 
 <!DOCTYPE html>
