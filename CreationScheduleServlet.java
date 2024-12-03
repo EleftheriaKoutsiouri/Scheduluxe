@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import Scheduluxe.*;
@@ -8,73 +10,64 @@ import javax.servlet.http.*;
 public class CreationScheduleServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Εκτύπωση debug μηνυμάτων
-    System.out.println("CreationScheduleServlet: ξεκίνησε η επεξεργασία του αιτήματος POST.");
+   // Initialize variables to store form parameters
+        String destination = request.getParameter("destination");
+        String[] typeIdsParam = request.getParameterValues("typeId");
+        List<Integer> typeIds = new ArrayList<Integer>(); // Use explicit generic type for older Java versions
+        if (typeIdsParam != null) {
+            for (String typeIdStr : typeIdsParam) {
+                typeIds.add(Integer.parseInt(typeIdStr));
+            }
+        }
 
-    // Ανάκτηση παραμέτρων από τη φόρμα
-    String destination = request.getParameter("destination");
-    String type = request.getParameter("type");
-    String budget = request.getParameter("budget");
-    String daysParam = request.getParameter("totalDays");
+        String budget = request.getParameter("budget");
+        String daysParam = request.getParameter("totalDays");
 
-    System.out.println("Παράμετροι: Destination=" + destination + ", Type=" + type + ", Budget=" + budget
-        + ", TotalDays=" + daysParam);
+        int totalDays = 0;
+        boolean hasError = false;
 
-    int totalDays;
-    try {
-      totalDays = Integer.parseInt(daysParam);
-    } catch (NumberFormatException e) {
-      System.err.println("Σφάλμα: Το TotalDays δεν είναι έγκυρος αριθμός. Τιμή: " + daysParam);
-      request.setAttribute("error", "Invalid number of days provided.");
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-      dispatcher.forward(request, response);
-      return;
-    }
+        // Validate the number of days input
+        try {
+            totalDays = Integer.parseInt(daysParam);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid number of days provided.");
+            hasError = true;
+        }
 
-    try {
-      // Ανάκτηση IDs από τη βάση
-      CreationSchedule creationSchedule = new CreationSchedule();
-      System.out.println("Ανάκτηση IDs από τη βάση δεδομένων...");
+        if (!hasError) {
+            try {
+                // Retrieve IDs from the database
+                CreationSchedule creationSchedule = new CreationSchedule();
 
-      int destinationId = creationSchedule.getIdFromDatabase("Destinations", "DestinationName", destination,
-          "DestinationID");
-      System.out.println("Destination ID: " + destinationId);
+                int destinationId = creationSchedule.getIdFromDatabase(
+                    "Destinations", "DestinationName", destination, "DestinationID"
+                );
 
-      int typeId = creationSchedule.getIdFromDatabase("ActivityTypes", "TypeName", type, "typeID");
-      System.out.println("Type ID: " + typeId);
+                // Assuming you get `types` from user input elsewhere
+                String[] typesArray = request.getParameterValues("type");
+                List<String> types = typesArray != null ? Arrays.asList(typesArray) : new ArrayList<String>();
+                
+                typeIds = creationSchedule.getTypesIdFromDatabase(types);
 
-      int budgetId = creationSchedule.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
-      System.out.println("Budget ID: " + budgetId);
+                int budgetId = creationSchedule.getIdFromDatabase(
+                    "BudgetType", "BudgetName", budget, "BudgetID"
+                );
 
-      // Δημιουργία προγράμματος
-      Schedule schedule = new Schedule();
-      System.out.println("Αναζήτηση δραστηριοτήτων με βάση τα κριτήρια...");
+                // Create a schedule
+                Schedule schedule = new Schedule();
 
-      List<Activity> activities = schedule.searchActivities(destinationId, typeId, budgetId);
-      System.out.println("Βρέθηκαν " + activities.size() + " δραστηριότητες.");
+                List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
 
-      Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities, totalDays);
-      System.out.println("Το πρόγραμμα δημιουργήθηκε για " + totalDays + " ημέρες.");
-
-      // Αποθήκευση προγράμματος στη βάση
-      System.out.println("Αποθήκευση του προγράμματος στη βάση δεδομένων...");
-      schedule.saveSchedule(totalSchedule);
-      System.out.println("Το πρόγραμμα αποθηκεύτηκε επιτυχώς.");
-
-      // Προσθήκη δεδομένων στο request scope για προβολή στο JSP
-      request.setAttribute("totalSchedule", totalSchedule);
-      request.setAttribute("activities", activities);
-
-      // Προώθηση στη JSP για προβολή
-      System.out.println("Προώθηση στη σελίδα ShowScheduleDay.jsp...");
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
-      dispatcher.forward(request, response);
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      request.setAttribute("error", "An error occurred: " + e.getMessage());
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-      dispatcher.forward(request, response);
-    }
+                Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities, totalDays);
+                schedule.saveSchedule(totalSchedule);
+                request.setAttribute("totalSchedule",totalSchedule);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
+                dispatcher.forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("error", "An error occurred: " + e.getMessage());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
   }
 }

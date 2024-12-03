@@ -51,7 +51,7 @@
             <span class="second-text">by simply sharing your preferences</span>
         </h2>
         <div class="search-container">   
-            <form action="CreationSchedule.jsp" method="post">
+            <form action="<%= request.getContextPath()%>/servlet/CreationScheduleServlet" method="post">
                 <!-- Destination Dropdown -->
                 <div class="form-group">
                     <label for="destination">Destination</label>
@@ -71,14 +71,36 @@
 
                 <!-- Type Selection -->
                 <div class="form-group">
-                    <label for="type">Types</label>
-                    <select id="type" name="type" required>
-                        <option value="" disabled selected hidden>Select type</option>
-                        <% for (String type : types) { %>
-                            <option value="<%= type %>"><%= type %></option>
-                        <% } %>
-                    </select>
+                    <label for="type">Type</label>
+                    <div class="dropdown">
+                        <button type="button" onclick="toggleDropdown()">Select Categories</button>
+                        <div class="dropdown-content">
+                            <% for (String type : types) { %>
+                                <div>
+                                    <input type="checkbox" id="<%= type %>" name="type" value="<%= type %>">
+                                    <label for="<%= type %>"><%= type %></label>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                    // Function to toggle dropdown visibility
+                    function toggleDropdown() {
+                        var content = document.querySelector('.dropdown-content');
+                        content.style.display = content.style.display === "block" ? "none" : "block";
+                    }
+                
+                    // Close the dropdown if the user clicks anywhere outside of it
+                    window.onclick = function(event) {
+                        var dropdownContent = document.querySelector('.dropdown-content');
+                        var dropdownButton = document.querySelector('.dropdown button');
+                        if (!dropdownButton.contains(event.target) && !dropdownContent.contains(event.target)) {
+                            dropdownContent.style.display = "none";
+                        }
+                    };
+                </script>
             
                 <!-- Budget Dropdown -->
                 <div class="form-group">
