@@ -7,7 +7,7 @@
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
     CreationSchedule creationSchedule = new CreationSchedule();
-    // Ανάκτηση δεδομένων από τη βάση δεδομένων
+    // Fetch data from the database
     List<String> destinations = creationSchedule.fetchDestinations();
     List<String> types = creationSchedule.fetchTypes();
     List<String> budget = creationSchedule.fetchBudgets();

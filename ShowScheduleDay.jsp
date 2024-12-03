@@ -1,14 +1,16 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, java.util.Map, Scheduluxe.*" %> 
+<%@ page import="java.util.List, java.util.Map, Scheduluxe.*, java.net.URLEncoder" %> 
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
     // Ανάκτηση παραμέτρων από το request, αν υπάρχουν
-    int totalDays = Integer.parseInt(request.getParameter("days") != null ? request.getParameter("days") : "1");
-    int day = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+    int totalDays = Integer.parseInt(request.getParameter("totalDays"));
+    
+    //in order to get everytime the parameter from the day which from the arro handling 
+    int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
 
     // Αν το totalSchedule είναι null, δείξε μήνυμα σφάλματος
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) request.getAttribute("totalSchedule");
+    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
     if (totalSchedule == null) {
         out.println("<p style='color: red;'>Error: No schedule data available.</p>");
         return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
@@ -51,11 +53,25 @@
         <div class="schedule-container">
             <!-- Day container with navigation arrows -->
             <div class="day-container">
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= day > 1 ? day - 1 : 1 %>&days=<%= totalDays %>" class="arrow">
+                <%
+                    // Hide the left arrow if we're on the first day
+                    boolean showLeftArrow = currentDay > 1;
+
+                    // Hide the right arrow if we're on the last day
+                    boolean showRightArrow = currentDay < totalDays;
+                %>
+            
+                <%-- Left Arrow --%>
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                   <%= showLeftArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
                 </a>
-                <h2>Day <%= day %></h2>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= day < totalDays ? day + 1 : totalDays %>&days=<%= totalDays %>" class="arrow">
+            
+                <h2>Day <%= currentDay %></h2>
+            
+                <%-- Right Arrow --%>
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                   <%= showRightArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
                 </a>
             </div>
@@ -64,11 +80,19 @@
             <div class="activity-list">
                 <%
                     String[] times = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
-                    Map<String, Activity> daySchedule = totalSchedule.get(day); // Ανάκτηση του προγράμματος για την ημέρα
+                    Map<String, Activity> daySchedule = totalSchedule.get(currentDay); // Ανάκτηση του προγράμματος για την ημέρα
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = daySchedule.get(times[i]);
                 %>
-                        <div class="activity-item" onclick="loadActivityDetails('<%= activity.getActivityId() %>')">
+                <%
+                    String details = activity.getDetails();
+                    String encodedDetails = URLEncoder.encode(details, "UTF-8");
+
+                    // Replace '+' with spaces so that it appears as normal text
+                    encodedDetails = encodedDetails.replace("+", " ");
+
+                %>
+                        <div class="activity-item" onclick="loadActivityDetails('<%= encodedDetails %>')">
                             <div class="icon-activity">
                                 <div class="icon-container">
                                     <img src="<%=request.getContextPath()%>/images/todo.png" alt="Activity Icon">
@@ -99,11 +123,12 @@
                 <h2>Details</h2>
                 <p id="activity-details">Select an activity to view details here.</p>
             </div>
+
         </div>
     </main>
 
     <!-- AJAX script for loading activity details using Activity class method -->
-    <script>
+    <!-- <script>
         function loadActivityDetails(activityId) {
             $.ajax({
                 url: '<%=request.getContextPath()%>/GetActivityDetailsServlet',
@@ -117,6 +142,15 @@
                     $('#activity-details').html('Error loading activity details. Please try again.');
                 }
             });
+        }
+    </script> -->
+    <script>
+        function loadActivityDetails(activityDetails) {
+            // Decode the encoded plain text (if necessary)
+            var decodedDetails = decodeURIComponent(activityDetails);
+    
+            // Directly inject the plain text into the container
+            document.getElementById('activity-details').innerText = decodedDetails;
         }
     </script>
 
