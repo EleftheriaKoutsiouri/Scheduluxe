@@ -131,12 +131,16 @@
                         <label for="signUpPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="signUpPassword" name="password" placeholder="Enter your password" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="signUpPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="signUpPassword" name="password" placeholder="Confirm your password" required>
+                    </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </div>
                 </form>
                 <div class="text-center mt-3">
-                    <span>Already have an account? </span>
+                    <span>Already have an account?</span>
                     <a href="javascript:void(0);" onclick="toggleForms('sign-in')" style="color: #000000; text-decoration: underline; cursor: pointer;">Sign in now</a>
                 </div>
             </div>        
