@@ -95,9 +95,57 @@
                 </div>
             </div>
         </div>
+        <div class="phone-only">
+            <div class="sign-in-form">
+                <h2 class="text-center">Sign In</h2>
+                <form method="post" action="Signin_Controller.jsp">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="username" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <span>Don't have an account?  </span>
+                        <a href="javascript:void(0);" onclick="toggleForms('sign-up')" style="color: black; text-decoration: underline; cursor: pointer;">Sign up now</a>
+                    </div>
+                </form>
+            </div>
+            <div class="sign-up-form" style="display: none;">
+                <h2 class="text-center">Sign Up</h2>
+                <form method="post" action="Signup_Controller.jsp">
+                    <div class="mb-3">
+                        <label for="signUpUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="signUpUsername" name="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signUpEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="signUpEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signUpPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signUpPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <span>Already have an account? </span>
+                    <a href="javascript:void(0);" onclick="toggleForms('sign-in')" style="color: #000000; text-decoration: underline; cursor: pointer;">Sign in now</a>
+                </div>
+            </div>        
+        </div>
     </main>
 
     <!-- Link to the external JavaScript file that handles the hamburger of the menu -->
     <script src="<%= request.getContextPath()%>/js/menuToggle.js"></script>
+    <script src="<%=request.getContextPath()%>/js/toggleForms.js"></script>
+
 </body>
 </html>
