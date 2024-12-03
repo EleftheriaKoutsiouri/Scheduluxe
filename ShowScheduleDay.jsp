@@ -20,7 +20,7 @@
 <head>
     <title>Schedule By Day</title>
     <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/ScheduleDay.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ScheduleDay.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -51,11 +51,11 @@
         <div class="schedule-container">
             <!-- Day container with navigation arrows -->
             <div class="day-container">
-                <a href="ShowScheduleDay.jsp?day=<%= day > 1 ? day - 1 : 1 %>&days=<%= totalDays %>" class="arrow">
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= day > 1 ? day - 1 : 1 %>&days=<%= totalDays %>" class="arrow">
                     <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
                 </a>
                 <h2>Day <%= day %></h2>
-                <a href="ShowScheduleDay.jsp?day=<%= day < totalDays ? day + 1 : totalDays %>&days=<%= totalDays %>" class="arrow">
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= day < totalDays ? day + 1 : totalDays %>&days=<%= totalDays %>" class="arrow">
                     <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
                 </a>
             </div>

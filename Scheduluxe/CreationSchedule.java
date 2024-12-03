@@ -111,6 +111,40 @@ public class CreationSchedule {
         return id;
     }
 
+    public List<Integer> getTypesIdFromDatabase(List<String> types) throws Exception {
+        List<Integer> typeIds = new ArrayList<>();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+    
+        // Updated query to join with ActivityTypes table
+        String query = "SELECT DISTINCT at.typeId " +
+                       "FROM ActivityTypes at " +
+                       "JOIN Activities a ON a.typeId = at.typeId " +
+                       "WHERE at.TypeName = ?";
+    
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+    
+            for (String typeName : types) {
+                stmt.setString(1, typeName);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    typeIds.add(rs.getInt("typeId"));
+                }
+                rs.close();
+            }
+            stmt.close();
+        } catch (Exception e) {
+            throw new Exception("Error retrieving IDs: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return typeIds;
+    }
+    
     public int getDays(int Days) {
         return Days;
     }

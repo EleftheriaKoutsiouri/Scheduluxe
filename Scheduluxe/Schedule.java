@@ -3,8 +3,11 @@ package Scheduluxe;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Schedule {
     // Constructor
@@ -12,25 +15,38 @@ public class Schedule {
     }
 
     // Method to search activities based on user preferences
-    public List<Activity> searchActivities(int destinationId, int typeId, int budgetId) throws Exception {
+    public List<Activity> searchActivities(int destinationId, List<Integer> typeIds, int budgetId) throws Exception {
         List<Activity> activityList = new ArrayList<>();
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-
-        // SQL query to find matching activities based on preferences
-        String sql = "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
-                "FROM Activities a " +
-                "WHERE destinationID = ? AND typeId = ? AND budgetId = ? " +
-                "ORDER BY a.StartTime";
-
+    
+        StringBuilder sql = new StringBuilder(
+            "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
+            "FROM Activities a " +
+            "WHERE destinationID = ? AND budgetId = ? AND typeId IN ("
+        );
+    
+        for (int i = 0; i < typeIds.size(); i++) {
+            sql.append("?");
+            if (i < typeIds.size() - 1) {
+                sql.append(",");
+            }
+        }
+        sql.append(") ORDER BY a.StartTime");
+    
         try {
             con = db.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+    
             stmt.setInt(1, destinationId);
-            stmt.setInt(2, typeId);
-            stmt.setInt(3, budgetId);
+            stmt.setInt(2, budgetId);
+    
+            for (int i = 0; i < typeIds.size(); i++) {
+                stmt.setInt(i + 3, typeIds.get(i));
+            }
+    
             ResultSet rs = stmt.executeQuery();
-
+    
             while (rs.next()) {
                 Activity activity = new Activity(
                         rs.getInt("ActivityID"),
@@ -40,7 +56,7 @@ public class Schedule {
                         rs.getString("EndTime"));
                 activityList.add(activity);
             }
-
+    
             rs.close();
             stmt.close();
         } catch (Exception e) {
@@ -52,51 +68,54 @@ public class Schedule {
         }
         return activityList;
     }
+    
 
     public Map<Integer, Map<String, Activity>> assignActivitiesToTimeSlots(List<Activity> activities, int totalDays)
             throws Exception {
-        // Χάρτης που περιέχει τις δραστηριότητες για κάθε ημέρα και time slot
+
         Map<Integer, Map<String, Activity>> schedule = new HashMap<>();
+        String[] timeSlots = { "09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00" };
 
-        // Fixed time slots
-        String[] timeSlots = { "09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00",
-                "19:00-21:00" };
+        // Track already assigned activities to ensure uniqueness
+        Set<Activity> assignedActivities = new HashSet<>();
 
-        // Προετοιμασία για κατανομή
-        int day = 1;
-        int currentTimeSlotIndex = 0;
-
-        // Επανάληψη για όλες τις δραστηριότητες
-        for (Activity activity : activities) {
-            // Δημιουργία χάρτη για την ημέρα αν δεν υπάρχει
-            schedule.computeIfAbsent(day, k -> new HashMap<>());
-
-            // Εύρεση κατάλληλου time slot
-            while (currentTimeSlotIndex < timeSlots.length) {
-                String slot = timeSlots[currentTimeSlotIndex];
-                String[] times = slot.split("-");
-                String slotStartTime = times[0] + ":00";
-                String slotEndTime = times[1] + ":00";
-
-                // Έλεγχος αν η δραστηριότητα ταιριάζει στο time slot
-                if (activity.getStartTime().compareTo(slotStartTime) >= 0
-                        && activity.getStartTime().compareTo(slotEndTime) < 0) {
-                    // Αντιστοίχιση δραστηριότητας στο time slot
-                    schedule.get(day).put(slot, activity);
-                    break;
+        for (int day = 1; day <= totalDays; day++) {
+            schedule.put(day, new LinkedHashMap<>());       
+            //use of LinkedHashMap instead of HashMap to keep the timeslots and their assigned activities in order
+    
+            for (String timeSlot : timeSlots) {
+                boolean activityScheduled = false;
+    
+                for (Activity activity : activities) {
+                    if (assignedActivities.contains(activity)) {
+                        continue; // Skip already assigned activities
+                    }
+    
+                    String[] slotTimes = timeSlot.split("-");
+                    String slotStartTime = slotTimes[0] + ":00";
+                    String slotEndTime = slotTimes[1] + ":00";
+    
+                    // Check if activity fits in the time slot
+                    if (activity.getStartTime().compareTo(slotStartTime) >= 0
+                            && activity.getEndTime().compareTo(slotEndTime) <= 0) {
+                        schedule.get(day).put(timeSlot, activity);
+                        assignedActivities.add(activity);
+                        activityScheduled = true;
+                        break; // Move to the next time slot
+                    }
                 }
-                currentTimeSlotIndex++;
-            }
-
-            // Μετάβαση στην επόμενη ημέρα αν όλα τα time slots έχουν γεμίσει
-            if (schedule.get(day).size() == timeSlots.length && day < totalDays) {
-                day++;
-                currentTimeSlotIndex = 0; // Επαναφορά στο πρώτο slot
+    
+                // If no valid activity found for this time slot, fill with placeholder activity
+                if (!activityScheduled) {
+                    System.out.println("You should get free time");
+                    // schedule.get(day).put(timeSlot, new Activity("Free Slot", timeSlot.split("-")[0], timeSlot.split("-")[1]));
+                }
             }
         }
 
         return schedule;
     }
+        
 
     public void saveSchedule(Map<Integer, Map<String, Activity>> schedule) throws Exception {
         // Δημιουργία σύνδεσης με τη βάση δεδομένων
