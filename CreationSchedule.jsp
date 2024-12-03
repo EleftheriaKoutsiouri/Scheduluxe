@@ -3,7 +3,10 @@
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="javax.servlet.RequestDispatcher" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +16,16 @@
 <body>
     <h1>Schedule Creation Debugging</h1>
     <%
-        // Ανάκτηση του userId από το session
-        //HttpSession session = request.getSession();
-        //int userId = (Integer) session.getAttribute("userID");
-        
         // Initialize variables to store form parameters
         String destination = request.getParameter("destination");
-        String type = request.getParameter("type");
+        String[] typeIdsParam = request.getParameterValues("typeId");
+        List<Integer> typeIds = new ArrayList<Integer>(); // Use explicit generic type for older Java versions
+        if (typeIdsParam != null) {
+            for (String typeIdStr : typeIdsParam) {
+                typeIds.add(Integer.parseInt(typeIdStr));
+            }
+        }
+
         String budget = request.getParameter("budget");
         String daysParam = request.getParameter("totalDays");
 
@@ -42,30 +48,32 @@
                 CreationSchedule creationSchedule = new CreationSchedule();
                 out.println("<p>Fetching IDs from the database...</p>");
 
-                int destinationId = creationSchedule.getIdFromDatabase("Destinations", "DestinationName", destination, "DestinationID");
+                int destinationId = creationSchedule.getIdFromDatabase(
+                    "Destinations", "DestinationName", destination, "DestinationID"
+                );
                 out.println("<p>Destination ID: " + destinationId + "</p>");
 
-                int typeId = creationSchedule.getIdFromDatabase("ActivityTypes", "TypeName", type, "typeID");
-                out.println("<p>Type ID: " + typeId + "</p>");
+                // Assuming you get `types` from user input elsewhere
+                String[] typesArray = request.getParameterValues("type");
+                List<String> types = typesArray != null ? Arrays.asList(typesArray) : new ArrayList<String>();
+                
+                typeIds = creationSchedule.getTypesIdFromDatabase(types);
+                out.println("<p>Type IDs: " + typeIds.size() + "</p>");
 
-                int budgetId = creationSchedule.getIdFromDatabase("BudgetType", "BudgetName", budget, "BudgetID");
+                int budgetId = creationSchedule.getIdFromDatabase(
+                    "BudgetType", "BudgetName", budget, "BudgetID"
+                );
                 out.println("<p>Budget ID: " + budgetId + "</p>");
 
                 // Create a schedule
                 Schedule schedule = new Schedule();
 
-                List<Activity> activities = schedule.searchActivities(destinationId, typeId, budgetId);
+                List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
                 out.println("<p>Found " + activities.size() + " activities.</p>");
 
-                Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities, totalDays);
+                Map<Integer, Map<String, Activity>> totalSchedule = 
+                    schedule.assignActivitiesToTimeSlots(activities, totalDays);
                 out.println("<p>Schedule created for " + totalDays + " days.</p>");
-
-                // Save the schedule in the database
-                out.println("<p>Saving the schedule to the database...</p>");
-                schedule.saveSchedule(totalSchedule);
-                int scheduleId = schedule.getScheduleId();
-                //schedule.saveScheduleForUser(userId, scheduleId);
-                out.println("<p>Debug: TotalSchedule = " + totalSchedule + "</p>");
 
                 // Debug activity names
                 for (Map.Entry<Integer, Map<String, Activity>> dayEntry : totalSchedule.entrySet()) {
@@ -76,8 +84,6 @@
                 }
 
                 out.println("<p>Schedule saved successfully.</p>");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
-                dispatcher.forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("error", "An error occurred: " + e.getMessage());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
