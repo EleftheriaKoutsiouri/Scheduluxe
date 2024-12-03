@@ -199,13 +199,82 @@ input[type="checkbox"] {
 }
 
 @media (min-width: 368px) and (max-width: 1099px) {
-  .containerrr {
+  .container {
       flex-direction: column; 
   }
 }
 
 @media (max-width: 1100px) {
   .container {
-      transform: scale(0.75); /* 95% of the original size */
+      transform: scale(0.75); 
+  }
+}
+
+.phone-only {
+  display: none;
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 999;
+}
+
+.phone-only h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.phone-only .form-label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  display: block;
+  color: #555;
+}
+
+.phone-only input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.phone-only button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(218, 178, 174);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.phone-only button:hover {
+  background-color: rgb(223, 142, 135);
+}
+.text-center span {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.text-center label {
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 668px) {
+  .container {
+    display: none;
+  }
+  .phone-only {
+    display: block;
   }
 }
