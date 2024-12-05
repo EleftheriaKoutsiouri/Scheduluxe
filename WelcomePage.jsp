@@ -13,10 +13,12 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
 
-    
-
+    <!-- FontAwesome Icons for additional icons -->
+    <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="<%=request.getContextPath()%>/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="<%=request.getContextPath()%>/css/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
       .bd-placeholder-img {
@@ -161,7 +163,8 @@
 <header data-bs-theme="light">
   <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Scheduluxe</a>
+      <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
+      <a class="navbar-brand" href="#"><strong>Scheduluxe</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -175,6 +178,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Register.jsp">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="EditProfile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a>
           </li>
         </ul>
         <!--<form class="d-flex" role="search">
