@@ -301,7 +301,7 @@ if (session.getAttribute("travelerObj") == null) {
 
     <hr class="featurette-divider">
 
-    <div class="row featurette">
+    <!--<div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading fw-normal lh-1">A Timeless Marvel: <span class="text-body-secondary"> Hagia Sophia, Turkey</span></h2>
         <p class="lead">The Hagia Sophia, an architectural masterpiece and symbol of history, awaits your exploration in Istanbul. Its majestic dome and intricate mosaics tell tales of empires, blending the grandeur of Byzantine and Ottoman eras. A journey to this iconic landmark promises a blend of awe, culture, and timeless beauty—a must-see for any traveler seeking the extraordinary.</p>
@@ -311,7 +311,7 @@ if (session.getAttribute("travelerObj") == null) {
       </div>
     </div>
 
-    <hr class="featurette-divider">
+    <hr class="featurette-divider">-->
 
     <!-- /END THE FEATURETTES -->
 
