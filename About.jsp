@@ -14,6 +14,7 @@
     <header>   
         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
             <div class="container-fluid">
+              <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
               <a class="navbar-brand" href="#">Scheduluxe</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,6 +29,9 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="Register.jsp">Register</a>
+                  </li class="nav-item">
+                  <li>
+                    <a class="nav-link" href="EditProfile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a>
                   </li>
                 </ul>
                 <!--<form class="d-flex" role="search">
