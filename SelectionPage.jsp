@@ -21,30 +21,51 @@
     <%@ include file="header.jsp" %>
     <link rel="stylesheet" href="<%= request.getContextPath()%>/css/SelectionPage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
     <header>
-        <!-- Navigation bar -->
-        <nav class="nav-menu">
-            <div class="logo">
-                <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
-                <h1>Scheduluxe</h1>
-            </div>
-
-            <!-- Hamburger Menu Button -->
-            <button class="menu-toggle">
-                <span class="hamburger-icon">&#9776;</span>
-            </button>
-            <div class="dropdown">
-                <ul class="nav-links">
-                    <li><a href="WelcomePage.jsp">Home</a></li>
-                    <li><a href="About.jsp">About us</a></li>
-                    <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+            <div class="container-fluid">
+              <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
+              <a class="navbar-brand" href="#">Scheduluxe</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="WelcomePage.jsp">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="About.jsp">About Us</a>
+                  </li>
+                  <%
+                    if (session.getAttribute("travelerObj") == null) {
+                  %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="Register.jsp">Register</a>
+                  </li>
+                  <% 
+                  }
+                  %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="EditProfile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a>
+                  </li>
                 </ul>
+                <!--<form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>-->
+              </div>
             </div>
-        </nav>
+          </nav>
     </header>
+    <br>
+    <br>
+    <br>
     <main>
         <h2>
             <span class="first-text">Unlock Unforgettable Experiences</span><br>

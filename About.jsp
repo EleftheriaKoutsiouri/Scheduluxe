@@ -1,4 +1,6 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page errorPage="ErrorPage.jsp" %>
+<%@ page import="Scheduluxe.*" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +29,16 @@
                   <li class="nav-item">
                     <a class="nav-link active" href="About.jsp">About Us</a>
                   </li>
+                  <%
+                    if (session.getAttribute("travelerObj") == null) {
+                  %>
                   <li class="nav-item">
                     <a class="nav-link" href="Register.jsp">Register</a>
-                  </li class="nav-item">
-                  <li>
+                  </li>
+                  <% 
+                  }
+                  %>
+                  <li class="nav-item">
                     <a class="nav-link" href="EditProfile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a>
                   </li>
                 </ul>

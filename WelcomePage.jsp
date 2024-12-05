@@ -1,5 +1,6 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page errorPage="ErrorPage.jsp" %>
+<%@ page import="Scheduluxe.*" %>
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -176,9 +177,15 @@
           <li class="nav-item">
             <a class="nav-link" href="About.jsp">About Us</a>
           </li>
+          <%
+          if (session.getAttribute("travelerObj") == null) {
+          %>
           <li class="nav-item">
             <a class="nav-link" href="Register.jsp">Register</a>
           </li>
+          <% 
+          }
+          %>
           <li class="nav-item">
             <a class="nav-link" href="EditProfile.jsp"><span class="material-symbols-outlined user-icon">account_circle</span></a>
           </li>
@@ -251,7 +258,17 @@
       <div class="col-lg-4">
         <h2 class="fw-normal"><strong>Discover the world one step at a time</strong></h2>
         <p>If you're looking for experiences that match your unique interests and travel style, you've come to the right place! Choose your destination, and let us create a personalized travel plan just for you. From historical landmarks and gourmet delights to hidden trails and unique activities we’ve got everything  you need <br>to make unforgettable memories.</p>
+<%
+if (session.getAttribute("travelerObj") == null) {
+%>
         <p><a class="btn btn-secondary" href="Register.jsp">Start the experience→ &raquo;</a></p>
+<%
+}    else {
+%>
+        <p><a class="btn btn-secondary" href="SelectionPage.jsp">Start the experience→ &raquo;</a></p>
+<%
+}
+%>
       </div><!-- /.col-lg-4 --><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
