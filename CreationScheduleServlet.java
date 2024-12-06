@@ -57,6 +57,7 @@ public class CreationScheduleServlet extends HttpServlet {
 
                 Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities, totalDays);
                 schedule.saveSchedule(totalSchedule);
+                //schedule.saveScheduleForUser(userId, scheduleId);
 
                 HttpSession session = request.getSession();
                 session.setAttribute("totalSchedule",totalSchedule);

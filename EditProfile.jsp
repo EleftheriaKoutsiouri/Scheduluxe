@@ -5,7 +5,7 @@
 // Έλεγχος αν ο χρήστης είναι συνδεδεμένος
     HttpSession session = request.getSession(false);
     if (session == null || session.getAttribute("userID") == null) {
-        response.sendRedirect("Login.jsp");
+        response.sendRedirect("RegisterUser.jsp");
         return;
     }
 
@@ -27,7 +27,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head> 
-        <%@ include file="header.jsp"%>
+        <%@ include file="head.jsp"%>
         <title>Profile</title>
         <!--link to css, fonts and icon from google-->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Profile.css">
@@ -50,8 +50,8 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.jsp">Home</a></li>  
-                    <li><a href="About.jsp">About us</a></li> 
+                    <li><a href="WelcomeSchedule.jsp">Home</a></li>  
+                    <li><a href="Aboutus.jsp">About us</a></li> 
                     <li><a href="EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
                     <li><a href="logout.jsp">Log out</a></li> 
                 </ul>  

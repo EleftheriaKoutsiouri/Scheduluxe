@@ -11,12 +11,12 @@ TravelerService travService = new TravelerService();
 try {
     Traveler traveler = travService.createTraveler(username, email, password);
     session.setAttribute("travelerObj", traveler);
-    response.sendRedirect("SelectionPage.jsp");
+    response.sendRedirect("Selection.jsp");
 
 }catch (Exception e){
     request.setAttribute("message", e.getMessage());
 %>
-    <jsp:forward page="Register.jsp"/>
+    <jsp:forward page="RegisterUser.jsp"/>
 <%
 }
 %>
