@@ -17,7 +17,7 @@ try {
     //normally it will show "Wrong username or password, please try again!"
   
 %>
-    <jsp:forward page="RegisterUser.jsp"/>
+    <jsp:forward page="Connect.jsp"/>
 <%
 }
 %>
