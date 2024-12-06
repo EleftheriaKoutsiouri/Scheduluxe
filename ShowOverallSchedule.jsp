@@ -15,7 +15,7 @@
 <html lang="en">
 <head> 
     <title>Scheduluxe Overall Schedule</title>
-    <%@ include file="header.jsp" %>
+    <%@ include file="head.jsp" %>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/ScheduleOverall.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

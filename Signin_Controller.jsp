@@ -10,14 +10,14 @@ TravelerService travService = new TravelerService();
 try {
     Traveler traveler = travService.getTraveler(username,password);
     session.setAttribute("travelerObj", traveler);
-    response.sendRedirect("SelectionPage.jsp");
+    response.sendRedirect("Selection.jsp");
     
 } catch (Exception e) {
     request.setAttribute("message", e.getMessage());       
     //normally it will show "Wrong username or password, please try again!"
   
 %>
-    <jsp:forward page="Register.jsp"/>
+    <jsp:forward page="RegisterUser.jsp"/>
 <%
 }
 %>
