@@ -1,7 +1,7 @@
 import java.io.*;
+import Scheduluxe.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import Scheduluxe.Traveler;
 
 public class EditProfileUserServlet extends HttpServlet {
 
@@ -9,13 +9,13 @@ public class EditProfileUserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userID") == null) {
-            response.sendRedirect("SigninController.jsp");
+        if (session == null || session.getAttribute("travelerObj") == null) {
+            response.sendRedirect("Connect.jsp");
             return;
         }
 
-        String userID = (String) session.getAttribute("userID");
-        Traveler traveler = Traveler.getTraveler(userID, password);
+        Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -53,16 +53,22 @@ public class EditProfileUserServlet extends HttpServlet {
 
         Traveler traveler2 = new Traveler(username, firstname, lastname, email, country, password);
 
-        boolean updated = traveler2.saveOrUpdate();
-
-        if (updated) {
-            request.setAttribute("message", "Success");
-        } else {
-            request.setAttribute("message", "Failure");
+        boolean updated;
+        try {
+            updated = traveler2.saveOrUpdate();
+            if (updated) {
+                session.setAttribute("travelerObj", traveler2); 
+                request.setAttribute("message", "Success");
+            } else {
+                request.setAttribute("message", "Failure");
+            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/EditProfile.jsp");
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("EditProfile.jsp");
-        dispatcher.forward(request, response);
 
     }
 

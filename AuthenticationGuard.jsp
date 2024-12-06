@@ -6,7 +6,7 @@ if (session.getAttribute("travelerObj") == null) {
     request.setAttribute("message", "You are not authorized to access this resource. Please login!");
 
 %>
-    <jsp:forward page="Register.jsp" />
+    <jsp:forward page="Connect.jsp" />
 
 <%
     return;
