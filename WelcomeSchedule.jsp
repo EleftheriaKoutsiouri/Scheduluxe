@@ -27,7 +27,7 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomePage.jsp" class="active">Home</a></li> 
+                    <li><a href="WelcomeSchedule.jsp" class="active">Home</a></li> 
                     <li><a href="Aboutus.jsp">About us</a></li>
                     <li><a href="RegisterUser.jsp">Get Started</a></li>  
                     <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
