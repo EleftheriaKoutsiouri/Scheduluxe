@@ -16,7 +16,7 @@ try {
 }catch (Exception e){
     request.setAttribute("message", e.getMessage());
 %>
-    <jsp:forward page="RegisterUser.jsp"/>
+    <jsp:forward page="Connect.jsp"/>
 <%
 }
 %>
