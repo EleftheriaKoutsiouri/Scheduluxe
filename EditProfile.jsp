@@ -1,18 +1,20 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="ScheduluxeClasses.*" %>
+<%@ page import="Scheduluxe.*" %>
+<%@ page errorPage="ErrorPage.jsp" %>
+
+<%@ include file="AuthenticationGuard.jsp" %>
+
+<!--<%
+if (session.getAttribute("travelerObj") == null) {
+    response.sendRedirect("Register.jsp?redirect=EditProfile.jsp");
+    return;
+}
+%>-->
 
 <%
-// Έλεγχος αν ο χρήστης είναι συνδεδεμένος
-    HttpSession session = request.getSession(false);
-    if (session == null || session.getAttribute("userID") == null) {
-        response.sendRedirect("RegisterUser.jsp");
-        return;
-    }
-
-
     // Λήψη του username από το session
-    String userID = (String) session.getAttribute("userID");
-    Traveler traveler = Traveler.getTravelerByUsername(userID); // Έλεγχος αν υπάρχει ο χρήστης
+
+    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
     // Αν ο χρήστης υπάρχει, φορτώνονται τα δεδομένα του
     String firstname = traveler != null ? traveler.getFirstname() : "";
@@ -23,7 +25,6 @@
     String password = traveler != null ? traveler.getPassword() : "";
 %>
 
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head> 
@@ -50,10 +51,10 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="WelcomeSchedule.jsp">Home</a></li>  
-                    <li><a href="Aboutus.jsp">About us</a></li> 
-                    <li><a href="EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
-                    <li><a href="logout.jsp">Log out</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/WelcomePage.jsp">Home</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/About.jsp">About us</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp">Log out</a></li>
                 </ul>  
             </div>
           </nav>
@@ -62,21 +63,19 @@
             <div class="profile-schedules-container">
                 <div class="edit-profile">
                     <h4 class="small-title"><strong>Edit your Profile</strong></h4>
-                    <% if(request.getAttribute("message").equals("Success")) { %>		
-                            <h4>Changes were saved</h4>
-                    <% } else {
-                    %>      <h4>Failed to save changes</h4>
-                    <%
-                    }
-                    %>
-                    <form class="row g-3" method="post" action="EditProfileUserServlet">
+                    <% if("Success".equals(request.getAttribute("message"))) { %>
+                        <h4>Changes were saved</h4>
+                    <% } else if ("Failure".equals(request.getAttribute("message"))) { %>
+                        <h4>Failed to save changes</h4>
+                    <% } %>
+                    <form class="row g-3" action="<%=request.getContextPath()%>/servlet/EditProfileUserServlet" method="POST">
                         <div class="col-md-4">
                             <label for="firstname" class="form-label">First Name</label>
-                            <input type="text" name="firstname" class="form-control" id="firstname" value="<%= firstname %>">
+                            <input type="text" name="firstname" class="form-control" id="firstname" value="<%= firstname != null ? firstname : "" %>">
                         </div>
                         <div class="col-md-4">
                             <label for="lastname" class="form-label">Last Name</label>
-                            <input type="text" name="lastname" class="form-control" id="lastname" value="<%= lastname %>">
+                            <input type="text" name="lastname" class="form-control" id="lastname" value="<%= lastname != null ? lastname : "" %>">
                         </div>
                         <div class="col-4">
                             <label for="username" class="form-label">Username</label>
@@ -84,15 +83,15 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="email" value="<%= email %>">
+                            <input type="email" name="email" class="form-control" id="email" value="<%= email != null ? email : "" %>">
                         </div>
                         <div class="col-md-6">
                             <label for="country" class="form-label">Country of Origin</label>
-                            <input type="text" name="country" class="form-control" id="country" value="<%= country %>">
+                            <input type="text" name="country" class="form-control" id="country" value="<%= country != null ? country : "" %>">
                         </div>
                         <div class="col-md-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" value="New Password">
+                            <input type="password" name="password" class="form-control" id="password">
                         </div>
                         <div class="col-12">
                             <button type="submit" class="start-button">Save Changes</button>
@@ -106,14 +105,14 @@
                         <div class="card" style="width: 19rem;">
                             <img src="<%=request.getContextPath()%>/images/Germany.png" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title"><% traveler.getPastScheduleDestination1(username)%></h5>
+                                
                                 <button type="button" class="start-button">Press here</button><!--dispatcher ή link για overall του past schedule -->
                             </div>
                         </div>
                         <div class="card" style="width: 19rem;">
                             <img src="<%=request.getContextPath()%>/images/London.png" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">traveler.getPastScheduleDestination2(username)%></h5>
+                                
                                 <button type="button" class="start-button">Press here</button>
                             </div>
                         </div>

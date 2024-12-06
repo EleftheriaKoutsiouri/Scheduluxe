@@ -10,16 +10,16 @@ public class Traveler {
     private String firstname;
     private String lastname;
     private String email;
-    private String country;
+    private String originCountry;
     private String password;
 
     // Constructor
-    public Traveler(String username, String firstname, String lastname, String email, String country, String password) {
+    public Traveler(String username, String firstname, String lastname, String email, String originCountry, String password) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.country = country;
+        this.originCountry = originCountry;
         this.password = password;
     }
 
@@ -41,7 +41,7 @@ public class Traveler {
     }
 
     public String getCountry() {
-        return country;
+        return originCountry;
     }
 
     public String getPassword() {
@@ -104,8 +104,8 @@ public class Traveler {
         this.email = email;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry(String originCountry) {
+        this.originCountry = originCountry;
     }
 
     public void setPassword(String password) {
@@ -117,10 +117,20 @@ public class Traveler {
     public boolean saveOrUpdate() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String query = "INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
-                "VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE firstname = VALUES(firstname), " +
-                "lastname = VALUES(lastname), email = VALUES(email), country = VALUES(country), " +
-                "password = VALUES(password)";
+        String query = "INSERT INTO Travelers (username, firstname, lastname, email, originCountry, password) " +
+               "VALUES (?, ?, ?, ?, ?, ?) " +
+               "ON DUPLICATE KEY UPDATE " +
+               "firstname = VALUES(firstname), lastname = VALUES(lastname), email = VALUES(email), originCountry = VALUES(originCountry), password = VALUES(password)";
+
+
+        /*"INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
+                   "VALUES (?, ?, ?, ?, ?, ?) " +
+                   "ON DUPLICATE KEY UPDATE " +
+                   "firstname = VALUES(firstname), " +
+                   "lastname = VALUES(lastname), " +
+                   "email = VALUES(email), " +
+                   "country = VALUES(country), " +
+                   "password = VALUES(password)"; */
         /*
          * "INSERT INTO Travelers (username, firstname, lastname, email, country,
          * password)
@@ -137,15 +147,13 @@ public class Traveler {
             pstmt.setString(2, this.firstname);
             pstmt.setString(3, this.lastname);
             pstmt.setString(4, this.email);
-            pstmt.setString(5, this.country);
+            pstmt.setString(5, this.originCountry);
             pstmt.setString(6, this.password);
-            pstmt.setString(7, this.firstname);
-            pstmt.setString(8, this.lastname);
-            pstmt.setString(9, this.email);
-            pstmt.setString(10, this.country);
-            pstmt.setString(11, this.password);
 
-            return pstmt.executeUpdate() > 0;
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Αν εκτελέστηκε η ενημέρωση ή η εισαγωγή, επιστρέφει true
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
