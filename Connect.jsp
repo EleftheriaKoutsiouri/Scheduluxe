@@ -75,7 +75,6 @@
                                     <div class="group">
                                         <input type="submit" class="button" value="Sign Up">
                                     </div>
-                                    <div class="hr"></div>
                                 </div>
                             </form>
                         </div>
