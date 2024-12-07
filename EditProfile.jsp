@@ -6,7 +6,7 @@
 
 <!--<%
 if (session.getAttribute("travelerObj") == null) {
-    response.sendRedirect("Register.jsp?redirect=EditProfile.jsp");
+    response.sendRedirect("Connect.jsp?redirect=EditProfile.jsp");
     return;
 }
 %>-->
@@ -51,10 +51,11 @@ if (session.getAttribute("travelerObj") == null) {
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/WelcomePage.jsp">Home</a></li>
-                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/About.jsp">About us</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/First.jsp">Home</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li>
+		    <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp">Log out</a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
-                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp">Log out</a></li>
+                    
                 </ul>  
             </div>
           </nav>

@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+.info-container {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+}
+.carousel-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.discover-text {
+font-family: 'Times New Roman', sans-serif;
+font-weight: bold;
+font-size: 50px;
+color: #000000;
+}
+
+.world-text {
+font-family: 'Praise', cursive;
+color: #000000;
+font-size: 40px;
+}
+
+.step-text {
+font-family: 'Times new Roman', sans-serif;
+font-weight: bold;
+font-size: 50px;
+color: #000000;
+}
+.info-container p {
+margin-top: 10px;
+font-size: 17px;
+color: #000000;
+font-family: 'Poppins', sans-serif;   
+}
+.start-button {
+background-color: #e07688; 
+color: black; 
+border: none; 
+border-radius: 20px; 
+padding: 10px 20px; 
+font-size: 18px; 
+font-family: "Poppins";
+cursor: pointer; 
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+background-color: #ffb6c1; 
+transform: scale(1.05); 
+}
+
+.start-button:active {
+transform: scale(0.95); 
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
