@@ -21,12 +21,14 @@ public class CreationSchedule {
             }
             rs.close();
             stmt.close();
+            db.close();
             return destinations;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
     }
@@ -47,12 +49,14 @@ public class CreationSchedule {
             }
             rs.close();
             stmt.close();
+            db.close();
             return types;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
     }
@@ -73,12 +77,14 @@ public class CreationSchedule {
             }
             rs.close();
             stmt.close();
+            db.close();
             return budgets;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
     }
@@ -101,11 +107,13 @@ public class CreationSchedule {
 
             rs.close();
             stmt.close();
+            db.close();
         } catch (Exception e) {
             throw new Exception("Error retrieving ID from " + tableName + ": " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
         return id;
@@ -138,8 +146,9 @@ public class CreationSchedule {
         } catch (Exception e) {
             throw new Exception("Error retrieving IDs: " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
         return typeIds;
