@@ -59,9 +59,11 @@ public class Schedule {
     
             rs.close();
             stmt.close();
+            
         } catch (Exception e) {
             throw new Exception("Error retrieving activities: " + e.getMessage());
         } finally {
+            db.close();
             if (con != null) {
                 con.close();
             }
@@ -74,7 +76,7 @@ public class Schedule {
             throws Exception {
 
         Map<Integer, Map<String, Activity>> schedule = new HashMap<>();
-        String[] timeSlots = { "09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00" };
+        String[] timeSlots = getTimeSlots();
 
         // Track already assigned activities to ensure uniqueness
         Set<Activity> assignedActivities = new HashSet<>();
@@ -149,11 +151,17 @@ public class Schedule {
             }
 
             stmt.close();
+            db.close();
         } catch (Exception e) {
             throw new Exception("Error saving schedule to database: " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                db.close();
+            } catch (Exception e) {
+                // TODO: handle exception
             }
         }
     }
@@ -184,12 +192,18 @@ public class Schedule {
             }
 
             stmt.close();
+            db.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error inserting schedule for user: " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                db.close();
+            } catch (Exception e) {
+                // TODO: handle exception
             }
         }
     }
@@ -212,12 +226,17 @@ public class Schedule {
 
             rs.close();
             stmt.close();
+            db.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error retrieving scheduleId: " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                db.close();
+                } catch (Exception e) {
             }
         }
 
@@ -240,13 +259,18 @@ public class Schedule {
             stmt.setInt(3, scheduleId);
 
             // Εκτέλεση του update
+            stmt.close();
+            db.close();
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (con != null)
+                
+                if (con != null){
                     con.close();
+                }
+                db.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -278,15 +302,62 @@ public class Schedule {
 
             rs.close();
             stmt.close();
+            db.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error retrieving schedule details: " + e.getMessage());
         } finally {
-            if (con != null) {
-                con.close();
+            try {
+                db.close();
+            } catch (Exception e) {
             }
         }
 
         return scheduleData; // Επιστροφή του Map με τα δεδομένα
+    }
+
+
+    public Map<Integer, List<Activity>> getFullSchedule(int totalDays, List<Activity> activities) throws Exception {
+        // Retrieve the assigned schedule
+        Map<Integer, Map<String, Activity>> schedule = assignActivitiesToTimeSlots(activities, totalDays);
+    
+        // Prepare the full schedule in the desired format
+        Map<Integer, List<Activity>> fullSchedule = new HashMap<>();
+        String[] timeSlots = getTimeSlots();
+    
+        for (int day = 1; day <= totalDays; day++) {
+            List<Activity> dayActivities = new ArrayList<>();
+    
+            // Fetch activities for the current day or create an empty map if no activities exist
+            Map<String, Activity> daySchedule = schedule.getOrDefault(day, new LinkedHashMap<>());
+    
+            for (String timeSlot : timeSlots) {
+                Activity activity = daySchedule.getOrDefault(timeSlot, null);
+                dayActivities.add(activity);
+            }
+    
+            fullSchedule.put(day, dayActivities);
+        }
+    
+        return fullSchedule;
+    }
+
+    //private List<Activity> fetchAllActivities() throws Exception {
+    //    Replace these parameters with actual values or retrieve them dynamically
+    //  int destinationId = 1;  Example destination ID
+    //    List<Integer> typeIds = List.of(1, 2, 3);  Example type IDs
+    //    int budgetId = 1;  Example budget ID
+    
+    //    return searchActivities(destinationId, typeIds, budgetId);
+    //}
+
+    public String[] getTimeSlots() {
+
+        String[] TIME_SLOTS = {
+            "09:00-11:00", "11:00-13:00", "13:00-15:00", 
+            "15:00-17:00", "17:00-19:00", "19:00-21:00"
+        };
+
+        return TIME_SLOTS;
     }
 }
