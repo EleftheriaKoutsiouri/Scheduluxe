@@ -53,7 +53,7 @@ if (session.getAttribute("travelerObj") == null) {
                 <ul class="nav-links">  
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/First.jsp">Home</a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li>
-		    <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp">Log out</a></li>
+		            <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp"><span class="material-symbols-outlined">logout</span></a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
                     
                 </ul>  
