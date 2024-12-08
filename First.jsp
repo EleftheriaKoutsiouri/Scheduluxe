@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Welcome to Scheduluxe</title>  
     <link rel="icon" href="<%= request.getContextPath() %>/images/logo.png" type="image/x-icon">
-
-
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/First.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
     <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">  
@@ -62,7 +60,7 @@
             <div id="carouselExampleFade" class="carousel slide carousel-fade carousel-container" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="<%= request.getContextPath() %>/images/Aerostata.png" class="d-block w-100" alt="...">
+                    <img src="<%= request.getContextPath() %>/images/Berlin.avif" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
                     <img src="<%= request.getContextPath() %>/images/Paris.png" class="d-block w-100" alt="...">

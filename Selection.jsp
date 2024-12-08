@@ -124,5 +124,6 @@
             <img src="<%= request.getContextPath()%>/images/London2.jpg" alt="Image 4">
         </div>
     </main>
+    <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
 </body>
 </html>
