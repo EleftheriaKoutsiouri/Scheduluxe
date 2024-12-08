@@ -1,3 +1,7 @@
+.body{
+    background-image: url(images/background.png);
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -59,6 +63,8 @@ transform: scale(1.05);
 .start-button:active {
 transform: scale(0.95); 
 }
+
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
