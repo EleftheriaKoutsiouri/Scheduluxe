@@ -153,6 +153,8 @@ public class Traveler {
             int rowsAffected = pstmt.executeUpdate();
 
             // Αν εκτελέστηκε η ενημέρωση ή η εισαγωγή, επιστρέφει true
+            pstmt.close();
+            db.close();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
