@@ -25,7 +25,13 @@
                 <ul class="nav-links">  
                     <li><a href="First.jsp">Home</a></li>  
                     <li><a href="Aboutus.jsp" class="active">About us</a></li>
-                    <li><a href="Connect.jsp">Get Started</a></li>  
+                    <%
+                    if (session.getAttribute("travelerObj") == null) {
+                    %>
+                    <li><a href="Connect.jsp">Get Started</a></li> 
+                    <%
+                    }
+                    %>
                     <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul> 
             </div>
