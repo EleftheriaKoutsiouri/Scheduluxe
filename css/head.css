@@ -1,6 +1,25 @@
 /* General Style of header in every page */
 
 
+header {
+    display: flex;
+    justify-content: space-between;  /* Distributes space between title and hamburger */
+    align-items: center;  /* Vertically aligns items in the center */
+    padding: 0px;  /* Adds some padding around the header */
+    position: relative;
+}
+.nav-menu {
+    background-color: #ffffff00;
+    display: flex;
+    justify-content: space-between; /* Align logo and menu items in a single line */
+    align-items: center; /* Vertical alignment */
+    padding: 20px 40px; /* Padding around navigation items */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full-width menu */
+    color: rgb(0, 0, 0);
+}
+
 
 /* Logo styling */
 .logo {
@@ -23,3 +42,79 @@
 }
 
 /* Styling for navigation menu items */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    margin-left: auto; /* Align the menu to the right */
+    justify-content: center;
+}
+
+.nav-links a {
+    color: rgb(0, 0, 0); 
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+.nav-links a:hover {
+    color: #d042a5; /* White text on hover */
+}
+
+.nav-links a.active {
+    color: #c8349c; 
+    border-bottom: 2px solid #c8349c; 
+}
+
+
+/* Hamburger Menu Styles */
+.menu-toggle {
+    position: fixed; /* Fixes the button in place */
+    top: 28px;       /* Adjusts distance from the top of the screen */
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+
+/* Media Query for Small Screens that handles the header*/
+@media (max-width: 768px) {
+    .dropdown{
+        margin-top: 10%;
+        z-index: 9999;
+    }
+    
+    .nav-links {
+        border-radius: 5%;
+        margin-right: 5%;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        right: 0;
+        background-color: #e5e5e5d3;
+        width: 150px;
+        padding: 8px;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        text-align: right;
+    }
+  
+    .nav-links.show {
+        display: flex;
+    }
+  
+    .menu-toggle {
+        display: block;
+    }
+  
+    .logo {
+        flex: 1;
+    }
+}
