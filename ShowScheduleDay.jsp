@@ -104,7 +104,7 @@
                 <%
                     }
                 %>
-                <a href="ShowOverallSchedule.jsp">
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>
