@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ScheduleOverall.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>  
 </head>
 <body>
@@ -47,7 +48,7 @@
     <main>
         <div class="schedule-container">
             <h2>Overall Schedule</h2>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-condensed table-hover">
                 <thead>
                     <tr>
                         <th>Time Slot</th>
@@ -122,7 +123,19 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         
         <script>
-            src="js/DownloadSchedule.js">
+            document.querySelector('.download-btn').addEventListener('click', function() {
+                const element = document.querySelector('.schedule-container');
+                const options = {
+                    margin:       1,  
+                    filename:     'schedule.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, width: element.offsetWidth }, 
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' } 
+                };
+                html2pdf().set(options).from(element).save();
+            });
+        </script>
+        <script>
             function submitRating(starValue) {
                 const xhr = new XMLHttpRequest();
                 xhr.open("POST", "FeedbackServlet", true);
