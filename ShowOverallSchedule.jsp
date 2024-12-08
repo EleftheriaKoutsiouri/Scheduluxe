@@ -1,14 +1,17 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map" %>
-<%@ page import="ScheduleClasses.*" %>
+<%@ page import="Scheduluxe.*" %>
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
+    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
+    if (totalSchedule == null) {
+        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
+        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
+    }
     int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
-    Schedule schedule = new Schedule();
-    // Assuming you have a method to get the schedule data for multiple days
-    Map<Integer, List<Activity>> fullSchedule = schedule.getFullSchedule(totalDays); 
-    String[] timeSlots = schedule.getTimeSlots(); // This should return an array of time slots, e.g. "9:00 AM", "11:00 AM", etc.
+    Schedule sch = new Schedule();
+    String[] timeSlots = sch.getTimeSlots(); // This should return an array of time slots, e.g. "9:00 AM", "11:00 AM", etc.
 %>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@
 <head> 
     <title>Scheduluxe Overall Schedule</title>
     <%@ include file="head.jsp" %>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/ScheduleOverall.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ScheduleOverall.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>  
@@ -55,21 +58,20 @@
                 </thead>
                 <tbody>
                     <% 
-                        for (int i = 0; i < timeSlots.length; i++) { 
+                        for (String timeSlot : timeSlots) { 
                     %>
                     <tr>
-                        <td><%= timeSlots[i] %></td>
+                        <td><%= timeSlot %></td>
                         <% 
-                            // For each day, get the activity for this time slot
                             for (int day = 1; day <= totalDays; day++) { 
-                                List<Activity> dayActivities = fullSchedule.get(day);
-                                Activity activity = (dayActivities != null && dayActivities.size() > i) ? dayActivities.get(i) : null;
+                                Map<String, Activity> daySchedule = totalSchedule.get(day);
+                                Activity activity = daySchedule != null ? daySchedule.get(timeSlot) : null; // Retrieve activity for the time slot
                         %>
                         <td>
                             <% if (activity != null) { %>
                                 <%= activity.getActivityName() %>
                             <% } else { %>
-                                No activity
+                                <span style="color: grey;">No activity</span>
                             <% } %>
                         </td>
                         <% } %>
