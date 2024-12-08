@@ -32,6 +32,13 @@
                     <%
                     }
                     %>
+                    <%
+                    if (session.getAttribute("travelerObj") != null) {
+                    %>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp"><span class="material-symbols-outlined">logout</span></a></li>
+                    <%
+                    }
+                    %>
                     <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul> 
             </div>
