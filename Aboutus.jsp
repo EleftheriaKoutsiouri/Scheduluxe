@@ -47,10 +47,10 @@
 
             <!-- Carousel on the right side -->
             <div class="carousel">
-                <img src="<%=request.getContextPath()%>/images/Berlin.avif" class="active"alt="Image 1">
+                <img src="<%=request.getContextPath()%>/images/Santorini.png" class="active"alt="Image 1">
+                <img src="<%=request.getContextPath()%>/images/London.png" alt="Image 2">
                 <img src="<%=request.getContextPath()%>/images/Ellada.jpg" alt="Image 2">
                 <img src="<%=request.getContextPath()%>/images/Statue of liberty.jpg" alt="Image 3">
-                <img src="<%=request.getContextPath()%>/images/Brussel.jpg" alt="Image 4">
                 <img src="<%=request.getContextPath()%>/images/Akropoli.jpg" alt="Image 5">
                 <img src="<%=request.getContextPath()%>/images/Snow.jpg" alt="Image 5">
             </div>
