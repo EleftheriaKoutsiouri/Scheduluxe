@@ -21,7 +21,7 @@ session.invalidate();
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
 
 
-	<meta http-equiv="refresh" content="2;url=WelcomeSchedule.jsp" />	
+	<meta http-equiv="refresh" content="2;url=First.jsp" />	
 	<title>Logout</title>
 	</head>
 <body>	
