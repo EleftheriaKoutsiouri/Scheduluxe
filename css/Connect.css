@@ -1,7 +1,7 @@
 body{
 	margin:0;
-	color:#757575;
-    background:#bbb1b9c0;
+	color:#919090;
+    background:#f1e6f1 ;
 	font:600 16px/18px 'Poppins',sans-serif;
 }
 
@@ -53,8 +53,8 @@ body{
 }
 .login-snip .sign-in:checked + .tab,
 .login-snip .sign-up:checked + .tab{
-	color:#b74472bd;
-	border-color: #dab2ae;
+	color:#e666c0;
+	border-color: #e666c0;
 }
 .login-space{
 	min-height:345px;
@@ -69,7 +69,7 @@ body{
 .login-space .group .input,
 .login-space .group .button{
 	width:100%;
-	color:#757575;
+	color:#868585;
 	display:block;
 }
 .login-space .group .input,
@@ -87,7 +87,7 @@ body{
 	font-size:12px;
 }
 .login-space .group .button{
-	background:#b74472bd;
+	background:#e666c0;
 }
 .login-space .group label .icon{
 	width:15px;
@@ -128,7 +128,7 @@ body{
 	transform:rotate(0);
 }
 .login-space .group .button {
-    background: #b74472bd;
+    background: #e666c0;
 	color: #000000;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }

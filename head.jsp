@@ -7,6 +7,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Praise&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"> 
         
         <!-- FontAwesome Icons for additional icons -->

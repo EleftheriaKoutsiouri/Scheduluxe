@@ -8,11 +8,8 @@
     <title>Welcome to Scheduluxe</title>  
     <link rel="icon" href="<%= request.getContextPath() %>/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/First.css">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
-    <link href="https://fonts.googleapis.com/css2?family=Platypi&display=swap" rel="stylesheet">  
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">  
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Praise&display=swap"> 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <%@ include file="head.jsp" %>
 </head>  
@@ -69,15 +66,17 @@
                 if (session.getAttribute("travelerObj") == null) {
                 %>
                 <a href="Connect.jsp">
-                  <button type="button" class="start-button">Start the experience →</button>
-              </a>
-                <% } else { %>
-                  <a href="Selection.jsp">
-                    <button type="button" class="start-button">Start the experience →</button>
+                  <button type="button" class="start-button">
+                      Start the experience <span class="glyphicon glyphicon-plane"></span> 
+                  </button>
                 </a>
-                <%
-                }
-                %>
+                <% } else { %>
+                <a href="Selection.jsp">
+                <button type="button" class="start-button">
+                      Start the experience <span class="glyphicon glyphicon-plane"></span> 
+                </button>
+                </a>
+                <% } %>
             </div>
             
             <!-- Carousel -->
