@@ -19,13 +19,12 @@ public class Schedule {
         List<Activity> activityList = new ArrayList<>();
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-    
+
         StringBuilder sql = new StringBuilder(
-            "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
-            "FROM Activities a " +
-            "WHERE destinationID = ? AND budgetId = ? AND typeId IN ("
-        );
-    
+                "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
+                        "FROM Activities a " +
+                        "WHERE destinationID = ? AND budgetId = ? AND typeId IN (");
+
         for (int i = 0; i < typeIds.size(); i++) {
             sql.append("?");
             if (i < typeIds.size() - 1) {
@@ -33,20 +32,20 @@ public class Schedule {
             }
         }
         sql.append(") ORDER BY a.StartTime");
-    
+
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql.toString());
-    
+
             stmt.setInt(1, destinationId);
             stmt.setInt(2, budgetId);
-    
+
             for (int i = 0; i < typeIds.size(); i++) {
                 stmt.setInt(i + 3, typeIds.get(i));
             }
-    
+
             ResultSet rs = stmt.executeQuery();
-    
+
             while (rs.next()) {
                 Activity activity = new Activity(
                         rs.getInt("ActivityID"),
@@ -56,10 +55,10 @@ public class Schedule {
                         rs.getString("EndTime"));
                 activityList.add(activity);
             }
-    
+
             rs.close();
             stmt.close();
-            
+
         } catch (Exception e) {
             throw new Exception("Error retrieving activities: " + e.getMessage());
         } finally {
@@ -70,7 +69,6 @@ public class Schedule {
         }
         return activityList;
     }
-    
 
     public Map<Integer, Map<String, Activity>> assignActivitiesToTimeSlots(List<Activity> activities, int totalDays)
             throws Exception {
@@ -82,21 +80,22 @@ public class Schedule {
         Set<Activity> assignedActivities = new HashSet<>();
 
         for (int day = 1; day <= totalDays; day++) {
-            schedule.put(day, new LinkedHashMap<>());       
-            //use of LinkedHashMap instead of HashMap to keep the timeslots and their assigned activities in order
-    
+            schedule.put(day, new LinkedHashMap<>());
+            // use of LinkedHashMap instead of HashMap to keep the timeslots and their
+            // assigned activities in order
+
             for (String timeSlot : timeSlots) {
                 boolean activityScheduled = false;
-    
+
                 for (Activity activity : activities) {
                     if (assignedActivities.contains(activity)) {
                         continue; // Skip already assigned activities
                     }
-    
+
                     String[] slotTimes = timeSlot.split("-");
                     String slotStartTime = slotTimes[0] + ":00";
                     String slotEndTime = slotTimes[1] + ":00";
-    
+
                     // Check if activity fits in the time slot
                     if (activity.getStartTime().compareTo(slotStartTime) >= 0
                             && activity.getEndTime().compareTo(slotEndTime) <= 0) {
@@ -106,18 +105,18 @@ public class Schedule {
                         break; // Move to the next time slot
                     }
                 }
-    
+
                 // If no valid activity found for this time slot, fill with placeholder activity
                 if (!activityScheduled) {
                     System.out.println("You should get free time");
-                    // schedule.get(day).put(timeSlot, new Activity("Free Slot", timeSlot.split("-")[0], timeSlot.split("-")[1]));
+                    // schedule.get(day).put(timeSlot, new Activity("Free Slot",
+                    // timeSlot.split("-")[0], timeSlot.split("-")[1]));
                 }
             }
         }
 
         return schedule;
     }
-        
 
     public void saveSchedule(Map<Integer, Map<String, Activity>> schedule) throws Exception {
         // Δημιουργία σύνδεσης με τη βάση δεδομένων
@@ -161,7 +160,6 @@ public class Schedule {
                 }
                 db.close();
             } catch (Exception e) {
-                // TODO: handle exception
             }
         }
     }
@@ -169,21 +167,14 @@ public class Schedule {
     public void saveScheduleForUser(int userId, int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-
-        // SQL query για την εισαγωγή δεδομένων στον πίνακα schedulebytraveler
         String sql = "INSERT INTO schedulebytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
 
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
-
-            // Ορισμός των παραμέτρων του PreparedStatement
-            stmt.setInt(1, userId); // Χρησιμοποιούμε το userId από το session ή τη βάση
-            stmt.setInt(2, scheduleId); // Χρησιμοποιούμε το scheduleId από το πρόγραμμα
-            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis())); // Χρησιμοποιούμε την τρέχουσα
-                                                                                      // ημερομηνία και ώρα
-
-            // Εκτέλεση της εισαγωγής
+            stmt.setInt(1, userId);
+            stmt.setInt(2, scheduleId);
+            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Schedule successfully linked to the user.");
@@ -203,7 +194,6 @@ public class Schedule {
                 }
                 db.close();
             } catch (Exception e) {
-                // TODO: handle exception
             }
         }
     }
@@ -236,46 +226,41 @@ public class Schedule {
                     con.close();
                 }
                 db.close();
-                } catch (Exception e) {
+            } catch (Exception e) {
             }
         }
 
         return scheduleId; // Επιστρέφουμε το scheduleId
     }
 
-    // Αποθήκευση σχολίων και αξιολογήσεων
-    public boolean saveFeedback(int scheduleId, String comment, int rating) throws Exception {
+    public boolean saveFeedback(int userId, int scheduleId, String comment, int rating) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "UPDATE Schedules SET Comment = ?, Rate = ? WHERE ScheduleID = ?";
+        String sql = "UPDATE schedulebytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
 
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            // Εισαγωγή παραμέτρων
+            // Ορισμός των παραμέτρων
             stmt.setString(1, comment);
             stmt.setInt(2, rating);
-            stmt.setInt(3, scheduleId);
+            stmt.setInt(3, userId);
+            stmt.setInt(4, scheduleId);
 
-            // Εκτέλεση του update
+            int rowsUpdated = stmt.executeUpdate();
             stmt.close();
-            db.close();
-            return stmt.executeUpdate() > 0;
+
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
-            try {
-                
-                if (con != null){
-                    con.close();
-                }
-                db.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                con.close();
             }
+            db.close();
         }
-        return false;
     }
 
     // Ανάκτηση του προγράμματος μαζί με το σχόλιο και την αξιολόγηση
@@ -316,46 +301,37 @@ public class Schedule {
         return scheduleData; // Επιστροφή του Map με τα δεδομένα
     }
 
-
     public Map<Integer, List<Activity>> getFullSchedule(int totalDays, List<Activity> activities) throws Exception {
         // Retrieve the assigned schedule
         Map<Integer, Map<String, Activity>> schedule = assignActivitiesToTimeSlots(activities, totalDays);
-    
+
         // Prepare the full schedule in the desired format
         Map<Integer, List<Activity>> fullSchedule = new HashMap<>();
         String[] timeSlots = getTimeSlots();
-    
+
         for (int day = 1; day <= totalDays; day++) {
             List<Activity> dayActivities = new ArrayList<>();
-    
-            // Fetch activities for the current day or create an empty map if no activities exist
+
+            // Fetch activities for the current day or create an empty map if no activities
+            // exist
             Map<String, Activity> daySchedule = schedule.getOrDefault(day, new LinkedHashMap<>());
-    
+
             for (String timeSlot : timeSlots) {
                 Activity activity = daySchedule.getOrDefault(timeSlot, null);
                 dayActivities.add(activity);
             }
-    
+
             fullSchedule.put(day, dayActivities);
         }
-    
+
         return fullSchedule;
     }
-
-    //private List<Activity> fetchAllActivities() throws Exception {
-    //    Replace these parameters with actual values or retrieve them dynamically
-    //  int destinationId = 1;  Example destination ID
-    //    List<Integer> typeIds = List.of(1, 2, 3);  Example type IDs
-    //    int budgetId = 1;  Example budget ID
-    
-    //    return searchActivities(destinationId, typeIds, budgetId);
-    //}
 
     public String[] getTimeSlots() {
 
         String[] TIME_SLOTS = {
-            "09:00-11:00", "11:00-13:00", "13:00-15:00", 
-            "15:00-17:00", "17:00-19:00", "19:00-21:00"
+                "09:00-11:00", "11:00-13:00", "13:00-15:00",
+                "15:00-17:00", "17:00-19:00", "19:00-21:00"
         };
 
         return TIME_SLOTS;
