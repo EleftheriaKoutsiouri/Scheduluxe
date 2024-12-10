@@ -5,41 +5,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Scheduluxe.Schedule;
+import Scheduluxe.Traveler;
 
 public class FeedbackServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Retrieve user ID from session
         HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("userId");
-
-        int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
-        String commentText = request.getParameter("commentText");
-        String ratingStr = request.getParameter("star");
+        Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
         try {
-            // Create a Schedule object to save feedback
+            int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+            int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
+            String comment = request.getParameter("commentText");
+            int rating = Integer.parseInt(request.getParameter("rating"));
             Schedule schedule = new Schedule();
 
-            // Save the comment if provided
-            if (commentText != null && !commentText.trim().isEmpty()) {
-                schedule.saveFeedback(scheduleId, commentText, 0); // Save comment with a default rating of 0
+            if (comment != null && !comment.trim().isEmpty()) {
+                schedule.saveFeedback(userId, scheduleId, comment, 0); // Save comment with a default rating of 0
             }
 
-            // Save the rating if provided
-            if (ratingStr != null && !ratingStr.trim().isEmpty()) {
-                int rating = Integer.parseInt(ratingStr); // Parse rating
-                schedule.saveFeedback(scheduleId, "", rating); // Save rating with an empty comment
+            if (rating != 0) {
+                schedule.saveFeedback(userId, scheduleId, "", rating); // Save rating with an empty comment
             }
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("ShowOverallSchedule.jsp?error=1");
         }
-
-        response.sendRedirect("ScheduleOverall.jsp"); // Redirect to the schedule overview page
     }
 }

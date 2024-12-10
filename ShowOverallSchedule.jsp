@@ -11,7 +11,7 @@
     }
     int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
     Schedule sch = new Schedule();
-    String[] timeSlots = sch.getTimeSlots(); // This should return an array of time slots, e.g. "9:00 AM", "11:00 AM", etc.
+    String[] timeSlots = sch.getTimeSlots(); 
 %>
 
 <!DOCTYPE html>
