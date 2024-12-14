@@ -119,34 +119,42 @@ public class Schedule {
     }
 
     public void saveSchedule(Map<Integer, Map<String, Activity>> schedule) throws Exception {
-        // Δημιουργία σύνδεσης με τη βάση δεδομένων
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
-        // SQL εντολή για εισαγωγή δεδομένων στον πίνακα Schedules
-        String sql = "INSERT INTO Schedules (activityId, day, timeSlot) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Schedules (scheduleId, activityId, day, timeSlot) VALUES (?, ?, ?, ?)";
 
         try {
             con = db.getConnection();
+
+            // Δημιουργούμε ένα μοναδικό scheduleId για όλο το πρόγραμμα
+            int scheduleId = generateScheduleId(con);
+
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            // Επανάληψη μέσω του χάρτη για κάθε ημέρα
             for (Map.Entry<Integer, Map<String, Activity>> dayEntry : schedule.entrySet()) {
                 int day = dayEntry.getKey();
-                Map<String, Activity> activitiesBySlot = dayEntry.getValue();
 
-                // Επανάληψη μέσω των δραστηριοτήτων ανά time slot
-                for (Map.Entry<String, Activity> slotEntry : activitiesBySlot.entrySet()) {
-                    String timeSlot = slotEntry.getKey();
-                    Activity activity = slotEntry.getValue();
+                Map<String, Activity> activitiesBySlot = new LinkedHashMap<>(dayEntry.getValue());
 
-                    // Εισαγωγή δεδομένων στη βάση
-                    stmt.setInt(1, activity.getActivityId());
-                    stmt.setInt(2, day);
-                    stmt.setString(3, timeSlot);
+                activitiesBySlot.entrySet()
+                        .stream()
+                        .sorted(Map.Entry.comparingByKey()) // Ταξινόμηση βάσει του timeSlot
+                        .forEachOrdered(slotEntry -> {
+                            try {
+                                String timeSlot = slotEntry.getKey();
+                                Activity activity = slotEntry.getValue();
 
-                    stmt.executeUpdate();
-                }
+                                stmt.setInt(1, scheduleId); // Το ίδιο scheduleId για όλο το πρόγραμμα
+                                stmt.setInt(2, activity.getActivityId()); // Το ID της δραστηριότητας
+                                stmt.setInt(3, day); // Ημέρα
+                                stmt.setString(4, timeSlot); // Χρονικό διάστημα
+
+                                stmt.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
             }
 
             stmt.close();
@@ -162,6 +170,19 @@ public class Schedule {
             } catch (Exception e) {
             }
         }
+    }
+
+    private int generateScheduleId(Connection con) throws SQLException {
+        String sql = "SELECT MAX(scheduleId) FROM Schedules";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        int newScheduleId = 1;
+        if (rs.next()) {
+            newScheduleId = rs.getInt(1) + 1;
+        }
+        rs.close();
+        stmt.close();
+        return newScheduleId;
     }
 
     public void saveScheduleForUser(int userId, int scheduleId) throws Exception {
@@ -203,7 +224,7 @@ public class Schedule {
         Connection con = null;
         int scheduleId = -1;
 
-        String sql = "SELECT LAST_INSERT_ID() AS scheduleId FROM Schedules";
+        String sql = "SELECT MAX(scheduleId) AS scheduleId FROM Schedules";
 
         try {
             con = db.getConnection();

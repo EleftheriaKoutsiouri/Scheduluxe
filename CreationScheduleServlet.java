@@ -5,16 +5,18 @@ import java.util.Map;
 import Scheduluxe.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import Scheduluxe.Traveler;
 
 public class CreationScheduleServlet extends HttpServlet {
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   // Initialize variables to store form parameters
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String destination = request.getParameter("destination");
 
         String[] typesString = request.getParameterValues("type");
 
-        List<String> types = new ArrayList<String>(); // Use explicit generic type for older Java versions
+        List<String> types = new ArrayList<String>();
         if (typesString != null) {
             for (String type : typesString) {
                 types.add(type);
@@ -27,7 +29,6 @@ public class CreationScheduleServlet extends HttpServlet {
         int totalDays = 0;
         boolean hasError = false;
 
-        // Validate the number of days input
         try {
             totalDays = Integer.parseInt(days);
         } catch (NumberFormatException e) {
@@ -37,30 +38,33 @@ public class CreationScheduleServlet extends HttpServlet {
 
         if (!hasError) {
             try {
-                // Retrieve IDs from the database
                 CreationSchedule creationSchedule = new CreationSchedule();
 
                 int destinationId = creationSchedule.getIdFromDatabase(
-                    "Destinations", "DestinationName", destination, "DestinationID"
-                );
-                
+                        "Destinations", "DestinationName", destination, "DestinationID");
+
                 List<Integer> typeIds = creationSchedule.getTypesIdFromDatabase(types);
 
                 int budgetId = creationSchedule.getIdFromDatabase(
-                    "BudgetType", "BudgetName", budget, "BudgetID"
-                );
+                        "BudgetType", "BudgetName", budget, "BudgetID");
 
                 // Create a schedule
                 Schedule schedule = new Schedule();
 
                 List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
 
-                Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities, totalDays);
+                Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities,
+                        totalDays);
+
                 schedule.saveSchedule(totalSchedule);
-                //schedule.saveScheduleForUser(userId, scheduleId);
+                int scheduleId = schedule.getScheduleId();
 
                 HttpSession session = request.getSession();
-                session.setAttribute("totalSchedule",totalSchedule);
+                // Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+                // int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+                // schedule.saveScheduleForUser(userId, scheduleId);
+
+                session.setAttribute("totalSchedule", totalSchedule);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
                 dispatcher.forward(request, response);
 
@@ -70,5 +74,5 @@ public class CreationScheduleServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         }
-  }
+    }
 }
