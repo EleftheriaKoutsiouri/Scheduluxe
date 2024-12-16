@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Email Address</label>
-                                        <input id="pass" type="text" class="input" name="email" placeholder="Enter your email address">
+                                        <input id="pass" type="email" class="input" name="email" placeholder="Enter your email address">
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Password</label>

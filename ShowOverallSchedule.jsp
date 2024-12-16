@@ -71,9 +71,8 @@
                         <td>
                             <% if (activity != null) { %>
                                 <%= activity.getActivityName() %>
-                            <% } else { %>
-                                <span style="color: grey;">No activity</span>
-                            <% } %>
+                            <%}%>
+                          
                         </td>
                         <% } %>
                     </tr>

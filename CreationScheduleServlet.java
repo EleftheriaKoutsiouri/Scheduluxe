@@ -5,12 +5,21 @@ import java.util.Map;
 import Scheduluxe.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import Scheduluxe.Traveler;
 
 public class CreationScheduleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+
+        if (traveler == null) {
+            request.setAttribute("error", "No traveler information found in session.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
+            dispatcher.forward(request, response);   
+        }
+
 
         String destination = request.getParameter("destination");
 
@@ -56,12 +65,9 @@ public class CreationScheduleServlet extends HttpServlet {
                 Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities,
                         totalDays);
 
-                schedule.saveSchedule(totalSchedule);
-                int scheduleId = schedule.getScheduleId();
-
-                HttpSession session = request.getSession();
-                // Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-                // int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+                int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+                schedule.saveSchedule(totalSchedule, userId);
+                //int scheduleId = schedule.getScheduleId();
                 // schedule.saveScheduleForUser(userId, scheduleId);
 
                 session.setAttribute("totalSchedule", totalSchedule);
