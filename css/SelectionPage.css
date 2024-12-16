@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #e7ecf1f0 60%, #f0e1e1 80%);
+    background: linear-gradient(to bottom, #ece7ec 60%, #ecc7ea 80%);
     min-height: 100vh;
     background-attachment: fixed;
     font-family: 'Times New Roman';
@@ -55,7 +55,7 @@ h2 {
     max-width: 820px;
     margin: 10px auto 0 auto; 
     padding: 10px; 
-    color: #781c41;
+    color: #c21e91;
 }
 
 /* Form styling */
@@ -107,7 +107,7 @@ select option {
 .search-button {
     padding: 15px 20px;
     border-radius: 4px;
-    background-color: #86274dea;
+    background-color: #d12b9f;
     color: white;
     font-size: 22px;
     font-weight: bold;
@@ -118,7 +118,7 @@ select option {
 }
 
 .search-button:hover {
-    background: #9f4f6f; 
+    background: #f4b8c1; 
 }
 
 .search-button i {
@@ -236,10 +236,12 @@ select option {
         margin-bottom: 10px;
         align-items: flex-start; 
     }
-
+    
+   
     select, input[type="number"], input[type="text"], #date {
         width: 60%; 
         margin: 0; 
+        color: black;
         text-align: left; 
     }
 

@@ -79,8 +79,8 @@ main {
 .start-button {
     margin-top: 10px;
     padding: 5px 10px;
-    background: rgb(218, 178, 174);
-    color: rgb(255, 255, 255);
+    background: #e666c0;
+    color:#000000;
     text-decoration: none;
     font-size: 16px;
     border: none;
@@ -91,7 +91,7 @@ main {
 }
 
 .start-button:hover {
-    background: #B1BAC9 !important;
+    background: #e3a8ba !important;
     color: #000000 !important;
 
 }
