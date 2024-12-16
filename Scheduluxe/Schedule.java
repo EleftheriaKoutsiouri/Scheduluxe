@@ -20,6 +20,7 @@ public class Schedule {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
+        //build the query based on how many of the "types" the user has checked
         StringBuilder sql = new StringBuilder(
                 "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
                         "FROM Activities a " +
@@ -118,7 +119,60 @@ public class Schedule {
         return schedule;
     }
 
-    public void saveSchedule(Map<Integer, Map<String, Activity>> schedule) throws Exception {
+    public void saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
+        int scheduleId = generateScheduleId();
+        saveInSchedules(schedule, scheduleId);
+        saveScheduleForUser(userId, scheduleId);
+    }
+
+
+
+    // private int generateScheduleId(Connection con) throws SQLException {
+    //     String sql = "SELECT MAX(scheduleId) FROM Schedules";
+    //     PreparedStatement stmt = con.prepareStatement(sql);
+    //     ResultSet rs = stmt.executeQuery();
+    //     int newScheduleId = 1;
+    //     if (rs.next()) {
+    //         newScheduleId = rs.getInt(1) + 1;
+    //     }
+    //     rs.close();
+    //     stmt.close();
+    //     return newScheduleId;
+    // }
+
+    private int generateScheduleId() throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT MAX(scheduleId) FROM Schedules";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            ResultSet rs = stmt.executeQuery();
+            int newScheduleId = 1;
+            if (rs.next()) {
+                newScheduleId = rs.getInt(1) + 1;
+            }
+            rs.close();
+            stmt.close();
+            db.close();
+
+            return newScheduleId;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+
+            }
+        }
+        
+    }
+
+    private void saveInSchedules(Map<Integer, Map<String, Activity>> schedule, int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
@@ -126,9 +180,6 @@ public class Schedule {
 
         try {
             con = db.getConnection();
-
-            // Δημιουργούμε ένα μοναδικό scheduleId για όλο το πρόγραμμα
-            int scheduleId = generateScheduleId(con);
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -163,29 +214,14 @@ public class Schedule {
             throw new Exception("Error saving schedule to database: " + e.getMessage());
         } finally {
             try {
-                if (con != null) {
-                    con.close();
-                }
                 db.close();
             } catch (Exception e) {
+
             }
         }
     }
 
-    private int generateScheduleId(Connection con) throws SQLException {
-        String sql = "SELECT MAX(scheduleId) FROM Schedules";
-        PreparedStatement stmt = con.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        int newScheduleId = 1;
-        if (rs.next()) {
-            newScheduleId = rs.getInt(1) + 1;
-        }
-        rs.close();
-        stmt.close();
-        return newScheduleId;
-    }
-
-    public void saveScheduleForUser(int userId, int scheduleId) throws Exception {
+    private void saveScheduleForUser(int userId, int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String sql = "INSERT INTO schedulebytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
@@ -219,40 +255,40 @@ public class Schedule {
         }
     }
 
-    public int getScheduleId() throws Exception {
-        DatabaseConnection db = new DatabaseConnection();
-        Connection con = null;
-        int scheduleId = -1;
+    // public int getScheduleId() throws Exception {
+    //     DatabaseConnection db = new DatabaseConnection();
+    //     Connection con = null;
+    //     int scheduleId = -1;
 
-        String sql = "SELECT MAX(scheduleId) AS scheduleId FROM Schedules";
+    //     String sql = "SELECT MAX(scheduleId) AS scheduleId FROM Schedules";
 
-        try {
-            con = db.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
+    //     try {
+    //         con = db.getConnection();
+    //         PreparedStatement stmt = con.prepareStatement(sql);
 
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                scheduleId = rs.getInt("scheduleId");
-            }
+    //         ResultSet rs = stmt.executeQuery();
+    //         if (rs.next()) {
+    //             scheduleId = rs.getInt("scheduleId");
+    //         }
 
-            rs.close();
-            stmt.close();
-            db.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Error retrieving scheduleId: " + e.getMessage());
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-                db.close();
-            } catch (Exception e) {
-            }
-        }
+    //         rs.close();
+    //         stmt.close();
+    //         db.close();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         throw new Exception("Error retrieving scheduleId: " + e.getMessage());
+    //     } finally {
+    //         try {
+    //             if (con != null) {
+    //                 con.close();
+    //             }
+    //             db.close();
+    //         } catch (Exception e) {
+    //         }
+    //     }
 
-        return scheduleId; // Επιστρέφουμε το scheduleId
-    }
+    //     return scheduleId; // Επιστρέφουμε το scheduleId
+    // }
 
     public boolean saveFeedback(int userId, int scheduleId, String comment, int rating) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
