@@ -7,6 +7,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
+    align-items: center;
 }
 .info-container {
     flex: 1;
@@ -56,7 +57,7 @@ transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .start-button:hover {
-background-color: #ffb6c1; 
+background-color: #f4b8c1; 
 transform: scale(1.05); 
 }
 
