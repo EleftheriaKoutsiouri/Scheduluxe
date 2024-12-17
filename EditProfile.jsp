@@ -103,20 +103,29 @@ if (session.getAttribute("travelerObj") == null) {
                 <div class="past-schedules">
                     <h4 class="small-title"><strong>See your Past Schedules</strong></h4>
                     <div class="card-container">
-                        <div class="card" style="width: 19rem;">
-                            <img src="<%=request.getContextPath()%>/images/Germany.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                
-                                <button type="button" class="start-button">Press here</button><!--dispatcher ή link για overall του past schedule -->
+                        <%
+                            List<Schedule> pastSchedules = (List<Schedule>) request.getAttribute("pastSchedules");
+                            if (pastSchedules != null && !pastSchedules.isEmpty()) {
+                                for (Schedule schedule : pastSchedules) {
+                        %>
+                            <div class="card" style="width: 19rem;">
+                                <img src="<%=request.getContextPath() + '/' + schedule.getImagePath() %>" class="card-img-top" alt="<%= schedule.getDestinationName() %>">
+                                <div class="card-body">
+                                    <button type="button" class="start-button">Press here</button>
+                                    <div class="destination-info" style="text-align: right; margin-left: 10px;">
+                                        <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.getDestinationName() %></p>
+                                        <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.getTravelDate() %></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card" style="width: 19rem;">
-                            <img src="<%=request.getContextPath()%>/images/London.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                
-                                <button type="button" class="start-button">Press here</button>
-                            </div>
-                        </div>
+                        <%
+                                }
+                            } else {
+                        %>
+                            <p>No past schedules found.</p>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>
@@ -125,3 +134,47 @@ if (session.getAttribute("travelerObj") == null) {
     </body>
 </html>
 
+<!-- public List<Schedule> getPastSchedules(int userId) {
+    List<Schedule> pastSchedules = new ArrayList<>();
+    DatabaseConnection db = new DatabaseConnection();
+    Connection con = null;
+
+    String sql = "SELECT d.destinationName, d.image_path, s.savedate " +
+                 "FROM schedules s " +
+                 "INNER JOIN destinations d ON s.destinationID = d.destinationID " +
+                 "WHERE s.user_id = ? " +
+                 "ORDER BY s.savedate DESC " +
+                 "LIMIT 2;";
+
+    try {
+        con = db.getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userId); 
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Schedule schedule = new Schedule();
+            schedule.setDestinationName(rs.getString("destinationName"));
+            schedule.setTravelDate(rs.getDate("savedate").toString());
+            schedule.setImagePath(rs.getString("image_path"));
+            pastSchedules.add(schedule);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    return pastSchedules;
+}
+
+
+servlet
+List<Schedule> pastSchedules = schedule.getPastSchedules(userId);
+    request.setAttribute("pastSchedules", pastSchedules);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("EditProfile.jsp");
+    dispatcher.forward(request, response); -->

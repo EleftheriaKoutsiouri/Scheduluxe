@@ -116,6 +116,7 @@ main {
     flex: 1 1 100%; /* Each card takes full width on small screens */
 }
 
+
 @media (min-width: 576px) {
     .card {
         flex: 1 1 48%; /* Two cards side by side on small tablets */

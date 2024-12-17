@@ -3,6 +3,9 @@ body{
 	color:#919090;
 	background: linear-gradient(to bottom, #ece7ec 60%, #ecc7ea 80%);
 	font:600 16px/18px 'Poppins',sans-serif;
+	background-size: cover;
+	min-height: 100vh;
+    background-attachment: fixed;
 }
 
 .login-box{
