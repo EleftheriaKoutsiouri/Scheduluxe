@@ -17,7 +17,8 @@ public class CreationScheduleServlet extends HttpServlet {
         if (traveler == null) {
             request.setAttribute("error", "No traveler information found in session.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-            dispatcher.forward(request, response);   
+            dispatcher.forward(request, response);
+            return;
         }
 
 
@@ -36,49 +37,42 @@ public class CreationScheduleServlet extends HttpServlet {
         String days = request.getParameter("totalDays");
 
         int totalDays = 0;
-        boolean hasError = false;
 
         try {
             totalDays = Integer.parseInt(days);
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid number of days provided.");
-            hasError = true;
+
+            CreationSchedule creationSchedule = new CreationSchedule();
+
+            int destinationId = creationSchedule.getIdFromDatabase(
+                    "Destinations", "DestinationName", destination, "DestinationID");
+
+            List<Integer> typeIds = creationSchedule.getTypesIdFromDatabase(types);
+
+            int budgetId = creationSchedule.getIdFromDatabase(
+                    "BudgetType", "BudgetName", budget, "BudgetID");
+
+            // Create a schedule
+            Schedule schedule = new Schedule();
+
+            List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
+
+            Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities,
+                    totalDays);
+
+            int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+            schedule.saveSchedule(totalSchedule, userId);
+            //int scheduleId = schedule.getScheduleId();
+            // schedule.saveScheduleForUser(userId, scheduleId);
+
+            session.setAttribute("totalSchedule", totalSchedule);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            request.setAttribute("error", "An error occurred: " + e.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         }
-
-        if (!hasError) {
-            try {
-                CreationSchedule creationSchedule = new CreationSchedule();
-
-                int destinationId = creationSchedule.getIdFromDatabase(
-                        "Destinations", "DestinationName", destination, "DestinationID");
-
-                List<Integer> typeIds = creationSchedule.getTypesIdFromDatabase(types);
-
-                int budgetId = creationSchedule.getIdFromDatabase(
-                        "BudgetType", "BudgetName", budget, "BudgetID");
-
-                // Create a schedule
-                Schedule schedule = new Schedule();
-
-                List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
-
-                Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities,
-                        totalDays);
-
-                int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-                schedule.saveSchedule(totalSchedule, userId);
-                //int scheduleId = schedule.getScheduleId();
-                // schedule.saveScheduleForUser(userId, scheduleId);
-
-                session.setAttribute("totalSchedule", totalSchedule);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
-                dispatcher.forward(request, response);
-
-            } catch (Exception e) {
-                request.setAttribute("error", "An error occurred: " + e.getMessage());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-                dispatcher.forward(request, response);
-            }
-        }
+        
     }
 }

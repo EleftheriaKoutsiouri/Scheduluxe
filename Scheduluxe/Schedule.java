@@ -224,33 +224,33 @@ public class Schedule {
     private void saveScheduleForUser(int userId, int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "INSERT INTO schedulebytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO schedulesbytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
 
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
+
             stmt.setInt(1, userId);
             stmt.setInt(2, scheduleId);
-            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+
             int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Schedule successfully linked to the user.");
-            } else {
-                System.out.println("Error occurred while associating schedule with user.");
+            if (rowsAffected <= 0) {
+                stmt.close();
+                db.close();
+                throw new Exception("Error inserting schedule for user!");
             }
 
             stmt.close();
             db.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (Exception e) {
             throw new Exception("Error inserting schedule for user: " + e.getMessage());
         } finally {
             try {
-                if (con != null) {
-                    con.close();
-                }
                 db.close();
             } catch (Exception e) {
+
             }
         }
     }
