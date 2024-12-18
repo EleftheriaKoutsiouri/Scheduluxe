@@ -17,20 +17,22 @@ public class FeedbackServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
+
         try {
-            int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-            //int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
-            int scheduleId = (int)request.getAttribute("scheduleId");
-            String comment = request.getParameter("commentText");
-            int rating = Integer.parseInt(request.getParameter("rating"));
+            String usrId = request.getParameter("userId");
+            int userId = Integer.parseInt(usrId);
+            String schId = request.getParameter("scheduleId");
+            int scheduleId = Integer.parseInt(schId);
+            String comment = request.getParameter("comment");
+            //int rating = Integer.parseInt(request.getParameter("rating"));
             Schedule schedule = new Schedule();
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/testComment.jsp");
-            dispatcher.forward(request, response);
-
             if (comment != null && !comment.trim().isEmpty()) {
-                schedule.saveFeedback(userId, scheduleId, comment, rating); // Save comment with a default rating of 0
+                schedule.saveFeedback(userId, scheduleId, comment, 0); // Save comment with a default rating of 0
             }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
+            dispatcher.forward(request, response);
 
             //if (rating != 0) {
                 //schedule.saveFeedback(userId, scheduleId, "", rating); // Save rating with an empty comment

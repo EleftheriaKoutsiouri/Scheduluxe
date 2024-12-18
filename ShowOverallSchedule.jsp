@@ -11,7 +11,9 @@
     }
     int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
     Schedule sch = new Schedule();
-    String[] timeSlots = sch.getTimeSlots(); 
+    String[] timeSlots = sch.getTimeSlots();
+    String schId = request.getParameter("scheduleId");
+    int scheduleId = Integer.parseInt(schId);
 %>
 
 <!DOCTYPE html>
@@ -80,14 +82,17 @@
                 </tbody>
             </table>
         </div>
-        
+<%
+Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+
+int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+%>        
         <div class="feedback-container">
             <div class="comment-box">
                 <h3>Leave a Comment</h3>
-                <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet" method="POST">
+                <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
                     <div class="comment-input">
-                        <textarea name="commentText" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
-                        <input type="hidden" name="scheduleId" value="${scheduleId}"/>
+                        <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                         <button type="submit" class="btn submit-btn">Submit</button>
                     </div>
                 </form>
