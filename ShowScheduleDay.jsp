@@ -103,8 +103,10 @@
                         </div>
                 <%
                     }
+                    Integer schId = (Integer) request.getAttribute("scheduleId");
+                    int scheduleId = schId != null ? schId : 0;
                 %>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp">
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%=scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>
