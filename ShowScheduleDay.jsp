@@ -79,7 +79,7 @@
             <div class="activity-list">
                 <%
                     String[] times = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
-                    Map<String, Activity> daySchedule = totalSchedule.get(currentDay); // Ανάκτηση του προγράμματος για την ημέρα
+                    Map<String, Activity> daySchedule = totalSchedule.get(currentDay);
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = daySchedule.get(times[i]);
                 %>
@@ -100,11 +100,13 @@
                             </div>
                             <h4><%= times[i] %></h4>
                         </div>
+
                 <%
                     }
                     Integer schId = (Integer) request.getAttribute("scheduleId");
                     int scheduleId = schId != null ? schId : 0;
                 %>
+
                 <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%=scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
@@ -128,23 +130,6 @@
         </div>
     </main>
 
-    <!-- AJAX script for loading activity details using Activity class method -->
-    <!-- <script>
-        function loadActivityDetails(activityId) {
-            $.ajax({
-                url: '<%=request.getContextPath()%>/GetActivityDetailsServlet',
-                type: 'GET',
-                data: { id: activityId },
-                success: function(response) {
-                    // Display the returned details in the details-container
-                    $('#activity-details').html(response);
-                },
-                error: function() {
-                    $('#activity-details').html('Error loading activity details. Please try again.');
-                }
-            });
-        }
-    </script> -->
     <script>
         function loadActivityDetails(activityDetails) {
             // Decode the encoded plain text (if necessary)
