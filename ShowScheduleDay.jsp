@@ -3,17 +3,16 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
-    // Ανάκτηση παραμέτρων από το request, αν υπάρχουν
     int totalDays = Integer.parseInt(request.getParameter("totalDays"));
-    
-    //in order to get everytime the parameter from the day which from the arro handling 
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+    int scheduleId = (Integer) request.getAttribute("scheduleId");
+    int userId = (Integer) session.getAttribute("userId");
 
-    // Αν το totalSchedule είναι null, δείξε μήνυμα σφάλματος
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
+    Schedule schedule = new Schedule();
+    Map<Integer, List<Map<String, Object>>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    
     if (totalSchedule == null) {
-        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
-        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
+        out.println("No schedule available.");
     }
 %>
 

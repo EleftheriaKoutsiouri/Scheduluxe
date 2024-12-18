@@ -17,9 +17,8 @@ public class CreationScheduleServlet extends HttpServlet {
         if (traveler == null) {
             request.setAttribute("error", "No traveler information found in session.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-            dispatcher.forward(request, response);   
+            dispatcher.forward(request, response);
         }
-
 
         String destination = request.getParameter("destination");
 
@@ -69,7 +68,6 @@ public class CreationScheduleServlet extends HttpServlet {
                 int scheduleId = schedule.saveSchedule(totalSchedule, userId);
                 request.setAttribute("scheduleId", scheduleId);
 
-                session.setAttribute("totalSchedule", totalSchedule);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
                 dispatcher.forward(request, response);
 

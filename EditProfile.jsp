@@ -4,19 +4,10 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 
-<!--<%
-if (session.getAttribute("travelerObj") == null) {
-    response.sendRedirect("Connect.jsp?redirect=EditProfile.jsp");
-    return;
-}
-%>-->
 
 <%
-    // Λήψη του username από το session
-
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-
-    // Αν ο χρήστης υπάρχει, φορτώνονται τα δεδομένα του
+    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
     String firstname = traveler != null ? traveler.getFirstname() : "";
     String lastname = traveler != null ? traveler.getLastname() : "";
     String username = traveler != null ? traveler.getUsername() : "";
@@ -104,17 +95,19 @@ if (session.getAttribute("travelerObj") == null) {
                     <h4 class="small-title"><strong>See your Past Schedules</strong></h4>
                     <div class="card-container">
                         <%
-                            List<Schedule> pastSchedules = (List<Schedule>) request.getAttribute("pastSchedules");
+                            List<Map<String, String>> pastSchedules = (List<Map<String, String>>) request.getAttribute("pastSchedules");
                             if (pastSchedules != null && !pastSchedules.isEmpty()) {
-                                for (Schedule schedule : pastSchedules) {
+                                for (Map<String, String> schedule : pastSchedules) {
                         %>
                             <div class="card" style="width: 19rem;">
-                                <img src="<%=request.getContextPath() + '/' + schedule.getImagePath() %>" class="card-img-top" alt="<%= schedule.getDestinationName() %>">
+                                <img src="<%= request.getContextPath() + schedule.get("photoPath") %>" class="card-img-top" alt="<%= schedule.get("destinationName") %>">
                                 <div class="card-body">
-                                    <button type="button" class="start-button">Press here</button>
+                                    <a href="/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=" + schedule.get("scheduleId") %>">
+                                        <button type="button" class="start-button">Press here</button>
+                                    </a>
                                     <div class="destination-info" style="text-align: right; margin-left: 10px;">
-                                        <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.getDestinationName() %></p>
-                                        <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.getTravelDate() %></p>
+                                        <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.get("destinationName") %></p>
+                                        <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.get("savedDate") %></p>
                                     </div>
                                 </div>
                             </div>
@@ -133,48 +126,3 @@ if (session.getAttribute("travelerObj") == null) {
         <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
     </body>
 </html>
-
-<!-- public List<Schedule> getPastSchedules(int userId) {
-    List<Schedule> pastSchedules = new ArrayList<>();
-    DatabaseConnection db = new DatabaseConnection();
-    Connection con = null;
-
-    String sql = "SELECT d.destinationName, d.image_path, s.savedate " +
-                 "FROM schedules s " +
-                 "INNER JOIN destinations d ON s.destinationID = d.destinationID " +
-                 "WHERE s.user_id = ? " +
-                 "ORDER BY s.savedate DESC " +
-                 "LIMIT 2;";
-
-    try {
-        con = db.getConnection();
-        PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setInt(1, userId); 
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Schedule schedule = new Schedule();
-            schedule.setDestinationName(rs.getString("destinationName"));
-            schedule.setTravelDate(rs.getDate("savedate").toString());
-            schedule.setImagePath(rs.getString("image_path"));
-            pastSchedules.add(schedule);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    return pastSchedules;
-}
-
-
-servlet
-List<Schedule> pastSchedules = schedule.getPastSchedules(userId);
-    request.setAttribute("pastSchedules", pastSchedules);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("EditProfile.jsp");
-    dispatcher.forward(request, response); -->

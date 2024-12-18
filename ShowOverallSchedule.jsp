@@ -4,16 +4,15 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
-    if (totalSchedule == null) {
-        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
-        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
-    }
-    int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
-    Schedule sch = new Schedule();
-    String[] timeSlots = sch.getTimeSlots();
+    int totalDays = Integer.parseInt(request.getParameter("totalDays"));
     String schId = request.getParameter("scheduleId");
     int scheduleId = Integer.parseInt(schId);
+    
+    int userId = (Integer) session.getAttribute("userId"); 
+    
+    Schedule schedule = new Schedule();
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    String[] timeSlots = schedule.getTimeSlots();
 %>
 
 <!DOCTYPE html>
@@ -145,22 +144,6 @@ int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
                 };
                 html2pdf().set(options).from(element).save();
             });
-        </script>
-        <script>
-            function submitRating(starValue) {
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", "FeedbackServlet", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        alert("Rating submitted successfully!");
-                    }
-                };
-
-                xhr.send("action=rate&rating=" + starValue);
-            }
-
         </script>
     </main>
     
