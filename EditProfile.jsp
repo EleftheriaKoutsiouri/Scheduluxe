@@ -4,19 +4,10 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 
-<!--<%
-if (session.getAttribute("travelerObj") == null) {
-    response.sendRedirect("Connect.jsp?redirect=EditProfile.jsp");
-    return;
-}
-%>-->
 
 <%
-    // Λήψη του username από το session
-
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-
-    // Αν ο χρήστης υπάρχει, φορτώνονται τα δεδομένα του
+    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
     String firstname = traveler != null ? traveler.getFirstname() : "";
     String lastname = traveler != null ? traveler.getLastname() : "";
     String username = traveler != null ? traveler.getUsername() : "";
@@ -103,20 +94,31 @@ if (session.getAttribute("travelerObj") == null) {
                 <div class="past-schedules">
                     <h4 class="small-title"><strong>See your Past Schedules</strong></h4>
                     <div class="card-container">
-                        <div class="card" style="width: 19rem;">
-                            <img src="<%=request.getContextPath()%>/images/Germany.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                
-                                <button type="button" class="start-button">Press here</button><!--dispatcher ή link για overall του past schedule -->
+                        <%
+                            List<Map<String, String>> pastSchedules = (List<Map<String, String>>) request.getAttribute("pastSchedules");
+                            if (pastSchedules != null && !pastSchedules.isEmpty()) {
+                                for (Map<String, String> schedule : pastSchedules) {
+                        %>
+                            <div class="card" style="width: 19rem;">
+                                <img src="<%= request.getContextPath() + schedule.get("photoPath") %>" class="card-img-top" alt="<%= schedule.get("destinationName") %>">
+                                <div class="card-body">
+                                    <a href="/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=" + schedule.get("scheduleId") %>">
+                                        <button type="button" class="start-button">Press here</button>
+                                    </a>
+                                    <div class="destination-info" style="text-align: right; margin-left: 10px;">
+                                        <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.get("destinationName") %></p>
+                                        <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.get("savedDate") %></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card" style="width: 19rem;">
-                            <img src="<%=request.getContextPath()%>/images/London.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                
-                                <button type="button" class="start-button">Press here</button>
-                            </div>
-                        </div>
+                        <%
+                                }
+                            } else {
+                        %>
+                            <p>No past schedules found.</p>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>
@@ -124,4 +126,3 @@ if (session.getAttribute("travelerObj") == null) {
         <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
     </body>
 </html>
-

@@ -4,14 +4,15 @@
 
 <%
     int totalDays = Integer.parseInt(request.getParameter("totalDays"));
-    
-    //in order to get everytime the parameter from the day which from the arroW handling 
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
+    int scheduleId = (Integer) request.getAttribute("scheduleId");
+    int userId = (Integer) session.getAttribute("userId");
 
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
+    Schedule schedule = new Schedule();
+    Map<Integer, List<Map<String, Object>>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    
     if (totalSchedule == null) {
-        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
-        return;
+        out.println("No schedule available.");
     }
 %>
 
@@ -99,7 +100,13 @@
                             </div>
                             <h4><%= times[i] %></h4>
                         </div>
-                
+
+                <%
+                    }
+                    Integer schId = (Integer) request.getAttribute("scheduleId");
+                    int scheduleId = schId != null ? schId : 0;
+                %>
+
                 <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%=scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>

@@ -20,7 +20,7 @@ public class Schedule {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
 
-        //build the query based on how many of the "types" the user has checked
+        // build the query based on how many of the "types" the user has checked
         StringBuilder sql = new StringBuilder(
                 "SELECT DISTINCT a.ActivityID, a.ActivityName, a.Details, a.StartTime, a.EndTime " +
                         "FROM Activities a " +
@@ -119,25 +119,25 @@ public class Schedule {
         return schedule;
     }
 
-    public void saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
+    public int saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
         int scheduleId = generateScheduleId();
         saveInSchedules(schedule, scheduleId);
         saveScheduleForUser(userId, scheduleId);
+
+        return scheduleId;
     }
 
-
-
     // private int generateScheduleId(Connection con) throws SQLException {
-    //     String sql = "SELECT MAX(scheduleId) FROM Schedules";
-    //     PreparedStatement stmt = con.prepareStatement(sql);
-    //     ResultSet rs = stmt.executeQuery();
-    //     int newScheduleId = 1;
-    //     if (rs.next()) {
-    //         newScheduleId = rs.getInt(1) + 1;
-    //     }
-    //     rs.close();
-    //     stmt.close();
-    //     return newScheduleId;
+    // String sql = "SELECT MAX(scheduleId) FROM Schedules";
+    // PreparedStatement stmt = con.prepareStatement(sql);
+    // ResultSet rs = stmt.executeQuery();
+    // int newScheduleId = 1;
+    // if (rs.next()) {
+    // newScheduleId = rs.getInt(1) + 1;
+    // }
+    // rs.close();
+    // stmt.close();
+    // return newScheduleId;
     // }
 
     private int generateScheduleId() throws Exception {
@@ -148,7 +148,7 @@ public class Schedule {
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             ResultSet rs = stmt.executeQuery();
             int newScheduleId = 1;
             if (rs.next()) {
@@ -169,7 +169,56 @@ public class Schedule {
 
             }
         }
-        
+
+    }
+
+    public Map<Integer, List<Map<String, Object>>> getScheduleForUser(int userId, int scheduleId, int totalDays)
+            throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT s.ActivityID, s.Day, s.TimeSlot " +
+                "FROM schedules s " +
+                "JOIN schedulesbytraveler sbt ON s.ScheduleID = sbt.ScheduleID " +
+                "WHERE sbt.UserID = ? AND s.ScheduleID = ?";
+
+        Map<Integer, List<Map<String, Object>>> fullSchedule = new HashMap<>();
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, scheduleId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int activityId = rs.getInt("ActivityID");
+                int day = rs.getInt("Day");
+                String timeSlot = rs.getString("TimeSlot");
+
+                Map<String, Object> activityData = new HashMap<>();
+                activityData.put("ActivityID", activityId);
+                activityData.put("Day", day);
+                activityData.put("TimeSlot", timeSlot);
+
+                if (!fullSchedule.containsKey(day)) {
+                    fullSchedule.put(day, new ArrayList<>());
+                }
+
+                fullSchedule.get(day).add(activityData);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error retrieving schedule for user: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return fullSchedule;
     }
 
     private void saveInSchedules(Map<Integer, Map<String, Activity>> schedule, int scheduleId) throws Exception {
@@ -255,45 +304,67 @@ public class Schedule {
         }
     }
 
-    // public int getScheduleId() throws Exception {
-    //     DatabaseConnection db = new DatabaseConnection();
-    //     Connection con = null;
-    //     int scheduleId = -1;
+    public boolean hasUserProgram(int userId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT * FROM ismgroup38.schedulesbytraveler WHERE userId = ?;";
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-    //     String sql = "SELECT MAX(scheduleId) AS scheduleId FROM Schedules";
+    public List<Map<String, String>> getPastSchedules(int userId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        List<Map<String, String>> pastSchedules = new ArrayList<>();
+        if (!hasUserProgram(userId)) {
+            return null;
+        }
+        String sql = "SELECT d.DestinationName, d.DestinationPhotoPath, s.savedDate, s.scheduleId " +
+                "FROM schedulesbytraveler s " +
+                "INNER JOIN destinations d ON s.DestinationID = d.DestinationID " +
+                "WHERE s.UserID = ? " +
+                "ORDER BY s.savedDate DESC " +
+                "LIMIT 2;";
 
-    //     try {
-    //         con = db.getConnection();
-    //         PreparedStatement stmt = con.prepareStatement(sql);
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
 
-    //         ResultSet rs = stmt.executeQuery();
-    //         if (rs.next()) {
-    //             scheduleId = rs.getInt("scheduleId");
-    //         }
-
-    //         rs.close();
-    //         stmt.close();
-    //         db.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         throw new Exception("Error retrieving scheduleId: " + e.getMessage());
-    //     } finally {
-    //         try {
-    //             if (con != null) {
-    //                 con.close();
-    //             }
-    //             db.close();
-    //         } catch (Exception e) {
-    //         }
-    //     }
-
-    //     return scheduleId; // Επιστρέφουμε το scheduleId
-    // }
+            while (rs.next()) {
+                Map<String, String> scheduleData = new HashMap<>();
+                scheduleData.put("destinationName", rs.getString("DestinationName"));
+                scheduleData.put("photoPath", rs.getString("DestinationPhotoPath"));
+                scheduleData.put("savedDate", rs.getDate("savedDate").toString());
+                pastSchedules.add(scheduleData);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return pastSchedules;
+    }
 
     public boolean saveFeedback(int userId, int scheduleId, String comment, int rating) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "UPDATE schedulebytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
+        String sql = "UPDATE schedulesbytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
 
         try {
             con = db.getConnection();
@@ -318,44 +389,6 @@ public class Schedule {
             }
             db.close();
         }
-    }
-
-    // Ανάκτηση του προγράμματος μαζί με το σχόλιο και την αξιολόγηση
-    public Map<String, Object> viewSchedule(int scheduleId) throws Exception {
-        DatabaseConnection db = new DatabaseConnection();
-        Connection con = null;
-        String sql = "SELECT ActivityID, Day, time_slot, Comment, Rate FROM Schedules WHERE ScheduleID = ?";
-
-        Map<String, Object> scheduleData = new HashMap<>();
-
-        try {
-            con = db.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, scheduleId);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                scheduleData.put("ActivityID", rs.getInt("ActivityID"));
-                scheduleData.put("Day", rs.getInt("Day"));
-                scheduleData.put("TimeSlot", rs.getString("time_slot"));
-                scheduleData.put("Comment", rs.getString("Comment"));
-                scheduleData.put("Rate", rs.getInt("Rate"));
-            }
-
-            rs.close();
-            stmt.close();
-            db.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Error retrieving schedule details: " + e.getMessage());
-        } finally {
-            try {
-                db.close();
-            } catch (Exception e) {
-            }
-        }
-
-        return scheduleData; // Επιστροφή του Map με τα δεδομένα
     }
 
     public Map<Integer, List<Activity>> getFullSchedule(int totalDays, List<Activity> activities) throws Exception {
@@ -393,4 +426,5 @@ public class Schedule {
 
         return TIME_SLOTS;
     }
+
 }

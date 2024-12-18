@@ -18,9 +18,7 @@ public class CreationScheduleServlet extends HttpServlet {
             request.setAttribute("error", "No traveler information found in session.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
             dispatcher.forward(request, response);
-            return;
         }
-
 
         String destination = request.getParameter("destination");
 
