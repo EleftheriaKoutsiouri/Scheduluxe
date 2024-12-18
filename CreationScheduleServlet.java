@@ -66,9 +66,8 @@ public class CreationScheduleServlet extends HttpServlet {
                         totalDays);
 
                 int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-                schedule.saveSchedule(totalSchedule, userId);
-                //int scheduleId = schedule.getScheduleId();
-                // schedule.saveScheduleForUser(userId, scheduleId);
+                int scheduleId = schedule.saveSchedule(totalSchedule, userId);
+                request.setAttribute("scheduleId", scheduleId);
 
                 session.setAttribute("totalSchedule", totalSchedule);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
