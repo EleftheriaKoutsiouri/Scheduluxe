@@ -4,14 +4,15 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
-    Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
-    if (totalSchedule == null) {
-        out.println("<p style='color: red;'>Error: No schedule data available.</p>");
-        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
-    }
-    int totalDays = Integer.parseInt(request.getParameter("totalDays") != null ? request.getParameter("totalDays") : "3");
-    Schedule sch = new Schedule();
-    String[] timeSlots = sch.getTimeSlots(); 
+    int totalDays = Integer.parseInt(request.getParameter("totalDays"));
+    String schId = request.getParameter("scheduleId");
+    int scheduleId = Integer.parseInt(schId);
+    
+    int userId = (Integer) session.getAttribute("userId"); 
+    
+    Schedule schedule = new Schedule();
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    String[] timeSlots = schedule.getTimeSlots();
 %>
 
 <!DOCTYPE html>
@@ -80,37 +81,47 @@
                 </tbody>
             </table>
         </div>
-        
-        <div class="feedback-container">
-            <div class="comment-box">
-                <h3>Leave a Comment</h3>
-                <form action="servlet/FeedbackServlet" method="POST">
-                    <div class="comment-input">
-                        <textarea name="commentText" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
-                        <input type="hidden" name="scheduleId" value="${scheduleId}"/>
+<%
+Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+
+int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+%>        
+            <div class="feedback-container">
+                <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
+                    <!-- Περιοχή σχολίων -->
+                    <div class="comment-box">
+                        <h3>Leave a Comment</h3>
+                        <div class="comment-input">
+                            <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Περιοχή αξιολόγησης -->
+                    <div class="stars">
+                        <h3>Rate the Schedule</h3>
+                        <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
+                        <label class="star star-5" for="star-5"></label>
+
+                        <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
+                        <label class="star star-4" for="star-4"></label>
+
+                        <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
+                        <label class="star star-3" for="star-3"></label>
+
+                        <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
+                        <label class="star star-2" for="star-2"></label>
+
+                        <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
+                        <label class="star star-1" for="star-1"></label>
+                    </div>
+
+                    <!-- Κουμπί υποβολής -->
+                    <div class="submit-box">
                         <button type="submit" class="btn submit-btn">Submit</button>
                     </div>
                 </form>
             </div>
-            <div class="stars">
-                <h3>Rate the Schedule</h3>
-                <form id="ratingForm">
-                    <input class="star star-5" id="star-5" type="radio" name="star" onclick="submitRating(5)" />
-                    <label class="star star-5" for="star-5"></label>
-                
-                    <input class="star star-4" id="star-4" type="radio" name="star" onclick="submitRating(4)" />
-                    <label class="star star-4" for="star-4"></label>
-                
-                    <input class="star star-3" id="star-3" type="radio" name="star" onclick="submitRating(3)" />
-                    <label class="star star-3" for="star-3"></label>
-                
-                    <input class="star star-2" id="star-2" type="radio" name="star" onclick="submitRating(2)" />
-                    <label class="star star-2" for="star-2"></label>
-                
-                    <input class="star star-1" id="star-1" type="radio" name="star" onclick="submitRating(1)" />
-                    <label class="star star-1" for="star-1"></label>
-                </form>
-            </div>
+
             <div class="download-box">
                 <button class="btn download-btn">
                     <span class="glyphicon glyphicon-download-alt"></span> Schedule
@@ -133,22 +144,6 @@
                 };
                 html2pdf().set(options).from(element).save();
             });
-        </script>
-        <script>
-            function submitRating(starValue) {
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", "FeedbackServlet", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        alert("Rating submitted successfully!");
-                    }
-                };
-
-                xhr.send("action=rate&rating=" + starValue);
-            }
-
         </script>
     </main>
     
