@@ -207,6 +207,8 @@ public class Schedule {
 
             rs.close();
             stmt.close();
+            db.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error retrieving schedule for user: " + e.getMessage());
@@ -305,11 +307,13 @@ public class Schedule {
     public boolean hasUserProgram(int userId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "SELECT * FROM ismgroup38.schedulesbytraveler WHERE userId = ?;";
+        String sql = "SELECT * FROM schedulesbytraveler WHERE userId = ?;";
+
         try {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
+            
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
@@ -318,19 +322,30 @@ public class Schedule {
         return false;
     }
 
-    public List<Map<String, String>> getPastSchedules(int userId) throws Exception {
+    public List<Map<String, Object>> getPastSchedules(int userId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        List<Map<String, String>> pastSchedules = new ArrayList<>();
+        List<Map<String, Object>> pastSchedules = new ArrayList<>();
+
         if (!hasUserProgram(userId)) {
             return null;
         }
-        String sql = "SELECT d.DestinationName, d.DestinationPhotoPath, s.savedDate, s.scheduleId " +
-                "FROM schedulesbytraveler s " +
-                "INNER JOIN destinations d ON s.DestinationID = d.DestinationID " +
-                "WHERE s.UserID = ? " +
-                "ORDER BY s.savedDate DESC " +
-                "LIMIT 2;";
+
+        //does not work for our db as it is struvtured now
+        // String sql = "SELECT d.DestinationName, d.DestinationPhotoPath, s.savedDate, s.scheduleId " +
+        //         "FROM schedulesbytraveler s " +
+        //         "INNER JOIN destinations d ON s.DestinationID = d.DestinationID " +
+        //         "WHERE s.UserID = ? " +
+        //         "ORDER BY s.savedDate DESC " +
+        //         "LIMIT 2;";
+
+        String sql = 
+            "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath "
+            + "FROM schedulesbytraveler st "
+            + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
+            + "JOIN activities a ON a.activityId = s.scheduleId " 
+            + "JOIN destinations d ON d.destinationId = a.destinationID " 
+            + "WHERE st.userId = ? ORDER BY savedDate LIMIT 2;";
 
         try {
             con = db.getConnection();
@@ -339,11 +354,11 @@ public class Schedule {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Map<String, String> scheduleData = new HashMap<>();
-                scheduleData.put("destinationName", rs.getString("DestinationName"));
-                scheduleData.put("photoPath", rs.getString("DestinationPhotoPath"));
+                Map<String, Object> scheduleData = new HashMap<>();
+                scheduleData.put("destinationName", rs.getString("d.destinationName"));
+                scheduleData.put("photoPath", rs.getString("d.destinationPhotoPath"));
                 scheduleData.put("savedDate", rs.getDate("savedDate").toString());
-                scheduleData.put("scheduleId", rs.getString("scheduleId").toString());
+                scheduleData.put("scheduleId", rs.getInt("scheduleId"));
                 pastSchedules.add(scheduleData);
             }
         } catch (SQLException e) {

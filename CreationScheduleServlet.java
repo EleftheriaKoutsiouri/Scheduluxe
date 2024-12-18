@@ -35,22 +35,11 @@ public class CreationScheduleServlet extends HttpServlet {
         String days = request.getParameter("totalDays");
 
         int totalDays = 0;
-        boolean hasError = false;
 
         try {
             totalDays = Integer.parseInt(days);
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid number of days provided.");
-            hasError = true;
-        }
-
-        if (hasError) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
-            dispatcher.forward(request, response);
-            return; // Stop further processing
-        }
-
-        try {
+            session.setAttribute("totalDays", totalDays);
+        
             CreationSchedule creationSchedule = new CreationSchedule();
 
             int destinationId = creationSchedule.getIdFromDatabase(
@@ -71,11 +60,14 @@ public class CreationScheduleServlet extends HttpServlet {
             int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
             int scheduleId = schedule.saveSchedule(totalSchedule, userId);
 
-            Map<Integer, Map<String, Activity>> total = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+
+            //Map<Integer, Map<String, Activity>> total = schedule.getScheduleForUser(userId, scheduleId, totalDays);
 
             // Store data in the request and forward
-            request.setAttribute("scheduleData", total);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowData.jsp");
+            //request.setAttribute("scheduleData", total);
+            request.setAttribute("scheduleId", scheduleId);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {

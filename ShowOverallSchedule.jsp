@@ -3,12 +3,14 @@
 <%@ page import="Scheduluxe.*" %>
 <%@ page errorPage="ErrorPage.jsp" %>
 
+<%@ include file="AuthenticationGuard.jsp" %>
 <%
-    int totalDays = Integer.parseInt(request.getParameter("totalDays"));
-    String schId = request.getParameter("scheduleId");
-    int scheduleId = Integer.parseInt(schId);
+    int totalDays = (Integer) session.getAttribute("totalDays");
+
+    int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
     
-    int userId = (Integer) session.getAttribute("userId"); 
+    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
     
     Schedule schedule = new Schedule();
     Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);

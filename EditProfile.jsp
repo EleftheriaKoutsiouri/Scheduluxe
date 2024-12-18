@@ -1,5 +1,5 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="Scheduluxe.*" %>
+<%@ page import="Scheduluxe.*, java.util.List, java.util.Map" %>
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%@ include file="AuthenticationGuard.jsp" %>
@@ -8,6 +8,7 @@
 <%
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
     int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+
     String firstname = traveler != null ? traveler.getFirstname() : "";
     String lastname = traveler != null ? traveler.getLastname() : "";
     String username = traveler != null ? traveler.getUsername() : "";
@@ -96,28 +97,32 @@
                     <div class="card-container">
                         
                         <%
-                            Schedule schedule = new Schedule();
-                            List<Map<String, String>> pastSchedules = schedule.getPastSchedules(userId);
+                            Schedule sch= new Schedule();
+                            List<Map<String, Object>> pastSchedules = sch.getPastSchedules(userId);
                             if (pastSchedules != null && !pastSchedules.isEmpty()) {
-                                for (Map<String, String> schedule : pastSchedules) {
+                                for (Map<String, Object> schedule : pastSchedules) {
                         %>
                             <div class="card" style="width: 19rem;">
-                                <img src="<%= request.getContextPath() + schedule.get("photoPath") %>" class="card-img-top" alt="<%= schedule.get("destinationName") %>">
+                                <img src="<%= request.getContextPath() %>/images/<%= schedule.get("photoPath") %>" class="card-img-top" alt="<%= schedule.get("destinationName") %>">
+
                                 <div class="card-body">
-                                    <a href="/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=" + schedule.get("scheduleId") %>">
+
+                                    <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= schedule.get("scheduleId") %>">
                                         <button type="button" class="start-button">Press here</button>
                                     </a>
+
                                     <div class="destination-info" style="text-align: right; margin-left: 10px;">
                                         <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.get("destinationName") %></p>
                                         <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.get("savedDate") %></p>
                                     </div>
+
                                 </div>
                             </div>
                         <%
                                 }
                             } else {
                         %>
-                            <p>No past schedules found.</p>
+                            <p><a href="<%=request.getContextPath()%>/Scheduluxe/Selection.jsp">Create your first schedule!</a></p>
                         <%
                             }
                         %>

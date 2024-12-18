@@ -2,11 +2,16 @@
 <%@ page import="java.util.List, java.util.Map, Scheduluxe.*, java.net.URLEncoder" %> 
 <%@ page errorPage="ErrorPage.jsp" %>
 
+
+<%@ include file="AuthenticationGuard.jsp" %>
 <%
-    int totalDays = Integer.parseInt(request.getParameter("totalDays"));
+    int totalDays = Integer.parseInt(request.getParameter("totalDays"));    //could be done with session
+
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
     int scheduleId = (Integer) request.getAttribute("scheduleId");
-    int userId = (Integer) session.getAttribute("userId");
+
+    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
     Schedule schedule = new Schedule();
     Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
@@ -84,11 +89,11 @@
                         Activity activity = daySchedule.get(times[i]);
                 %>
                 <%
-                    String details = activity.getDetails();
-                    String encodedDetails = URLEncoder.encode(details, "UTF-8");
+                        String details = activity.getDetails();
+                        String encodedDetails = URLEncoder.encode(details, "UTF-8");
 
-                    // Replace '+' with spaces so that it appears as normal text
-                    encodedDetails = encodedDetails.replace("+", " ");
+                        // Replace '+' with spaces so that it appears as normal text
+                        encodedDetails = encodedDetails.replace("+", " ");
 
                 %>
                         <div class="activity-item" onclick="loadActivityDetails('<%= encodedDetails %>')">
@@ -102,8 +107,6 @@
                         </div>
                 <%
                     }
-                    // Update the existing scheduleId without redeclaring it
-                    scheduleId = (Integer) request.getAttribute("scheduleId") != null ? (Integer) request.getAttribute("scheduleId") : 0;
                 %>
                 
                 <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= scheduleId %>">
