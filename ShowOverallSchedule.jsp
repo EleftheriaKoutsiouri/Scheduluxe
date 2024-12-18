@@ -84,7 +84,7 @@
         <div class="feedback-container">
             <div class="comment-box">
                 <h3>Leave a Comment</h3>
-                <form action="servlet/FeedbackServlet" method="POST">
+                <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet" method="POST">
                     <div class="comment-input">
                         <textarea name="commentText" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                         <input type="hidden" name="scheduleId" value="${scheduleId}"/>

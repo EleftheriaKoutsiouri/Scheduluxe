@@ -119,10 +119,12 @@ public class Schedule {
         return schedule;
     }
 
-    public void saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
+    public int saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
         int scheduleId = generateScheduleId();
         saveInSchedules(schedule, scheduleId);
         saveScheduleForUser(userId, scheduleId);
+
+        return scheduleId;
     }
 
 
@@ -224,7 +226,7 @@ public class Schedule {
     private void saveScheduleForUser(int userId, int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "INSERT INTO schedulebytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO schedulesbytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
 
         try {
             con = db.getConnection();
@@ -293,7 +295,7 @@ public class Schedule {
     public boolean saveFeedback(int userId, int scheduleId, String comment, int rating) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "UPDATE schedulebytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
+        String sql = "UPDATE schedulesbytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
 
         try {
             con = db.getConnection();
