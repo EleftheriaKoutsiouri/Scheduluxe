@@ -172,16 +172,17 @@ public class Schedule {
 
     }
 
-    public Map<Integer, List<Map<String, Object>>> getScheduleForUser(int userId, int scheduleId, int totalDays)
+    public Map<Integer, Map<String, Activity>> getScheduleForUser(int userId, int scheduleId, int totalDays)
             throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "SELECT s.ActivityID, s.Day, s.TimeSlot " +
+        String sql = "SELECT a.*, s.Day, s.TimeSlot " +
                 "FROM schedules s " +
                 "JOIN schedulesbytraveler sbt ON s.ScheduleID = sbt.ScheduleID " +
+                "JOIN activities a ON s.ActivityID = a.ActivityID " +
                 "WHERE sbt.UserID = ? AND s.ScheduleID = ?";
 
-        Map<Integer, List<Map<String, Object>>> fullSchedule = new HashMap<>();
+        Map<Integer, Map<String, Activity>> fullSchedule = new HashMap<>();
 
         try {
             con = db.getConnection();
@@ -192,19 +193,16 @@ public class Schedule {
 
             while (rs.next()) {
                 int activityId = rs.getInt("ActivityID");
-                int day = rs.getInt("Day");
+                String activityName = rs.getString("ActivityName");
+                String details = rs.getString("Details");
                 String timeSlot = rs.getString("TimeSlot");
+                String startTime = rs.getString("StartTime");
+                String endTime = rs.getString("EndTime");
+                int day = rs.getInt("Day");
 
-                Map<String, Object> activityData = new HashMap<>();
-                activityData.put("ActivityID", activityId);
-                activityData.put("Day", day);
-                activityData.put("TimeSlot", timeSlot);
-
-                if (!fullSchedule.containsKey(day)) {
-                    fullSchedule.put(day, new ArrayList<>());
-                }
-
-                fullSchedule.get(day).add(activityData);
+                Activity activity = new Activity(activityId, activityName, details, startTime, endTime);
+                fullSchedule.putIfAbsent(day, new HashMap<>());
+                fullSchedule.get(day).put(timeSlot, activity);
             }
 
             rs.close();

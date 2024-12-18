@@ -18,13 +18,13 @@ public class CreationScheduleServlet extends HttpServlet {
             request.setAttribute("error", "No traveler information found in session.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
             dispatcher.forward(request, response);
+            return; // Stop further processing
         }
 
         String destination = request.getParameter("destination");
-
         String[] typesString = request.getParameterValues("type");
 
-        List<String> types = new ArrayList<String>();
+        List<String> types = new ArrayList<>();
         if (typesString != null) {
             for (String type : typesString) {
                 types.add(type);
@@ -35,10 +35,22 @@ public class CreationScheduleServlet extends HttpServlet {
         String days = request.getParameter("totalDays");
 
         int totalDays = 0;
+        boolean hasError = false;
 
         try {
             totalDays = Integer.parseInt(days);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid number of days provided.");
+            hasError = true;
+        }
 
+        if (hasError) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
+            dispatcher.forward(request, response);
+            return; // Stop further processing
+        }
+
+        try {
             CreationSchedule creationSchedule = new CreationSchedule();
 
             int destinationId = creationSchedule.getIdFromDatabase(
@@ -51,26 +63,26 @@ public class CreationScheduleServlet extends HttpServlet {
 
             // Create a schedule
             Schedule schedule = new Schedule();
-
             List<Activity> activities = schedule.searchActivities(destinationId, typeIds, budgetId);
 
             Map<Integer, Map<String, Activity>> totalSchedule = schedule.assignActivitiesToTimeSlots(activities,
                     totalDays);
 
             int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-            schedule.saveSchedule(totalSchedule, userId);
-            //int scheduleId = schedule.getScheduleId();
-            // schedule.saveScheduleForUser(userId, scheduleId);
+            int scheduleId = schedule.saveSchedule(totalSchedule, userId);
 
-            session.setAttribute("totalSchedule", totalSchedule);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
+            Map<Integer, Map<String, Activity>> total = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+
+            // Store data in the request and forward
+            request.setAttribute("scheduleData", total);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowData.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("error", "An error occurred: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ErrorPage.jsp");
             dispatcher.forward(request, response);
+            return; // Stop further processing
         }
-        
     }
 }

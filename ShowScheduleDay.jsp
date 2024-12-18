@@ -9,7 +9,7 @@
     int userId = (Integer) session.getAttribute("userId");
 
     Schedule schedule = new Schedule();
-    Map<Integer, List<Map<String, Object>>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
     
     if (totalSchedule == null) {
         out.println("No schedule available.");
@@ -100,14 +100,13 @@
                             </div>
                             <h4><%= times[i] %></h4>
                         </div>
-
                 <%
                     }
-                    Integer schId = (Integer) request.getAttribute("scheduleId");
-                    int scheduleId = schId != null ? schId : 0;
+                    // Update the existing scheduleId without redeclaring it
+                    scheduleId = (Integer) request.getAttribute("scheduleId") != null ? (Integer) request.getAttribute("scheduleId") : 0;
                 %>
-
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%=scheduleId %>">
+                
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>

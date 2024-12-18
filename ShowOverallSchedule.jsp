@@ -82,9 +82,7 @@
             </table>
         </div>
 <%
-Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
-int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 %>        
             <div class="feedback-container">
                 <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
