@@ -345,6 +345,7 @@ public class Schedule {
                 scheduleData.put("destinationName", rs.getString("DestinationName"));
                 scheduleData.put("photoPath", rs.getString("DestinationPhotoPath"));
                 scheduleData.put("savedDate", rs.getDate("savedDate").toString());
+                scheduleData.put("scheduleId", rs.getString("scheduleId").toString());
                 pastSchedules.add(scheduleData);
             }
         } catch (SQLException e) {

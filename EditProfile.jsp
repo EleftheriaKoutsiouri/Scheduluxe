@@ -94,8 +94,10 @@
                 <div class="past-schedules">
                     <h4 class="small-title"><strong>See your Past Schedules</strong></h4>
                     <div class="card-container">
+                        
                         <%
-                            List<Map<String, String>> pastSchedules = (List<Map<String, String>>) request.getAttribute("pastSchedules");
+                            Schedule schedule = new Schedule();
+                            List<Map<String, String>> pastSchedules = schedule.getPastSchedules(userId);
                             if (pastSchedules != null && !pastSchedules.isEmpty()) {
                                 for (Map<String, String> schedule : pastSchedules) {
                         %>
