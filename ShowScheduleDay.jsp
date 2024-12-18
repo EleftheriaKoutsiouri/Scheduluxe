@@ -3,18 +3,15 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 <%
-    // Ανάκτηση παραμέτρων από το request, αν υπάρχουν
     int totalDays = Integer.parseInt(request.getParameter("totalDays"));
     
-    //in order to get everytime the parameter from the day which from the arro handling 
-    //int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
-    int currentDay = 1;
+    //in order to get everytime the parameter from the day which from the arroW handling 
+    int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
 
-    // Αν το totalSchedule είναι null, δείξε μήνυμα σφάλματος
     Map<Integer, Map<String, Activity>> totalSchedule = (Map<Integer, Map<String, Activity>>) session.getAttribute("totalSchedule");
     if (totalSchedule == null) {
         out.println("<p style='color: red;'>Error: No schedule data available.</p>");
-        return; // Σταματά την εκτέλεση αν δεν υπάρχουν τα δεδομένα
+        return;
     }
 %>
 
@@ -54,7 +51,6 @@
         <div class="schedule-container">
             <!-- Day container with navigation arrows -->
             <div class="day-container">
-
                 <%
                     // Hide the left arrow if we're on the first day
                     boolean showLeftArrow = currentDay > 1;
@@ -64,33 +60,25 @@
                 %>
             
                 <%-- Left Arrow --%>
-                <div class="left-arrow" onclick="navigateDay(-1)" <%= showLeftArrow ? "" : "style='display:none;'"%>>
-                    <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
-                </div>
-
-                <!-- <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>" class="arrow" 
                    <%= showLeftArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
-                </a> -->
+                </a>
             
                 <h2>Day <%= currentDay %></h2>
             
                 <%-- Right Arrow --%>
-                <div class="right-arrow" onclick="navigateDay(1)" <%= showRightArrow ? "" : "style='display:none;'" %>>
-                    <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
-                </div>
-
-                <!-- <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>" class="arrow" 
                    <%= showRightArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
-                </a> -->
+                </a>
             </div>
 
             <!-- List of activities for the day -->
             <div class="activity-list">
                 <%
                     String[] times = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
-                    Map<String, Activity> daySchedule = totalSchedule.get(currentDay); // Ανάκτηση του προγράμματος για την ημέρα
+                    Map<String, Activity> daySchedule = totalSchedule.get(currentDay);
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = daySchedule.get(times[i]);
                 %>
@@ -111,10 +99,8 @@
                             </div>
                             <h4><%= times[i] %></h4>
                         </div>
-                <%
-                    }
-                %>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp">
+                
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%=scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>
@@ -137,63 +123,7 @@
         </div>
     </main>
 
-    
     <script>
-        // Global variables for current day and total days
-        var currentDay = parseInt("<%= currentDay %>", 10); 
-        var totalDays = parseInt("<%= totalDays %>", 10);
-
-
-        function navigateDay(direction) {
-            var newDay = currentDay + direction;
-
-            // Stop if out of range
-            if (newDay < 1 || newDay > totalDays) {
-                return;
-            }
-
-            currentDay = newDay; // Update the global current day
-
-            // Fetch updated content via AJAX
-            $.ajax({
-                url: '<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp',
-                type: 'GET',
-                data: {
-                    day: currentDay,
-                    totalDays: totalDays
-                },
-                success: function(response) {
-                    // Replace schedule-container content dynamically
-                    $('.schedule-container').html($(response).find('.schedule-container').html());
-                    
-                    // Update day heading dynamically
-                    $('h2').text('Day ' + currentDay);
-                },
-                error: function() {
-                    alert('Error loading schedule data.');
-                }
-            });
-        }
-
-
-        // function navigateDay(direction) {
-        // // Calculate the target day based on current day and direction
-        // var targetDay = <%= currentDay %> + direction;
-
-        // // Send an AJAX request to get the schedule for the target day
-        // $.ajax({
-        //     url: '<%=request.getContextPath()%>/GetScheduleForDayServlet',
-        //     type: 'GET',
-        //     data: { day: targetDay },
-        //     success: function(response) {
-        //         // Update the page with the new schedule data
-        //         updateSchedule(response, targetDay);
-        //     }
-
-        // })
-        // }
-
-
         function loadActivityDetails(activityDetails) {
             // Decode the encoded plain text (if necessary)
             var decodedDetails = decodeURIComponent(activityDetails);
