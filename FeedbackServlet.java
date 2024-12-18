@@ -24,11 +24,11 @@ public class FeedbackServlet extends HttpServlet {
             String schId = request.getParameter("scheduleId");
             int scheduleId = Integer.parseInt(schId);
             String comment = request.getParameter("comment");
-            //int rating = Integer.parseInt(request.getParameter("rating"));
+            int rating = Integer.parseInt(request.getParameter("rating"));
             Schedule schedule = new Schedule();
 
             if (comment != null && !comment.trim().isEmpty()) {
-                schedule.saveFeedback(userId, scheduleId, comment, 0); // Save comment with a default rating of 0
+                schedule.saveFeedback(userId, scheduleId, comment, rating); // Save comment with a default rating of 0
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
