@@ -61,7 +61,7 @@
                     <span class="world-text">The World</span><br>
                     <span class="step-text">One Step At A Time!</span>
                 </h2>
-                <p>If you're looking for experiences that match your unique interests and travel style, you've come to the right place!<br> Choose your destination, and let us create a personalized travel plan just for you.<br> From historical landmarks and gourmet delights to hidden trails<br> and unique activities we’ve got everything  you need <br>to make unforgettable memories.</p>
+                <p>If you're looking for experiences that match your unique interests and travel style, you've come to the right place!<br> Choose your destination, and let us create a personalized travel plan just for you.<br> From historical landmarks and gourmet delights to hidden trails and unique activities we’ve got everything  you need <br>to make unforgettable memories.</p>
                 <%
                 if (session.getAttribute("travelerObj") == null) {
                 %>

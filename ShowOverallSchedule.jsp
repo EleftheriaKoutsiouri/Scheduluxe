@@ -61,72 +61,67 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
-                        for (String timeSlot : timeSlots) { 
-                    %>
+                    <% for (String timeSlot : timeSlots) { %>
                     <tr>
                         <td><%= timeSlot %></td>
-                        <% 
-                            for (int day = 1; day <= totalDays; day++) { 
-                                Map<String, Activity> daySchedule = totalSchedule.get(day);
-                                Activity activity = daySchedule != null ? daySchedule.get(timeSlot) : null; // Retrieve activity for the time slot
-                        %>
+                        <% for (int day = 1; day <= totalDays; day++) { 
+                            Map<String, Activity> daySchedule = totalSchedule.get(day);
+                            Activity activity = daySchedule != null ? daySchedule.get(timeSlot) : null; %>
                         <td>
                             <% if (activity != null) { %>
                                 <%= activity.getActivityName() %>
                             <%}%>
-                          
                         </td>
                         <% } %>
                     </tr>
                     <% } %>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="<%=totalDays + 1%>" class="text-end">
+                            <button class="btn download-btn">
+                                <span class="glyphicon glyphicon-download-alt"></span> Schedule
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
-<%
-
-%>        
-            <div class="feedback-container">
-                <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
-                    <!-- Περιοχή σχολίων -->
-                    <div class="comment-box">
-                        <h3>Leave a Comment</h3>
-                        <div class="comment-input">
-                            <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
-                        </div>
+        <div class="feedback-container">
+            <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
+                <!-- Περιοχή σχολίων -->
+                <div class="comment-box">
+                    <h3>Leave a Comment  &  Rate us</h3>
+                    <div class="comment-input">
+                        <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                     </div>
+                </div>
 
-                    <!-- Περιοχή αξιολόγησης -->
-                    <div class="stars">
-                        <h3>Rate the Schedule</h3>
-                        <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
-                        <label class="star star-5" for="star-5"></label>
+                <!-- Περιοχή αξιολόγησης -->
+                <div class="stars">
+                    <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
+                    <label class="star star-5" for="star-5"></label>
 
-                        <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
-                        <label class="star star-4" for="star-4"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
+                    <label class="star star-4" for="star-4"></label>
 
-                        <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
-                        <label class="star star-3" for="star-3"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
+                    <label class="star star-3" for="star-3"></label>
 
-                        <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
-                        <label class="star star-2" for="star-2"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
+                    <label class="star star-2" for="star-2"></label>
 
-                        <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
-                        <label class="star star-1" for="star-1"></label>
-                    </div>
+                    <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
+                    <label class="star star-1" for="star-1"></label>
+                </div>
 
-                    <!-- Κουμπί υποβολής -->
-                    <div class="submit-box">
-                        <button type="submit" class="btn submit-btn">Submit</button>
-                    </div>
-                </form>
-            </div>
+                <!-- Κουμπί υποβολής -->
+                <div class="submit-box">
+                    <button type="submit" class="btn submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
 
-            <div class="download-box">
-                <button class="btn download-btn">
-                    <span class="glyphicon glyphicon-download-alt"></span> Schedule
-                </button>
-            </div>            
         </div>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -146,8 +141,7 @@
             });
         </script>
     </main>
-    
+
     <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
-    
 </body>
 </html>
