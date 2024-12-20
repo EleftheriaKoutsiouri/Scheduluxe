@@ -38,7 +38,6 @@ public class CreationScheduleServlet extends HttpServlet {
 
         try {
             totalDays = Integer.parseInt(days);
-            session.setAttribute("totalDays", totalDays);
         
             CreationSchedule creationSchedule = new CreationSchedule();
 
@@ -58,13 +57,12 @@ public class CreationScheduleServlet extends HttpServlet {
                     totalDays);
 
             int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-            int scheduleId = schedule.saveSchedule(totalSchedule, userId);
+            int scheduleId = schedule.saveSchedule(totalSchedule, userId, totalDays);
+
+            //to appear the map and the details about the destination in the ShowScheduleDay => to chnage if ajax
+            session.setAttribute("destinationId", destinationId);
 
 
-            //Map<Integer, Map<String, Activity>> total = schedule.getScheduleForUser(userId, scheduleId, totalDays);
-
-            // Store data in the request and forward
-            //request.setAttribute("scheduleData", total);
             request.setAttribute("scheduleId", scheduleId);
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");

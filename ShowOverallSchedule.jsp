@@ -1,19 +1,19 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map" %>
 <%@ page import="Scheduluxe.*" %>
-<%@ page errorPage="ErrorPage.jsp" %>
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-    int totalDays = (Integer) session.getAttribute("totalDays");
-
     int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
     
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
     int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
-    
+
     Schedule schedule = new Schedule();
-    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+    int totalDays = schedule.findDaysFromScheduleByUser(userId, scheduleId);
+    
+    
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId);
     String[] timeSlots = schedule.getTimeSlots();
 %>
 

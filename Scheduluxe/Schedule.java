@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Schedule {
+
     // Constructor
     public Schedule() {
     }
@@ -119,10 +120,10 @@ public class Schedule {
         return schedule;
     }
 
-    public int saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId) throws Exception {
+    public int saveSchedule(Map<Integer, Map<String, Activity>> schedule, int userId, int totalDays) throws Exception {
         int scheduleId = generateScheduleId();
         saveInSchedules(schedule, scheduleId);
-        saveScheduleForUser(userId, scheduleId);
+        saveScheduleForUser(userId, scheduleId, totalDays);
 
         return scheduleId;
     }
@@ -172,7 +173,7 @@ public class Schedule {
 
     }
 
-    public Map<Integer, Map<String, Activity>> getScheduleForUser(int userId, int scheduleId, int totalDays)
+    public Map<Integer, Map<String, Activity>> getScheduleForUser(int userId, int scheduleId)
             throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -270,10 +271,10 @@ public class Schedule {
         }
     }
 
-    private void saveScheduleForUser(int userId, int scheduleId) throws Exception {
+    private void saveScheduleForUser(int userId, int scheduleId, int totalDays) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "INSERT INTO schedulesbytraveler (UserID, scheduleId, savedDate) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO schedulesbytraveler (UserID, scheduleId, savedDate, days) VALUES (?, ?, ?, ?)";
 
         try {
             con = db.getConnection();
@@ -281,7 +282,8 @@ public class Schedule {
 
             stmt.setInt(1, userId);
             stmt.setInt(2, scheduleId);
-            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+            stmt.setInt(4, totalDays);
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected <= 0) {
@@ -295,6 +297,47 @@ public class Schedule {
 
         } catch (Exception e) {
             throw new Exception("Error inserting schedule for user: " + e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+
+    public int findDaysFromScheduleByUser(int userId, int scheduleId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT days FROM schedulesbytraveler WHERE UserID = ? AND scheduleId = ?;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, userId);
+            stmt.setInt(2, scheduleId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next()) {
+                rs.close();
+                stmt.close();
+                db.close();
+                throw new Exception("Error finding the totals days because they do not exist! ");
+            }
+            
+            int totalDays = rs.getInt("days");
+
+            rs.close();
+            stmt.close();
+            db.close();
+
+            return totalDays;
+
+        } catch (Exception e) {
+            throw new Exception("Error finding the totals days of the past schedule of the user: " + e.getMessage());
         } finally {
             try {
                 db.close();
@@ -331,21 +374,13 @@ public class Schedule {
             return null;
         }
 
-        //does not work for our db as it is struvtured now
-        // String sql = "SELECT d.DestinationName, d.DestinationPhotoPath, s.savedDate, s.scheduleId " +
-        //         "FROM schedulesbytraveler s " +
-        //         "INNER JOIN destinations d ON s.DestinationID = d.DestinationID " +
-        //         "WHERE s.UserID = ? " +
-        //         "ORDER BY s.savedDate DESC " +
-        //         "LIMIT 2;";
-
         String sql = 
-            "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath "
+            "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath, st.days "
             + "FROM schedulesbytraveler st "
             + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
-            + "JOIN activities a ON a.activityId = s.scheduleId " 
+            + "JOIN activities a ON a.activityId = s.activityId " 
             + "JOIN destinations d ON d.destinationId = a.destinationID " 
-            + "WHERE st.userId = ? ORDER BY savedDate LIMIT 2;";
+            + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
 
         try {
             con = db.getConnection();
@@ -359,6 +394,7 @@ public class Schedule {
                 scheduleData.put("photoPath", rs.getString("d.destinationPhotoPath"));
                 scheduleData.put("savedDate", rs.getDate("savedDate").toString());
                 scheduleData.put("scheduleId", rs.getInt("scheduleId"));
+                scheduleData.put("days", rs.getInt("days"));
                 pastSchedules.add(scheduleData);
             }
         } catch (SQLException e) {

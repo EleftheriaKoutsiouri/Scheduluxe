@@ -112,8 +112,18 @@
                                     </a>
 
                                     <div class="destination-info" style="text-align: right; margin-left: 10px;">
-                                        <p class="destination-name" style="margin: 0; font-weight: bold;"><%= schedule.get("destinationName") %></p>
-                                        <p class="travel-date" style="margin: 0; font-size: 14px;"><%= schedule.get("savedDate") %></p>
+                                        <p class="destination-name" style="margin: 0; font-weight: bold;">
+                                            <%= schedule.get("destinationName") %>
+                                        </p>
+
+                                        <p class="travel-date" style="margin: 0; font-size: 14px;">
+                                            <%= schedule.get("savedDate") %>
+                                        </p>
+
+                                        <p class="days" style="margin: 0; font-size: 14px;">
+                                            <%= (Integer) schedule.get("days") %> <%= ( (Integer) schedule.get("days") == 1 ) ? "day" : "days"%>
+                                        </p>
+
                                     </div>
 
                                 </div>

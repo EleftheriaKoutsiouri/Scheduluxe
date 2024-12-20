@@ -1,24 +1,39 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map, Scheduluxe.*, java.net.URLEncoder" %> 
-<%@ page errorPage="ErrorPage.jsp" %>
+
 
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-    int totalDays = Integer.parseInt(request.getParameter("totalDays"));    //could be done with session
-
+      
+    //in order to get everytime the parameter from the day which from the arrow handling 
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
-    int scheduleId = (Integer) request.getAttribute("scheduleId");
-
+    
+    Integer scheduleIdObj = (Integer) request.getAttribute("scheduleId");
+    int scheduleId = scheduleIdObj != null ? scheduleIdObj : Integer.parseInt(request.getParameter("scheduleId"));
+    
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
     int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
     Schedule schedule = new Schedule();
-    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId, totalDays);
+
+    //it is okay due to the dispatcher
+    //int totalDays = Integer.parseInt(request.getParameter("totalDays")); 
+    //better
+    int totalDays = schedule.findDaysFromScheduleByUser(userId, scheduleId);
+
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId);
     
     if (totalSchedule == null) {
         out.println("No schedule available.");
     }
+
+
+    //for the destination details and map
+    int destId = (Integer) session.getAttribute("destinationId");
+
+    CreationSchedule cs = new CreationSchedule();
+    List<Object> info = cs.destinationInfo(destId);
 %>
 
 <!DOCTYPE html>
@@ -66,7 +81,7 @@
                 %>
             
                 <%-- Left Arrow --%>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>&scheduleId=<%= scheduleId %>" class="arrow" 
                    <%= showLeftArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
                 </a>
@@ -74,7 +89,7 @@
                 <h2>Day <%= currentDay %></h2>
             
                 <%-- Right Arrow --%>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>&scheduleId=<%= scheduleId %>" class="arrow" 
                    <%= showRightArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
                 </a>
@@ -126,13 +141,31 @@
             <!-- Details section with title and description -->
             <div class="details-container">
                 <h2>Details</h2>
-                <p id="activity-details">Select an activity to view details here.</p>
+                <p id="activity-details">
+                    <%= info.get(0)%>
+                    <br><br>
+                    Select an activity to view details here.
+                </p>
             </div>
 
         </div>
     </main>
 
     <script>
+
+        /* function that responds to onclick: 
+        what is happening behind?
+        1. on the server-side, jsp dynamically generates the HTML code 
+        2. when the page is loaded, the HTML page is delivered to client
+        3. when the user clicks on an activity, the function is executed
+        4. then dynamically the element <p id="activity-details"> of the HTML page is being dynamically updated
+        
+        
+        Advantages:
+        - there is not a reloading of the whole page. Basically, the only thing that changes is the DOM (Document Object Model = programming interface provided by the browser that represents the structure of a webpage (HTML document) as a tree of objects. That is because the thing that changes dynamically is an element of HTML (<p id="activity-details">)
+        - that means that there is not an additional server request
+        - so everything happens on the client-side in memory
+        */
         function loadActivityDetails(activityDetails) {
             // Decode the encoded plain text (if necessary)
             var decodedDetails = decodeURIComponent(activityDetails);

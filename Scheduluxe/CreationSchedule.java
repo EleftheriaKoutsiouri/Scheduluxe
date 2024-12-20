@@ -89,6 +89,42 @@ public class CreationSchedule {
         }
     }
 
+
+    public List<Object> destinationInfo(int destId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT destinationDetails, latitude, longitude FROM Destinations WHERE destinationId = ?;";
+        List<Object> info = new ArrayList<>();
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, destId);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                info.add(rs.getString("destinationDetails"));
+                info.add(rs.getDouble("latitude"));
+                info.add(rs.getDouble("longitude"));
+            }
+
+            rs.close();
+            stmt.close();
+            db.close();
+
+            return info;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
     public int getIdFromDatabase(String tableName, String columnName, String value, String idColumn) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -118,6 +154,8 @@ public class CreationSchedule {
         }
         return id;
     }
+
+    
 
     public List<Integer> getTypesIdFromDatabase(List<String> types) throws Exception {
         List<Integer> typeIds = new ArrayList<>();
@@ -154,7 +192,4 @@ public class CreationSchedule {
         return typeIds;
     }
     
-    public int getDays(int Days) {
-        return Days;
-    }
 }
