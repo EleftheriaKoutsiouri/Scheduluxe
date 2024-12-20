@@ -29,12 +29,12 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="First.jsp" class="active">Home</a></li> 
-                    <li><a href="Aboutus.jsp">About us</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/First.jsp" class="active">Home</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li>
                     <%
                     if (session.getAttribute("travelerObj") == null) {
                     %>
-                    <li><a href="Connect.jsp">Get Started</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/Connect.jsp">Get Started</a></li> 
                     <%
                     }
                     %>

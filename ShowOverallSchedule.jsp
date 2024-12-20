@@ -40,9 +40,9 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">  
-                    <li><a href="First.jsp">Home</a></li>  
-                    <li><a href="Aboutus.jsp">About us</a></li> 
-                    <li><a href="EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/First.jsp">Home</a></li>  
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>  
                 </ul>  
             </div>
         </nav>
