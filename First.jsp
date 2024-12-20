@@ -22,7 +22,14 @@
                 <img src="<%= request.getContextPath() %>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
-
+            <style>
+               body {
+                position: relative; 
+                margin: 0; 
+                height: 100vh; 
+                background: linear-gradient(45deg, #f4f4f4 60%, #f5d9f3fe 80%);
+              }
+            </style>
             <!-- Hamburger Menu Button -->
             <button class="menu-toggle">
               <span class="hamburger-icon">&#9776;</span>
