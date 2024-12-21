@@ -75,6 +75,8 @@
                                         <label for="pass" class="label">Password</label>
                                         <input id="pass" type="password" class="input" data-type="password" name="password" placeholder="Create your password">
                                     </div>
+                                    <!--περναω την σελιδα απο την οποια καλείται η Connect.jsp-->
+                                    <input type="hidden" name="targetPage" value="<%= (String) session.getAttribute("targetPage") %>">
                                     <div class="group">
                                         <input type="submit" class="button" value="Sign Up">
                                     </div>

@@ -11,7 +11,13 @@ TravelerService travService = new TravelerService();
 try {
     Traveler traveler = travService.createTraveler(username, email, password);
     session.setAttribute("travelerObj", traveler);
-    response.sendRedirect("Selection.jsp");
+    
+    if (targetPage != null) {
+        session.removeAttribute("targetPage"); 
+        response.sendRedirect(targetPage);
+    } else {
+        response.sendRedirect("Selection.jsp");
+    } 
 
 }catch (Exception e){
     request.setAttribute("message", e.getMessage());
