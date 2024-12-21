@@ -38,7 +38,7 @@
             </button>
             <div class="dropdown">
                 <ul class="nav-links">
-                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/First.jsp">Home</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Scheduluxe/Home.jsp">Home</a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp"><span class="material-symbols-outlined">account_circle</span></a></li>
                 </ul>
