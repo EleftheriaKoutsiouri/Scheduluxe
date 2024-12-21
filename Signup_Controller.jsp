@@ -6,6 +6,7 @@
 String username = request.getParameter("username");
 String email = request.getParameter("email");
 String password = request.getParameter("password");
+String targetPage = request.getParameter("targetPage");
 
 TravelerService travService = new TravelerService();
 try {
