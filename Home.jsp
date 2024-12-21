@@ -1,5 +1,12 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="Scheduluxe.*" %>
+
+<!--Set the targetPage to the current page URL before linking to Connect.jsp-->
+<%
+String currentURI = request.getRequestURI();
+session.setAttribute("targetPage", currentURI);
+%>
+
 <!DOCTYPE html>  
 <html lang="en">  
 <head> 
@@ -69,21 +76,13 @@
                     <span class="step-text">One Step At A Time!</span>
                 </h2>
                 <p>If you're looking for experiences that match your unique interests and travel style, you've come to the right place!<br> Choose your destination, and let us create a personalized travel plan just for you.<br> From historical landmarks and gourmet delights to hidden trails and unique activities we’ve got everything  you need <br>to make unforgettable memories.</p>
-                <%
-                if (session.getAttribute("travelerObj") == null) {
-                %>
-                <a href="Connect.jsp">
-                  <button type="button" class="start-button">
-                      Start the experience <span class="glyphicon glyphicon-plane"></span> 
-                  </button>
-                </a>
-                <% } else { %>
+                
                 <a href="Selection.jsp">
                 <button type="button" class="start-button">
                       Start the experience <span class="glyphicon glyphicon-plane"></span> 
                 </button>
                 </a>
-                <% } %>
+                
             </div>
             
             <!-- Carousel -->

@@ -2,7 +2,7 @@
 <%@ page import="Scheduluxe.*, java.util.List, java.util.Map" %>
 <%@ page errorPage="ErrorPage.jsp" %>
 
-<%@ include file="AuthenticationGuard.jsp" %>
+<%@ include file="TargetPage.jsp" %>
 
 
 <%

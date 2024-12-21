@@ -5,13 +5,21 @@
 <%
 String username = request.getParameter("username");
 String password = request.getParameter("password");
+String targetPage = request.getParameter("targetPage");
 
 TravelerService travService = new TravelerService();
 try {
     Traveler traveler = travService.getTraveler(username,password);
     session.setAttribute("travelerObj", traveler);
-    response.sendRedirect("Selection.jsp");
     
+    if (targetPage != null) {
+        session.removeAttribute("targetPage"); 
+        response.sendRedirect(targetPage);
+    } else {
+        response.sendRedirect("Selection.jsp");
+    }   
+    
+
 } catch (Exception e) {
     request.setAttribute("message", e.getMessage());       
     //normally it will show "Wrong username or password, please try again!"

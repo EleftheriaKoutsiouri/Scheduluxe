@@ -4,7 +4,8 @@
 <%@ page errorPage="ErrorPage.jsp" %>
 
 
-<%@ include file="AuthenticationGuard.jsp" %>
+
+<%@ include file="TargetPage.jsp" %>
 <%
     CreationSchedule creationSchedule = new CreationSchedule();
     // Fetch data from the database
