@@ -96,11 +96,11 @@
                         <%
                             if ((schedule.getComment(userId, scheduleId)).equals("no comment")) {
                         %>
-                                <textarea id="commentField" name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
+                                <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                         <%
                             } else {
                         %>   
-                                <textarea id="commentField" name="comment" class="form-control" rows="3"><%= schedule.getComment(userId, scheduleId) %></textarea>
+                                <textarea name="comment" class="form-control" rows="3"><%= schedule.getComment(userId, scheduleId) %></textarea>
                         <%
                             }
                         %>
@@ -137,15 +137,6 @@
                 </div>
             </form>
         </div>
-
-        <script>
-            document.getElementById('feedbackForm').addEventListener('submit', function () {
-                const commentField = document.getElementById('commentField');
-                if (commentField.value.trim() === '') {
-                    commentField.value = null; // Θέτουμε το πεδίο ως null αν είναι κενό
-                }
-            });
-        </script>
         
         <script>
         // JavaScript για να ρυθμίσει το hidden πεδίο αν δεν επιλέγεται καμία star
