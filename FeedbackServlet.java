@@ -41,7 +41,7 @@ public class FeedbackServlet extends HttpServlet {
             e.getMessage();
             request.setAttribute("error", e.getMessage());
             //response.sendRedirect("<%=request.getContextPath()%>/Scheduluxe/ShowOverallSchedule.jsp?error=1");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/testComment.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
             dispatcher.forward(request, response);
         }
     }

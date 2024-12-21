@@ -91,36 +91,72 @@
             <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
                 <!-- Περιοχή σχολίων -->
                 <div class="comment-box">
-                    <h3>Leave a Comment  &  Rate us</h3>
+                    <h3>Leave a Comment & Rate us</h3>
                     <div class="comment-input">
-                        <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
+                        <%
+                            if ((schedule.getComment(userId, scheduleId)).equals("no comment")) {
+                        %>
+                                <textarea id="commentField" name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
+                        <%
+                            } else {
+                        %>   
+                                <textarea id="commentField" name="comment" class="form-control" rows="3"><%= schedule.getComment(userId, scheduleId) %></textarea>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
-
+        
                 <!-- Περιοχή αξιολόγησης -->
                 <div class="stars">
-                    <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
+                    <%
+                        int rating = schedule.getRating(userId, scheduleId); // Κλήση της μεθόδου getRating
+                    %>
+                    <input class="star star-5" id="star-5" type="radio" name="rating" value="5" <%= (rating == 5 ? "checked" : "") %> />
                     <label class="star star-5" for="star-5"></label>
-
-                    <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
+        
+                    <input class="star star-4" id="star-4" type="radio" name="rating" value="4" <%= (rating == 4 ? "checked" : "") %> />
                     <label class="star star-4" for="star-4"></label>
-
-                    <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
+        
+                    <input class="star star-3" id="star-3" type="radio" name="rating" value="3" <%= (rating == 3 ? "checked" : "") %> />
                     <label class="star star-3" for="star-3"></label>
-
-                    <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
+        
+                    <input class="star star-2" id="star-2" type="radio" name="rating" value="2" <%= (rating == 2 ? "checked" : "") %> />
                     <label class="star star-2" for="star-2"></label>
-
-                    <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
+        
+                    <input class="star star-1" id="star-1" type="radio" name="rating" value="1" <%= (rating == 1 ? "checked" : "") %> />
                     <label class="star star-1" for="star-1"></label>
                 </div>
-
+        
+                <!-- Κρυφό πεδίο για το rating -->
+                <input type="hidden" id="ratingValue" name="rating" value="0" />
+        
                 <!-- Κουμπί υποβολής -->
                 <div class="submit-box">
                     <button type="submit" class="btn submit-btn">Submit</button>
                 </div>
             </form>
         </div>
+
+        <script>
+            document.getElementById('feedbackForm').addEventListener('submit', function () {
+                const commentField = document.getElementById('commentField');
+                if (commentField.value.trim() === '') {
+                    commentField.value = null; // Θέτουμε το πεδίο ως null αν είναι κενό
+                }
+            });
+        </script>
+        
+        <script>
+        // JavaScript για να ρυθμίσει το hidden πεδίο αν δεν επιλέγεται καμία star
+        document.querySelectorAll('input[name="rating"]').forEach(function(star) {
+            star.addEventListener('change', function() {
+                // Όταν επιλέγεται star, ορίστε το κρυφό πεδίο με την τιμή της
+                document.getElementById('ratingValue').value = this.value;
+            });
+        });
+        </script>
+        
 
         </div>
         

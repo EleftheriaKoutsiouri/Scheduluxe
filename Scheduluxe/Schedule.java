@@ -441,6 +441,80 @@ public class Schedule {
         }
     }
 
+    public String getComment(int userId, int scheduleId) throws Exception {
+
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        String sql = "SELECT COMMENT FROM schedulesbytraveler WHERE UserID = ? AND scheduleId = ?;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, scheduleId);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+            if (rs.getString("comment") == null) {
+                return "no comment";
+            } else {
+                String comment = rs.getString("comment");
+                return comment;
+            }
+
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "Share your thoughts about the schedule...";
+
+    }
+
+    public int getRating(int userId, int scheduleId) throws Exception {
+
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+
+        String sql = "SELECT RATING FROM schedulesbytraveler WHERE UserID = ? AND scheduleId = ?;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, scheduleId);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+
+            int rating = rs.getInt("rating");
+            return rating;
+
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return 0;
+
+    }
+
     public Map<Integer, List<Activity>> getFullSchedule(int totalDays, List<Activity> activities) throws Exception {
         // Retrieve the assigned schedule
         Map<Integer, Map<String, Activity>> schedule = assignActivitiesToTimeSlots(activities, totalDays);
