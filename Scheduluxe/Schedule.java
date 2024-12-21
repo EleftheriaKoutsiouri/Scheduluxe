@@ -456,7 +456,7 @@ public class Schedule {
             ResultSet rs = stmt.executeQuery();
 
             rs.next();
-            if (rs.getString("comment") == null) {
+            if ((rs.getString("comment") == null) || rs.getString("comment").isEmpty()) {
                 return "no comment";
             } else {
                 String comment = rs.getString("comment");
