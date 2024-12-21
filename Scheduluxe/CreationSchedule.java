@@ -90,7 +90,7 @@ public class CreationSchedule {
     }
 
 
-    public List<Object> destinationInfo(int destId) throws Exception {
+    public List<Object> getDestinationInfo(int destId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String sql = "SELECT destinationDetails, latitude, longitude FROM Destinations WHERE destinationId = ?;";

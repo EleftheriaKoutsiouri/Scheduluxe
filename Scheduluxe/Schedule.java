@@ -347,7 +347,7 @@ public class Schedule {
         }
     }
 
-    public boolean hasUserProgram(int userId) throws Exception {
+    private boolean hasUserProgram(int userId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String sql = "SELECT * FROM schedulesbytraveler WHERE userId = ?;";

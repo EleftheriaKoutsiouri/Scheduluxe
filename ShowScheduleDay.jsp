@@ -33,7 +33,7 @@
     int destId = (Integer) session.getAttribute("destinationId");
 
     CreationSchedule cs = new CreationSchedule();
-    List<Object> info = cs.destinationInfo(destId);
+    List<Object> info = cs.getDestinationInfo(destId);
 %>
 
 <!DOCTYPE html>
