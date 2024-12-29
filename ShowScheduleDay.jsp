@@ -132,10 +132,12 @@
 
         <!-- Additional information container with map and details section -->
         <div class="other-info-container">
+            
             <!-- Map container with Leaflet library -->
-            <div class="map-container" id="map">
-                <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                <script src="<%= request.getContextPath() %>/js/map.js"></script> <!-- Link to custom map JavaScript file -->
+            <div class="map-container" id="map-container" 
+            data-latitude="<%= info.get(1) %>" 
+            data-longitude="<%= info.get(2) %>" 
+            data-name="<%= info.get(3) %>">
             </div>
 
             <!-- Details section with title and description -->
@@ -173,6 +175,32 @@
             // Directly inject the plain text into the container
             document.getElementById('activity-details').innerText = decodedDetails;
         }
+    </script>
+
+    <!-- External JavaScript for the map -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- JavaScript for the appearance of the map -->
+    <script>
+        // Extract coordinates from the data attributes of the map container
+        const mapContainer = document.getElementById('map-container');
+        const latitude = parseFloat(mapContainer.getAttribute('data-latitude'));
+        const longitude = parseFloat(mapContainer.getAttribute('data-longitude'));
+        const destName = mapContainer.getAttribute("data-name");
+    
+        // Create a map instance inside the `map-container` div
+        const map = L.map('map-container').setView([latitude, longitude], 13); // Default zoom level is 13
+    
+        // Add a tile layer (OpenStreetMap tiles)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        // Add a marker at the specified coordinates
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup(destName) // Optional: Add a popup with text
+            .openPopup();
     </script>
 
     <!-- External JavaScript for menu toggle -->

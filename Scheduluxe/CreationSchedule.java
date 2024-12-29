@@ -93,7 +93,7 @@ public class CreationSchedule {
     public List<Object> getDestinationInfo(int destId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        String sql = "SELECT destinationDetails, latitude, longitude FROM Destinations WHERE destinationId = ?;";
+        String sql = "SELECT destinationDetails, latitude, longitude, destinationName FROM Destinations WHERE destinationId = ?;";
         List<Object> info = new ArrayList<>();
 
         try {
@@ -107,6 +107,7 @@ public class CreationSchedule {
                 info.add(rs.getString("destinationDetails"));
                 info.add(rs.getDouble("latitude"));
                 info.add(rs.getDouble("longitude"));
+                info.add(rs.getString("destinationName"));
             }
 
             rs.close();

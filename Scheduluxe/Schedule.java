@@ -128,19 +128,6 @@ public class Schedule {
         return scheduleId;
     }
 
-    // private int generateScheduleId(Connection con) throws SQLException {
-    // String sql = "SELECT MAX(scheduleId) FROM Schedules";
-    // PreparedStatement stmt = con.prepareStatement(sql);
-    // ResultSet rs = stmt.executeQuery();
-    // int newScheduleId = 1;
-    // if (rs.next()) {
-    // newScheduleId = rs.getInt(1) + 1;
-    // }
-    // rs.close();
-    // stmt.close();
-    // return newScheduleId;
-    // }
-
     private int generateScheduleId() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
