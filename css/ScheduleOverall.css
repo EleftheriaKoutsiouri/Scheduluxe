@@ -51,7 +51,7 @@ main {
     align-items: center;
     margin-top: 20px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+    background-color: rgba(255, 255, 255, 0.5); 
     border: 1px solid #ddd;
 }
 
@@ -76,13 +76,12 @@ main {
     margin-right: 1vw; 
 }
 
-/* Stars section with alignment fix */
 .stars {
     display: flex;
-    flex-direction: row-reverse; /* Αλλαγή σε row-reverse */
+    flex-direction: row-reverse; 
     align-items: flex-start;
     justify-content: left;
-    gap: 5px; /* Κενά μεταξύ αστεριών */
+    gap: 5px; 
     margin-left: 1vw;
 }
 
@@ -102,11 +101,10 @@ label.star {
     cursor: pointer;
     padding: 0.5vh;
     font-size: 36px;
-    color: #000000; /* Default χρώμα αστεριού */
+    color: #000000; 
     transition: all 0.2s;
 }
 
-/* Star colors with gradient effect */
 input.star-1:checked ~ label.star:before { 
     content: '\f005'; 
     color: #FF4500;
@@ -137,7 +135,6 @@ input.star-5:checked ~ label.star:before {
     text-shadow: 0 0 5px #ffd900;
 }
 
-/* Default star appearance */
 label.star:before {
     content: '\f006'; 
     font-family: FontAwesome;
@@ -149,7 +146,6 @@ label.star:hover {
 label.star:hover, label.star:hover ~ label.star {
     color: #000000;
 }
-/* Hover effect */
 
 .submit-btn {
     background-color: #b74472bd !important;
@@ -175,7 +171,6 @@ label.star:hover, label.star:hover ~ label.star {
         padding: 0 5vw;
     }
 
-    /* Adjust comment box */
     .comment-box {
         width: 100%;
         margin-bottom: 20px;

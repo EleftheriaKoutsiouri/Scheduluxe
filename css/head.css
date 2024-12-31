@@ -1,30 +1,26 @@
-/* General Style of header in every page */
-
-
 header {
     display: flex;
-    justify-content: space-between;  /* Distributes space between title and hamburger */
-    align-items: center;  /* Vertically aligns items in the center */
-    padding: 0px;  /* Adds some padding around the header */
+    justify-content: space-between; 
+    align-items: center;  
+    padding: 0px;  
     position: relative;
 }
 .nav-menu {
     background-color: #ffffff00;
     display: flex;
-    justify-content: space-between; /* Align logo and menu items in a single line */
-    align-items: center; /* Vertical alignment */
-    padding: 20px 40px; /* Padding around navigation items */
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 40px; 
     top: 0;
     left: 0;
-    width: 100%; /* Full-width menu */
+    width: 100%; 
     color: rgb(0, 0, 0);
 }
 
 
-/* Logo styling */
 .logo {
     display: flex;
-    align-items: center; /* Center logo items vertically */
+    align-items: center; 
 }
 
 .logo img {
@@ -41,7 +37,6 @@ header {
     white-space: nowrap;
 }
 
-/* Styling for navigation menu items */
 .nav-links {
     list-style: none;
     display: flex;
@@ -49,7 +44,7 @@ header {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    margin-left: auto; /* Align the menu to the right */
+    margin-left: auto; 
     justify-content: center;
 }
 
@@ -57,11 +52,11 @@ header {
     color: rgb(0, 0, 0); 
     text-decoration: none;
     font-size: 18px;
-    transition: color 0.3s; /* Smooth color transition on hover */
+    transition: color 0.3s; 
 }
 
 .nav-links a:hover {
-    color: #d042a5; /* White text on hover */
+    color: #d042a5; 
 }
 
 .nav-links a.active {
@@ -70,10 +65,9 @@ header {
 }
 
 
-/* Hamburger Menu Styles */
 .menu-toggle {
-    position: fixed; /* Fixes the button in place */
-    top: 28px;       /* Adjusts distance from the top of the screen */
+    position: fixed; 
+    top: 28px;     
     right: 20px;
     display: none;
     font-size: 24px;
@@ -84,7 +78,6 @@ header {
 }
 
 
-/* Media Query for Small Screens that handles the header*/
 @media (max-width: 768px) {
     .dropdown{
         margin-top: 10%;
@@ -98,7 +91,7 @@ header {
         flex-direction: column;
         position: absolute;
         right: 0;
-        background-color: #f5d7f2d3;
+        background-color: #f5d7f2e2;
         width: 150px;
         padding: 8px;
         border-top-left-radius: 30px;

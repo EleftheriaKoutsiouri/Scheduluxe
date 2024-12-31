@@ -13,7 +13,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  background-color: #f5f5f5; /* Fallback background color */
+  background-color: #f5f5f5;
 }
 
 header {
@@ -135,11 +135,11 @@ form {
   transition: opacity 0.3s ease;
 }
 .sign-in-form {
-  display: block; /* Default visible form */
+  display: block; 
 }
 
 .sign-up-form {
-  display: none; /* Hidden initially */
+  display: none; 
 }
 .sign-in-form.active,
 .sign-up-form.active {
@@ -154,7 +154,6 @@ form {
   color: #555555;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .sign-in-form,
   .sign-up-form {

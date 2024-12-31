@@ -166,20 +166,17 @@ main {
 
 /* Media query for screens narrower than 900px */
 @media (max-width: 900px) {
-    /* Stack elements vertically and adjust padding */
     main {
         flex-direction: column;
         padding: 20px;
         gap: 20px;
     }
 
-    /* Full-width schedule and info containers on small screens */
     .schedule-container,
     .other-info-container {
         width: 100%;
     }
 
-    /* Resize font and elements within schedule container */
     .day-container h2 {
         font-size: 20px;
     }
@@ -189,13 +186,11 @@ main {
         padding: 10px 15px;
     }
 
-    /* Adjust button size and font */
     .button-overall {
         font-size: 14px;
         padding: 5px 10px;
     }
 
-    /* Resize map and details containers */
     .map-container {
         height: 300px;
     }
