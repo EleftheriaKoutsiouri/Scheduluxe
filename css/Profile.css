@@ -1,139 +1,164 @@
+/* Γενικές Ρυθμίσεις για το Σώμα */
 body {
     background-image: url(images/background.png); 
     background-size: cover; 
     height: 100vh;
     width: 100vw; 
-    position: relative;
+    margin: 0;
     color: #ffffff; 
-    overflow: visible; 
     overflow-x: hidden;
-}
-
-.title {
-    text-align: left;
     font-family: 'Poppins', sans-serif;
-    margin-left: 2%;
 }
 
-main {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    padding: 20px 50px 30px 50px;
+/* Τίτλοι και Στυλ Κειμένου */
+.title, .small-title {
+    text-align: left;
+    margin-left: 2%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .small-title {
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-    font-size: 30px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.edit-profile {
-    background-color: #ffffff;
+/* Διατάξεις για το Περιεχόμενο */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Containers: Edit Profile και Past Schedules */
+.profile-schedules-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     width: 100%;
-    border-radius: 8px;
-    padding: 2% 2% 2% 2%;
-    margin-bottom: auto;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
-    margin-right: 2%;
+    max-width: 1200px; /* Περιορισμός του συνολικού πλάτους */
 }
 
-
-.edit-profile h4 {
-    padding: 10px 10px 10px 10px;
-}
-
-.edit-profile form{
-    padding: 10px 10px 10px 10px;
-}
-
-.past-schedules {
+.edit-profile, .past-schedules {
     background-color: #ffffff;
-    width: 100%;
     border-radius: 8px;
-    padding: 2% 2% 2% 2%;
-    margin-bottom: auto;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.2);
-    margin-right: 1%;
+    padding: 25px;  /* Αυξήσαμε το padding για περισσότερη άνεση */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    flex-grow: 1; /* Το flex-grow εξασφαλίζει ότι τα containers μεγαλώνουν ταυτόχρονα */
+    min-width: 320px; /* Ελαφρώς μεγαλύτερο */
+    max-width: 70%; /* Περισσότερο πλάτος για μικρές οθόνες */
 }
 
-.past-schedules h4 {
-    padding: 10px 10px 10px 10px;
+.edit-profile h4, .past-schedules h4 {
+    margin-bottom: 20px; /* Μεγαλύτερο διάστημα κάτω από τον τίτλο */
 }
 
-
+/* Στυλ για το Card Container */
 .card-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 10px 10px 10px;
-    gap: 10%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    width: 100%;
 }
 
+/* Ρυθμίσεις για τα Cards */
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 320px;  /* Αύξηση του μέγιστου πλάτους για τις κάρτες */
+    flex: 1;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card .card-body {
+    padding: 20px;  /* Μεγαλύτερο padding για την κάρτα */
+    text-align: center;
+}
+
+/* Κουμπιά - Μικρότερα */
 .start-button {
-    margin-top: 10px;
-    padding: 5px 10px;
+    display: inline-block;
+    margin-top: 12px;  /* Μικρότερο διάστημα πάνω από το κουμπί */
+    padding: 8px 18px;  /* Μικρότερο padding */
     background: #e666c0;
-    color:#000000;
+    color: #000000;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;  /* Μικρότερο μέγεθος γραμματοσειράς */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s ease;
-    font-family:Poppins;
 }
 
 .start-button:hover {
-    background: #e3a8ba !important;
-    color: #000000 !important;
-
+    background: #e3a8ba;
 }
 
-.profile-schedules-container {
+/* Ειδικές Ρυθμίσεις όταν υπάρχει μόνο 1 card στο Past Schedules container */
+.past-schedules .card-container {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-start;  /* Σπρώχνουμε τις κάρτες αριστερά */
 }
 
-.edit-profile,
-.past-schedules {
-    width: 100%; 
+.past-schedules .card-container .card {
+    max-width: 250px;  /* Κάνουμε το μόνο card μικρότερο */
 }
 
-.card-container {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 10px;
+/* Ρύθμιση για το card όταν υπάρχει μόνο ένα στο card-container */
+.past-schedules .card-container > .card:nth-child(1):only-child {
+    max-width: 250px;  /* Κάνουμε το μοναδικό card μικρότερο */
+    margin-right: auto;  /* Σπρώχνουμε το card αριστερά */
 }
 
-.card {
-    flex: 1 1 100%; 
-}
-
+/* Responsive Styles */
 @media (min-width: 576px) {
     .card {
-        flex: 1 1 48%;
+        flex: 1 1 48%; /* Δύο κάρτες ανά γραμμή για μικρές οθόνες */
+    }
+
+    .edit-profile, .past-schedules {
+        max-width: 48%; /* Περισσότερο πλάτος για μικρές οθόνες */
     }
 }
 
 @media (min-width: 768px) {
     .profile-schedules-container {
         flex-direction: row;
-        justify-content: space-between; 
+        justify-content: space-between; /* Διαχωρισμός */
+        padding: 10px;
     }
 
-    .edit-profile,
-    .past-schedules {
-        width: 48%; 
+    .edit-profile, .past-schedules {
+        width: 48%;  /* Και τα δύο containers θα έχουν το ίδιο μέγεθος */
     }
 
     .card {
-        flex: 1 1 48%; 
+        flex: 1 1 48%; /* Δύο κάρτες ανά γραμμή */
     }
 }
 
 @media (max-width: 768px) {
-    .past-schedules {
-        margin-top: 20px;
+    .profile-schedules-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .edit-profile, .past-schedules {
+        width: 100%;  /* Επαναφορά σε 100% για μικρότερες οθόνες */
+    }
+
+    .card {
+        flex: 1 1 100%; /* Μια κάρτα ανά γραμμή */
     }
 }
