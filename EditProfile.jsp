@@ -46,8 +46,17 @@
                 </ul>  
             </div>
           </nav>
-      </header>
-        <main>
+        </header>
+    <main>
+	    <style>
+            body {
+            position: relative; 
+            margin: 0; 
+            height: 100vh; 
+            background: #ece7ec;
+            background-size: cover; 
+            }
+        </style>
             <div class="profile-schedules-container">
                 <div class="edit-profile">
                     <h4 class="small-title"><strong>Edit your Profile</strong></h4>

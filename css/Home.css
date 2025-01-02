@@ -2,7 +2,9 @@
     position: relative; 
     margin: 0; 
     height: 100vh; 
-    background: linear-gradient(45deg, #ededed 60%, #f5d9f3fe 80%);
+    background-attachment: fixed;
+    background-size: cover; 
+    background: linear-gradient(160deg, #ece7ec 60%, #ecc7ea 80%);
 }
 .container {
     display: flex;
