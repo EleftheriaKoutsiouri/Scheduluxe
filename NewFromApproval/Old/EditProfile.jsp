@@ -46,8 +46,17 @@
                 </ul>  
             </div>
           </nav>
-      </header>
-        <main>
+        </header>
+    <main>
+	    <style>
+            body {
+            position: relative; 
+            margin: 0; 
+            height: 100vh; 
+            background: #ece7ec;
+            background-size: cover; 
+            }
+        </style>
             <div class="profile-schedules-container">
                 <div class="edit-profile">
                     <h4 class="small-title"><strong>Edit your Profile</strong></h4>
@@ -92,38 +101,31 @@
                     <div class="card-container">
                         
                         <%
-                            ScheduleDAO scheduleDAO= new ScheduleDAO();
-                            List<Schedule> pastSchedules = scheduleDAO.fetchPastSchedules(userId);
+                            Schedule sch= new Schedule();
+                            List<Map<String, Object>> pastSchedules = sch.getPastSchedules(userId);
                             if (pastSchedules != null && !pastSchedules.isEmpty()) {
-                                for (Schedule schedule : pastSchedules) {
+                                for (Map<String, Object> schedule : pastSchedules) {
                         %>
                             <div class="card" style="width: 19rem;">
-                                <img src="<%= request.getContextPath() %>/images/<%= schedule.getDestination().getDestPhotoPath() %>" class="card-img-top" alt="<%= schedule.getDestination().getDestName() %>">
+                                <img src="<%= request.getContextPath() %>/images/<%= schedule.get("photoPath") %>" class="card-img-top" alt="<%= schedule.get("destinationName") %>">
 
                                 <div class="card-body">
 
-                                    <!-- <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= schedule.getScheduleId() %>">
+                                    <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= schedule.get("scheduleId") %>">
                                         <button type="button" class="start-button">Press here</button>
-                                    </a> -->
-                                    <form action="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp" method="post">
-                                        <%
-                                            session.setAttribute("schedule", schedule);
-                                        %>
-                                        <button type="submit" class="start-button">Press here</button>
-                                    </form>
-                                    
+                                    </a>
 
                                     <div class="destination-info" style="text-align: right; margin-left: 10px;">
                                         <p class="destination-name" style="margin: 0; font-weight: bold;">
-                                            <%= schedule.getDestination().getDestName() %>
+                                            <%= schedule.get("destinationName") %>
                                         </p>
 
                                         <p class="travel-date" style="margin: 0; font-size: 14px;">
-                                            <%= schedule.getSavedDate() %>
+                                            <%= schedule.get("savedDate") %>
                                         </p>
 
                                         <p class="days" style="margin: 0; font-size: 14px;">
-                                            <%= (Integer) schedule.getTotalDays() %> <%= ( (Integer) schedule.getTotalDays() == 1 ) ? "day" : "days"%>
+                                            <%= (Integer) schedule.get("days") %> <%= ( (Integer) schedule.get("days") == 1 ) ? "day" : "days"%>
                                         </p>
 
                                     </div>

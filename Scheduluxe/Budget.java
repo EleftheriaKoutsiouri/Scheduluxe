@@ -1,4 +1,4 @@
-package NewFromApproval;
+package Scheduluxe;
 
 public class Budget {
     private int budgetId;

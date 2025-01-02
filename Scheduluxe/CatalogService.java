@@ -1,12 +1,10 @@
-package NewFromApproval;
+package Scheduluxe;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import Scheduluxe.DatabaseConnection;
 
 public class CatalogService {
 
@@ -115,41 +113,46 @@ public class CatalogService {
         }
     }
 
-    // TO BE DONE WITH DEstination method
-    // public List<Object> getDestinationInfo(int destId) throws Exception {
-    //     DatabaseConnection db = new DatabaseConnection();
-    //     Connection con = null;
-    //     String sql = "SELECT destinationDetails, latitude, longitude, destinationName FROM Destinations WHERE destinationId = ?;";
-    //     List<Object> info = new ArrayList<>();
+    public Destination fetchDestinationInfo(int destId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT destinationDetails, latitude, longitude, destinationName FROM Destinations WHERE destinationId = ?;";
 
-    //     try {
-    //         con = db.getConnection();
-    //         PreparedStatement stmt = con.prepareStatement(sql);
-    //         stmt.setInt(1, destId);
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, destId);
             
-    //         ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-    //         if (rs.next()) {
-    //             info.add(rs.getString("destinationDetails"));
-    //             info.add(rs.getDouble("latitude"));
-    //             info.add(rs.getDouble("longitude"));
-    //             info.add(rs.getString("destinationName"));
-    //         }
+            if (!rs.next()) {
+                rs.close();
+                stmt.close();
+                db.close();
+                throw new Exception("Could not find the destination with this id");
+            }
 
-    //         rs.close();
-    //         stmt.close();
-    //         db.close();
+            Destination destination = new Destination(
+                    rs.getString("destinationName"),
+                    rs.getString("destinationDetails"),
+                    rs.getFloat("latitude"),
+                    rs.getFloat("longitude")
+            );
 
-    //         return info;
+            rs.close();
+            stmt.close();
+            db.close();
 
-    //     } catch (Exception e) {
-    //         throw new Exception(e.getMessage());
-    //     } finally {
-    //         try {
-    //             db.close();
-    //         } catch (Exception e) {
-    //         }
-    //     }
+            return destination;
 
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 }
 

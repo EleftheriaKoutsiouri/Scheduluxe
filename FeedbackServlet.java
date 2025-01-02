@@ -7,30 +7,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Scheduluxe.Schedule;
-import Scheduluxe.Traveler;
 
 public class FeedbackServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
-        Traveler traveler = (Traveler) session.getAttribute("travelerObj");
+        Schedule schedule = (Schedule) session.getAttribute("schedule");
         try {
-            String usrId = request.getParameter("userId");
-            int userId = Integer.parseInt(usrId);
-            String schId = request.getParameter("scheduleId");
-            int scheduleId = Integer.parseInt(schId);
             String comment = request.getParameter("comment");
             int rating = Integer.parseInt(request.getParameter("rating"));
-            Schedule schedule = new Schedule();
 
-            schedule.saveFeedback(userId, scheduleId, comment, rating);
+            schedule.setComment(comment);
+            schedule.setRating(rating);
+            schedule.saveFeedback();
+
+            // the session needs update since the object has changed
+            session.setAttribute("schedule", schedule);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
             dispatcher.forward(request, response);
+
         } catch (Exception e) {
-            e.getMessage();
             request.setAttribute("error", e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
             dispatcher.forward(request, response);

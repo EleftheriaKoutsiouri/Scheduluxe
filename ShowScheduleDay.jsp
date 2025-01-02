@@ -3,25 +3,23 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
+    Schedule schedule = (Schedule) session.getAttribute("schedule");
+    Integer destinationId = (Integer) session.getAttribute("destinationId");
+    
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
-    Integer scheduleIdObj = (Integer) request.getAttribute("scheduleId");
-    int scheduleId = scheduleIdObj != null ? scheduleIdObj : Integer.parseInt(request.getParameter("scheduleId"));
-    
-    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
-    Schedule schedule = new Schedule();
-    int totalDays = schedule.findDaysFromScheduleByUser(userId, scheduleId);
-
-    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId);
-    
-    if (totalSchedule == null) {
-        out.println("No schedule available.");
+    if (schedule == null || destinationId == null) {
+%>
+        <jsp:forward page="Error.jsp" />
+<%
     }
+    int scheduleId = schedule.getScheduleId();
+    int totalDays = schedule.getTotalDays();
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getOverallSchedule();
 
-    int destId = (Integer) session.getAttribute("destinationId");
-    CreationSchedule cs = new CreationSchedule();
-    List<Object> info = cs.getDestinationInfo(destId);
+    int destId = destinationId;
+    CatalogService cs = new CatalogService();
+    Destination destination = cs.fetchDestinationInfo(destId);
 %>
 
 <!DOCTYPE html>
@@ -61,7 +59,7 @@
                 %>
             
                 <%-- Left Arrow --%>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>&totalDays=<%= totalDays %>&scheduleId=<%= scheduleId %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay - 1 %>" class="arrow" 
                    <%= showLeftArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 40px;"></i>
                 </a>
@@ -69,7 +67,7 @@
                 <h2>Day <%= currentDay %></h2>
             
                 <%-- Right Arrow --%>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>&totalDays=<%= totalDays %>&scheduleId=<%= scheduleId %>" class="arrow" 
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowScheduleDay.jsp?day=<%= currentDay + 1 %>" class="arrow" 
                    <%= showRightArrow ? "" : "style='display:none;'" %>>
                     <i class="fa-solid fa-arrow-right" style="color: #000000; font-size: 40px;"></i>
                 </a>
@@ -109,15 +107,15 @@
         <div class="other-info-container">
             <!-- Map container with Leaflet library -->
             <div class="map-container" id="map-container" 
-                data-latitude="<%= info.get(1) %>" 
-                data-longitude="<%= info.get(2) %>" 
-                data-name="<%= info.get(3) %>">
+                data-latitude="<%= destination.getLatitude() %>" 
+                data-longitude="<%= destination.getLongtitude() %>" 
+                data-name="<%= destination.getDestName() %>">
             </div>
             <!-- Details section with title and description -->
             <div class="details-container">
                 <h2>Details</h2>
                 <p id="activity-details">
-                    <%= info.get(0)%>
+                    <%= destination.getDestDetails()%>
                     <br><br>
                     Select an activity to view details here.
                 </p>

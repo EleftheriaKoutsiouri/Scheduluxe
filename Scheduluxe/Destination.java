@@ -1,4 +1,4 @@
-package NewFromApproval;
+package Scheduluxe;
 
 public class Destination {
 
@@ -10,10 +10,22 @@ public class Destination {
     private float longtitude;
 
 
-
     public Destination(int destId, String destName) {
         this.destinationId = destId;
         this.destinationName = destName;
+    }
+
+    public Destination(String destName, String destDetails, float lat, float lon) {
+        this.destinationDetails = destDetails;
+        this.destinationName = destName;
+        this.latitude = lat;
+        this.longtitude = lon;
+
+    }
+
+    public Destination(String destName, String destPhotoPath) {
+        this.destinationName = destName;
+        this.destinationPhotoPath = destPhotoPath;
     }
 
     /* getters */

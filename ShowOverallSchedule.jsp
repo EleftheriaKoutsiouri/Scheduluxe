@@ -4,16 +4,21 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-    int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
+    Schedule schedule = (Schedule) session.getAttribute("schedule");
     
     Traveler traveler = (Traveler) session.getAttribute("travelerObj");
     int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
-    Schedule schedule = new Schedule();
-    int totalDays = schedule.findDaysFromScheduleByUser(userId, scheduleId);
+    if (schedule == null) {
+%>
+        <jsp:forward page="Error.jsp" />
+<%
+    }
     
+    int scheduleId = schedule.getScheduleId();
+    int totalDays = schedule.getTotalDays();
+    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getOverallSchedule();
     
-    Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId);
     String[] timeSlots = schedule.getTimeSlots();
 %>
 
@@ -88,18 +93,18 @@
             </table>
         </div>
         <div class="feedback-container">
-            <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
+            <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet" method="POST">
                 <div class="comment-box">
                     <h3>Leave a Comment & Rate us</h3>
                     <div class="comment-input">
                         <%
-                            if ((schedule.getComment(userId, scheduleId)).equals("no comment")) {
+                            if ((schedule.getComment()).equals("no comment")) {
                         %>
                                 <textarea name="comment" class="form-control" rows="3" placeholder="Share your thoughts about the schedule..."></textarea>
                         <%
                             } else {
                         %>   
-                                <textarea name="comment" class="form-control" rows="3"><%= schedule.getComment(userId, scheduleId) %></textarea>
+                                <textarea name="comment" class="form-control" rows="3"><%= schedule.getComment() %></textarea>
                         <%
                             }
                         %>
@@ -107,7 +112,7 @@
                 </div>
                 <div class="stars">
                     <%
-                        int rating = schedule.getRating(userId, scheduleId);
+                        int rating = schedule.getRating();
                     %>
                     <input class="star star-5" id="star-5" type="radio" name="rating" value="5" <%= (rating == 5 ? "checked" : "") %> />
                     <label class="star star-5" for="star-5"></label>

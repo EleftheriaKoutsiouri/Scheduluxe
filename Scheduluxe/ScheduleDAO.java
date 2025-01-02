@@ -1,8 +1,9 @@
-package NewFromApproval;
+package Scheduluxe;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,9 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import Scheduluxe.Activity;
-import Scheduluxe.DatabaseConnection;
 
 public class ScheduleDAO {
 
@@ -83,7 +81,7 @@ public class ScheduleDAO {
     }
 
     //old name: assignActivitiesToTimeSlots
-    public Schedule createSchedule(List<Activity> activities, int userId, int totalDays)
+    public Schedule createSchedule(List<Activity> activities, int totalDays, int userId)
             throws Exception {
 
         int scheduleId = generateScheduleId();
@@ -129,7 +127,7 @@ public class ScheduleDAO {
             }
         }
 
-        Schedule overallSchedule = new Schedule(scheduleId, schedule, userId);
+        Schedule overallSchedule = new Schedule(scheduleId, schedule, userId, totalDays);
 
         return overallSchedule;
     }
@@ -165,4 +163,130 @@ public class ScheduleDAO {
         }
     }
     
+
+    private boolean hasUserProgram(int userId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT * FROM schedulesbytraveler WHERE userId = ?;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private Map<Integer, Map<String, Activity>> fetchOverallSchedule(int scheduleId) throws Exception {
+
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "SELECT a.*, s.Day, s.TimeSlot " +
+                "FROM schedules s " +
+                "JOIN activities a ON s.ActivityID = a.ActivityID " +
+                "WHERE s.ScheduleID = ?";
+
+        Map<Integer, Map<String, Activity>> fullSchedule = new HashMap<>();
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, scheduleId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int activityId = rs.getInt("ActivityID");
+                String activityName = rs.getString("ActivityName");
+                String details = rs.getString("Details");
+                String timeSlot = rs.getString("TimeSlot");
+                String startTime = rs.getString("StartTime");
+                String endTime = rs.getString("EndTime");
+                int day = rs.getInt("Day");
+
+                Activity activity = new Activity(activityId, activityName, details, startTime, endTime);
+                fullSchedule.putIfAbsent(day, new HashMap<>());
+                fullSchedule.get(day).put(timeSlot, activity);
+            }
+
+            rs.close();
+            stmt.close();
+            db.close();
+
+            return fullSchedule;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public List<Schedule> fetchPastSchedules(int userId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        List<Schedule> pastSchedules = new ArrayList<>();
+
+        if (!hasUserProgram(userId)) {
+            return null;
+        }
+
+        String sql = 
+            "SELECT DISTINCT s.scheduleId, st.savedDate, st.comment, st.rating, d.destinationName, d.destinationPhotoPath, st.days "
+            + "FROM schedulesbytraveler st "
+            + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
+            + "JOIN activities a ON a.activityId = s.activityId " 
+            + "JOIN destinations d ON d.destinationId = a.destinationID " 
+            + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Schedule schedule = new Schedule(
+                    rs.getInt("scheduleId"),
+                    rs.getInt("days"),
+                    rs.getDate("savedDate").toString(),
+                    rs.getString("comment"),
+                    rs.getInt("rating"),
+                    new Destination(
+                        rs.getString("d.destinationName"), 
+                        rs.getString("d.destinationPhotoPath")
+                    )  
+                );
+                Map<Integer, Map<String, Activity>> overallSchedule = fetchOverallSchedule(rs.getInt("scheduleId"));
+                schedule.setOverallSchedule(overallSchedule);
+
+                pastSchedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return pastSchedules;
+    }
 }
