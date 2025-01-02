@@ -3,8 +3,6 @@
 <%@ page import="java.util.List" %>
 <%@ page errorPage="ErrorPage.jsp" %>
 
-
-
 <%@ include file="TargetPage.jsp" %>
 <%
     CreationSchedule creationSchedule = new CreationSchedule();
@@ -26,14 +24,11 @@
 
 <body>
     <header>
-        <!-- Navigation bar -->
         <nav class="nav-menu">
             <div class="logo">
                 <img src="<%= request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
-
-            <!-- Hamburger Menu Button -->
             <button class="menu-toggle">
                 <span class="hamburger-icon">&#9776;</span>
             </button>
@@ -53,7 +48,6 @@
         </h2>
         <div class="search-container">   
             <form action="<%= request.getContextPath()%>/servlet/CreationScheduleServlet" method="post">
-                <!-- Destination Dropdown -->
                 <div class="form-group">
                     <label for="destination">Destination</label>
                     <select id="destination" name="destination" required>
@@ -63,14 +57,10 @@
                         <% } %>
                     </select>
                 </div>
-
-                <!-- Days Input -->
                 <div class="form-group">
                     <label for="days">Days</label>
                     <input type="number" min="1" max="3" id="days" name="totalDays" placeholder="Select days" required>
                 </div>
-
-                <!-- Type Selection -->
                 <div class="form-group">
                     <label for="type">Type</label>
                     <div class="dropdown">
@@ -85,15 +75,11 @@
                         </div>
                     </div>
                 </div>
-
                 <script>
-                    // Function to toggle dropdown visibility
                     function toggleDropdown() {
                         var content = document.querySelector('.dropdown-content');
                         content.style.display = content.style.display === "block" ? "none" : "block";
                     }
-                
-                    // Close the dropdown if the user clicks anywhere outside of it
                     window.onclick = function(event) {
                         var dropdownContent = document.querySelector('.dropdown-content');
                         var dropdownButton = document.querySelector('.dropdown button');
@@ -102,8 +88,6 @@
                         }
                     };
                 </script>
-            
-                <!-- Budget Dropdown -->
                 <div class="form-group">
                     <label for="budget">Budget</label>
                     <select id="budget" name="budget" required>
@@ -116,8 +100,6 @@
                 <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
             </form>
         </div>
-
-        <!-- Image container -->
         <div class="image-container">
             <img src="<%= request.getContextPath()%>/images/Rome.png" alt="Image 1">
             <img src="<%= request.getContextPath()%>/images/Paris.png" alt="Image 2">

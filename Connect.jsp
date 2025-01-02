@@ -6,12 +6,10 @@
     <%@ include file="head.jsp" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Sign Up</title>
-    <!-- Dynamic path to the CSS file -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Connect.css">
 </head>
 <body>
     <header class="header">   
-        <!-- Navigation bar -->  
         <nav class="nav-menu">  
             <div class="logo">  
                 <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
@@ -19,7 +17,6 @@
             </div>
         </nav>
     </header>  
-    
     <div class="row">
         <div class="col-md-6 mx-auto p-0">
             <div class="card">
@@ -30,17 +27,14 @@
                                 <%= (String) request.getAttribute("message") %>
                             </div>
                         <% } %>
-                        
                         <br>
                         <br>
-
                         <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
                         <label for="tab-1" class="tab">Login</label>
                         <input id="tab-2" type="radio" name="tab" class="sign-up">
                         <label for="tab-2" class="tab">Sign Up</label>
-
                         <div class="login-space">
-                            <!-- Login Form -->
+                        <!-- Login Form -->
                             <form class="login-form" method="post" action="Signin_Controller.jsp">
                                 <div class="login">
                                     <div class="group">
@@ -51,7 +45,6 @@
                                         <label for="pass" class="label">Password</label>
                                         <input id="pass" type="password" class="input" data-type="password" name="password" placeholder="Enter your password">
                                     </div>
-                                    <!--περναω την σελιδα απο την οποια καλείται η Connect.jsp-->
                                     <input type="hidden" name="targetPage" value="<%= (String) session.getAttribute("targetPage") %>">
                                     <div class="group">
                                         <input type="submit" class="button" value="Sign In">
@@ -59,8 +52,7 @@
                                     <div class="hr"></div>
                                 </div>
                             </form>
-
-                            <!-- Sign-Up Form -->
+                        <!-- Sign-Up Form -->
                             <form class="signup-form" method="post" action="Signup_Controller.jsp">
                                 <div class="sign-up-form">
                                     <div class="group">
@@ -75,7 +67,6 @@
                                         <label for="pass" class="label">Password</label>
                                         <input id="pass" type="password" class="input" data-type="password" name="password" placeholder="Create your password">
                                     </div>
-                                    <!--περναω την σελιδα απο την οποια καλείται η Connect.jsp-->
                                     <input type="hidden" name="targetPage" value="<%= (String) session.getAttribute("targetPage") %>">
                                     <div class="group">
                                         <input type="submit" class="button" value="Sign Up">

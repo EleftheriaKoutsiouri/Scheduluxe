@@ -1,14 +1,9 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map, Scheduluxe.*, java.net.URLEncoder" %> 
 
-
-
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-      
-    //in order to get everytime the parameter from the day which from the arrow handling 
     int currentDay = Integer.parseInt(request.getParameter("day") != null ? request.getParameter("day") : "1");
-    
     Integer scheduleIdObj = (Integer) request.getAttribute("scheduleId");
     int scheduleId = scheduleIdObj != null ? scheduleIdObj : Integer.parseInt(request.getParameter("scheduleId"));
     
@@ -16,10 +11,6 @@
     int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
     Schedule schedule = new Schedule();
-
-    //it is okay due to the dispatcher
-    //int totalDays = Integer.parseInt(request.getParameter("totalDays")); 
-    //better
     int totalDays = schedule.findDaysFromScheduleByUser(userId, scheduleId);
 
     Map<Integer, Map<String, Activity>> totalSchedule = schedule.getScheduleForUser(userId, scheduleId);
@@ -28,10 +19,7 @@
         out.println("No schedule available.");
     }
 
-
-    //for the destination details and map
     int destId = (Integer) session.getAttribute("destinationId");
-
     CreationSchedule cs = new CreationSchedule();
     List<Object> info = cs.getDestinationInfo(destId);
 %>
@@ -45,15 +33,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <!-- Header section with navigation menu -->
     <header>
         <nav class="nav-menu">
             <div class="logo">  
                 <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1>Scheduluxe</h1>
             </div>
-            
-            <!-- Hamburger Menu Button -->
             <button class="menu-toggle">
                 <span class="hamburger-icon">&#9776;</span>
             </button>
@@ -68,15 +53,10 @@
     </header>
 
     <main>
-        <!-- Schedule container for day navigation and activities list -->
         <div class="schedule-container">
-            <!-- Day container with navigation arrows -->
             <div class="day-container">
                 <%
-                    // Hide the left arrow if we're on the first day
                     boolean showLeftArrow = currentDay > 1;
-
-                    // Hide the right arrow if we're on the last day
                     boolean showRightArrow = currentDay < totalDays;
                 %>
             
@@ -106,8 +86,6 @@
                 <%
                         String details = activity.getDetails();
                         String encodedDetails = URLEncoder.encode(details, "UTF-8");
-
-                        // Replace '+' with spaces so that it appears as normal text
                         encodedDetails = encodedDetails.replace("+", " ");
 
                 %>
@@ -123,23 +101,18 @@
                 <%
                     }
                 %>
-                
                 <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= scheduleId %>">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>
         </div>
-
-        <!-- Additional information container with map and details section -->
         <div class="other-info-container">
-            
             <!-- Map container with Leaflet library -->
             <div class="map-container" id="map-container" 
-            data-latitude="<%= info.get(1) %>" 
-            data-longitude="<%= info.get(2) %>" 
-            data-name="<%= info.get(3) %>">
+                data-latitude="<%= info.get(1) %>" 
+                data-longitude="<%= info.get(2) %>" 
+                data-name="<%= info.get(3) %>">
             </div>
-
             <!-- Details section with title and description -->
             <div class="details-container">
                 <h2>Details</h2>
@@ -152,9 +125,7 @@
 
         </div>
     </main>
-
     <script>
-
         /* function that responds to onclick: 
         what is happening behind?
         1. on the server-side, jsp dynamically generates the HTML code 
@@ -169,41 +140,25 @@
         - so everything happens on the client-side in memory
         */
         function loadActivityDetails(activityDetails) {
-            // Decode the encoded plain text (if necessary)
             var decodedDetails = decodeURIComponent(activityDetails);
-    
-            // Directly inject the plain text into the container
             document.getElementById('activity-details').innerText = decodedDetails;
         }
     </script>
-
-    <!-- External JavaScript for the map -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-    <!-- JavaScript for the appearance of the map -->
     <script>
-        // Extract coordinates from the data attributes of the map container
         const mapContainer = document.getElementById('map-container');
         const latitude = parseFloat(mapContainer.getAttribute('data-latitude'));
         const longitude = parseFloat(mapContainer.getAttribute('data-longitude'));
         const destName = mapContainer.getAttribute("data-name");
-    
-        // Create a map instance inside the `map-container` div
-        const map = L.map('map-container').setView([latitude, longitude], 13); // Default zoom level is 13
-    
-        // Add a tile layer (OpenStreetMap tiles)
+        const map = L.map('map-container').setView([latitude, longitude], 13); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-    
-        // Add a marker at the specified coordinates
         L.marker([latitude, longitude]).addTo(map)
-            .bindPopup(destName) // Optional: Add a popup with text
+            .bindPopup(destName) 
             .openPopup();
     </script>
-
-    <!-- External JavaScript for menu toggle -->
     <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
 </body>
 </html>

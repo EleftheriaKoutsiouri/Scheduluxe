@@ -89,7 +89,6 @@
         </div>
         <div class="feedback-container">
             <form action="<%=request.getContextPath()%>/servlet/FeedbackServlet?scheduleId=<%=scheduleId %>&userId=<%=userId %>" method="POST">
-                <!-- Περιοχή σχολίων -->
                 <div class="comment-box">
                     <h3>Leave a Comment & Rate us</h3>
                     <div class="comment-input">
@@ -106,11 +105,9 @@
                         %>
                     </div>
                 </div>
-        
-                <!-- Περιοχή αξιολόγησης -->
                 <div class="stars">
                     <%
-                        int rating = schedule.getRating(userId, scheduleId); // Κλήση της μεθόδου getRating
+                        int rating = schedule.getRating(userId, scheduleId);
                     %>
                     <input class="star star-5" id="star-5" type="radio" name="rating" value="5" <%= (rating == 5 ? "checked" : "") %> />
                     <label class="star star-5" for="star-5"></label>
@@ -127,33 +124,19 @@
                     <input class="star star-1" id="star-1" type="radio" name="rating" value="1" <%= (rating == 1 ? "checked" : "") %> />
                     <label class="star star-1" for="star-1"></label>
                 </div>
-        
-                <!-- Κρυφό πεδίο για το rating -->
                 <input type="hidden" id="ratingValue" name="rating" value="0" />
-        
-                <!-- Κουμπί υποβολής -->
                 <div class="submit-box">
                     <button type="submit" class="btn submit-btn">Submit</button>
                 </div>
             </form>
         </div>
-        
         <script>
-        // JavaScript για να ρυθμίσει το hidden πεδίο αν δεν επιλέγεται καμία star
-        document.querySelectorAll('input[name="rating"]').forEach(function(star) {
-            star.addEventListener('change', function() {
-                // Όταν επιλέγεται star, ορίστε το κρυφό πεδίο με την τιμή της
-                document.getElementById('ratingValue').value = this.value;
+            document.querySelectorAll('input[name="rating"]').forEach(function(star) {
+                star.addEventListener('change', function() {
+                    document.getElementById('ratingValue').value = this.value;
+                });
             });
-        });
         </script>
-        
-
-        </div>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
         <script>
             document.querySelector('.download-btn').addEventListener('click', function() {
                 const element = document.querySelector('.schedule-container');
@@ -167,8 +150,9 @@
                 html2pdf().set(options).from(element).save();
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </main>
-
     <script src="<%=request.getContextPath()%>/js/menuToggle.js"></script>
 </body>
 </html>

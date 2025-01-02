@@ -16,7 +16,6 @@ public class EditProfileUserServlet extends HttpServlet {
 
         Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
-
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String username = request.getParameter("username");
@@ -24,9 +23,6 @@ public class EditProfileUserServlet extends HttpServlet {
         String country = request.getParameter("country");
         String password = request.getParameter("password");
 
-        // Φτιαχνω νεο αντικειμενο traveler με ορισματα τις νεες παραμετρους (με
-        // ελεγχους οτι εχει αλλαξει κατι) και καλω με το νεο αντικειμενο την
-        // saveOrUpdate()
         if (firstname == null || firstname.isEmpty()) {
             firstname = traveler.getFirstname();
         }
@@ -52,12 +48,11 @@ public class EditProfileUserServlet extends HttpServlet {
         }
 
         Traveler traveler2 = new Traveler(username, firstname, lastname, email, country, password);
-
         boolean updated;
         try {
             updated = traveler2.saveOrUpdate();
             if (updated) {
-                session.setAttribute("travelerObj", traveler2); 
+                session.setAttribute("travelerObj", traveler2);
                 request.setAttribute("message", "Success");
             } else {
                 request.setAttribute("message", "Failure");
@@ -65,11 +60,7 @@ public class EditProfileUserServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/EditProfile.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
     }
-
 }

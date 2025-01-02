@@ -16,8 +16,6 @@ public class FeedbackServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-
-
         try {
             String usrId = request.getParameter("userId");
             int userId = Integer.parseInt(usrId);
@@ -27,18 +25,13 @@ public class FeedbackServlet extends HttpServlet {
             int rating = Integer.parseInt(request.getParameter("rating"));
             Schedule schedule = new Schedule();
 
-            schedule.saveFeedback(userId, scheduleId, comment, rating); // Save comment with a default rating of 0
+            schedule.saveFeedback(userId, scheduleId, comment, rating);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
             dispatcher.forward(request, response);
-
-            //if (rating != 0) {
-                //schedule.saveFeedback(userId, scheduleId, "", rating); // Save rating with an empty comment
-            //}
         } catch (Exception e) {
             e.getMessage();
             request.setAttribute("error", e.getMessage());
-            //response.sendRedirect("<%=request.getContextPath()%>/Scheduluxe/ShowOverallSchedule.jsp?error=1");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowOverallSchedule.jsp");
             dispatcher.forward(request, response);
         }

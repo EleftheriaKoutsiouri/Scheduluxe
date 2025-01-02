@@ -22,11 +22,8 @@
     <head> 
         <%@ include file="head.jsp"%>
         <title>Profile</title>
-        <!--link to css, fonts and icon from google-->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Profile.css">
-        <!--bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <!--icons-->
         <script src="https://kit.fontawesome.com/bdd8380312.js" crossorigin="anonymous"></script>
     </head>
     <body class="body1">
@@ -37,7 +34,6 @@
                 <img src="<%=request.getContextPath()%>/images/logo.png" alt="Icon">
                 <h1><span class="white-title">Scheduluxe</span></h1>
             </div>
-            <!-- Hamburger Menu Button -->
             <button class="menu-toggle">
                 <span class="hamburger-icon">&#9776;</span>
             </button>
@@ -47,7 +43,6 @@
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/Aboutus.jsp">About us</a></li>
 		            <li><a href="<%=request.getContextPath()%>/Scheduluxe/logout.jsp"><span class="material-symbols-outlined">logout</span></a></li>
                     <li><a href="<%=request.getContextPath()%>/Scheduluxe/EditProfile.jsp" class="active"><span class="material-symbols-outlined">account_circle</span></a></li>
-                    
                 </ul>  
             </div>
           </nav>
