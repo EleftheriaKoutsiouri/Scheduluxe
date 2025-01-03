@@ -1,17 +1,17 @@
 package Scheduluxe;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
 
 public class Schedule {
+
+    // Define the TIME_SLOTS array as a static final constant
+    public static final String[] TIMESLOTS = {
+        "09:00-11:00", "11:00-13:00", "13:00-15:00",
+        "15:00-17:00", "17:00-19:00", "19:00-21:00"
+};
 
     private int scheduleId;
     private Map<Integer, Map<String, Activity>> overallSchedule;
@@ -22,6 +22,7 @@ public class Schedule {
     private String savedDate;
     private Destination destination;
     
+    //for the creation of the schedule the first time (CreationScheduleServlet.java via ScheduleDAO.java)
     public Schedule(int scheduleId, Map<Integer, Map<String, Activity>> overallSchedule, int userId, int totalDays) {
         this.scheduleId = scheduleId;
         this.overallSchedule = overallSchedule;
@@ -29,15 +30,23 @@ public class Schedule {
         this.totalDays = totalDays;
     }
 
-    public Schedule (int scheduleId, int totalDays, String savedDate, String comment, int rating, Destination dest) {
+    //for the retrieval of data when the user want to see a specific past schedule (from Editprofile.jsp to ShowOverallSchedule.jsp via ScheduleDAO.java)
+    public Schedule(int scheduleId, Map<Integer, Map<String, Activity>> overallSchedule, int userId, int totalDays, String comment, int rating) {
+        this.scheduleId = scheduleId;
+        this.overallSchedule = overallSchedule;
+        this.userId = userId;
+        this.totalDays = totalDays;
+        this.comment = comment;
+        this.rating = rating;
+    }
+
+    //for the retrieval of data when the user want to see his/her past 2 last schedules (EditProfile.jsp via ScheduleDAO.java)
+    public Schedule (int scheduleId, int totalDays, String savedDate, Destination dest) {
         this.scheduleId = scheduleId;
         this.totalDays = totalDays;
         this.savedDate = savedDate;
-        this.comment = comment;
-        this.rating = rating;
         this.destination = dest;
     }
-
 
     /* getters */
     public int getScheduleId() {
@@ -75,13 +84,45 @@ public class Schedule {
     public void setRating(int newRating) {
         this.rating = newRating;
     }
-    public void setOverallSchedule(Map<Integer, Map<String, Activity>> schedule) {
-        this.overallSchedule = schedule;
-    }
 
-    /* other methods*/    
+
+    /* other methods*/
+
+    public void saveFeedback() throws Exception {
+        
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        String sql = "UPDATE schedulesbytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
+        
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, this.comment);
+            stmt.setInt(2, this.rating);
+            stmt.setInt(3, this.userId);
+            stmt.setInt(4, this.scheduleId);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected <= 0) {
+                stmt.close();
+                db.close();
+            }
+
+            stmt.close();
+            db.close();
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
+        }
+    }
     
-    //save the components of the object Schedule in 2 tables -> can be done with one open of connection
+    //save the components of the object Schedule in 2 tables
     public void saveSchedule() throws Exception {
         saveInSchedules();
         saveScheduleForUser();
@@ -170,117 +211,4 @@ public class Schedule {
             }
         }
     }
-
-    // public String fetchComment() throws Exception {
-
-    //     DatabaseConnection db = new DatabaseConnection();
-    //     Connection con = null;
-
-    //     String sql = "SELECT comment FROM schedulesbytraveler WHERE userID = ? AND scheduleId = ?;";
-
-    //     try {
-    //         con = db.getConnection();
-    //         PreparedStatement stmt = con.prepareStatement(sql);
-    //         stmt.setInt(1, userId);
-    //         stmt.setInt(2, scheduleId);
-    //         ResultSet rs = stmt.executeQuery();
-
-    //         rs.next();
-    //         if ((rs.getString("comment") == null) || rs.getString("comment").isEmpty()) {
-    //             return "no comment";
-    //         } else {
-    //             String comment = rs.getString("comment");
-    //             return comment;
-    //         }
-
-            
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     } finally {
-    //         try {
-    //             db.close();
-    //         } catch (Exception e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
-    //     return "Share your thoughts about the schedule...";
-
-    // }
-
-    // public int fetchRating() throws Exception {
-
-    //     DatabaseConnection db = new DatabaseConnection();
-    //     Connection con = null;
-
-    //     String sql = "SELECT rating FROM schedulesbytraveler WHERE UserID = ? AND scheduleId = ?;";
-
-    //     try {
-    //         con = db.getConnection();
-    //         PreparedStatement stmt = con.prepareStatement(sql);
-    //         stmt.setInt(1, userId);
-    //         stmt.setInt(2, scheduleId);
-    //         ResultSet rs = stmt.executeQuery();
-
-    //         rs.next();
-
-    //         int rating = rs.getInt("rating");
-    //         return rating;
-
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     } finally {
-    //         try {
-    //             db.close();
-    //         } catch (Exception e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
-    //     return 0;
-    // }
-
-    public void saveFeedback() throws Exception {
-        DatabaseConnection db = new DatabaseConnection();
-        Connection con = null;
-        String sql = "UPDATE schedulesbytraveler SET comment = ?, rating = ?, savedDate = NOW() WHERE UserID = ? AND scheduleId = ?";
-
-        try {
-            con = db.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
-
-            stmt.setString(1, comment);
-            stmt.setInt(2, rating);
-            stmt.setInt(3, userId);
-            stmt.setInt(4, scheduleId);
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected <= 0) {
-                stmt.close();
-                db.close();
-                throw new Exception("Error inserting schedule for user!");
-            }
-
-            stmt.close();
-            db.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                db.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public String[] getTimeSlots() {
-
-        String[] TIME_SLOTS = {
-                "09:00-11:00", "11:00-13:00", "13:00-15:00",
-                "15:00-17:00", "17:00-19:00", "19:00-21:00"
-        };
-
-        return TIME_SLOTS;
-    }
-
 }

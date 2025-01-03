@@ -76,7 +76,7 @@
             <!-- List of activities for the day -->
             <div class="activity-list">
                 <%
-                    String[] times = {"09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00", "17:00-19:00", "19:00-21:00"};
+                    String[] times = Schedule.TIMESLOTS;
                     Map<String, Activity> daySchedule = totalSchedule.get(currentDay);
                     for (int i = 0; i < times.length; i++) {
                         Activity activity = daySchedule.get(times[i]);
@@ -99,7 +99,7 @@
                 <%
                     }
                 %>
-                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= scheduleId %>">
+                <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp">
                     <button type="button" class="button-overall">View Overall Schedule</button>
                 </a>
             </div>

@@ -14,15 +14,6 @@ import java.util.Set;
 
 public class ScheduleDAO {
 
-    public String[] getTimeSlots() {
-        String[] TIME_SLOTS = {
-                "09:00-11:00", "11:00-13:00", "13:00-15:00",
-                "15:00-17:00", "17:00-19:00", "19:00-21:00"
-        };
-        return TIME_SLOTS;
-    }
-
-    //TODO: THIS METHOD CAN BE INTEGRATED IN THE createSchedule
     // Method to search activities based on user preferences
     public List<Activity> searchActivities(int destinationId, List<Integer> typeIds, int budgetId) throws Exception {
         List<Activity> activityList = new ArrayList<>();
@@ -80,13 +71,12 @@ public class ScheduleDAO {
         return activityList;
     }
 
-    //old name: assignActivitiesToTimeSlots
     public Schedule createSchedule(List<Activity> activities, int totalDays, int userId)
             throws Exception {
 
         int scheduleId = generateScheduleId();
         Map<Integer, Map<String, Activity>> schedule = new HashMap<>();
-        String[] timeSlots = getTimeSlots();
+        String[] timeSlots = Schedule.TIMESLOTS;
 
         // Track already assigned activities to ensure uniqueness
         Set<Activity> assignedActivities = new HashSet<>();
@@ -117,18 +107,10 @@ public class ScheduleDAO {
                         break; // Move to the next time slot
                     }
                 }
-
-                // If no valid activity found for this time slot, fill with placeholder activity
-                if (!activityScheduled) {
-                    System.out.println("You should get free time");
-                    // schedule.get(day).put(timeSlot, new Activity("Free Slot",
-                    // timeSlot.split("-")[0], timeSlot.split("-")[1]));
-                }
             }
         }
 
         Schedule overallSchedule = new Schedule(scheduleId, schedule, userId, totalDays);
-
         return overallSchedule;
     }
 
@@ -188,6 +170,61 @@ public class ScheduleDAO {
         return false;
     }
 
+    
+    public List<Schedule> fetchPastSchedules(int userId) throws Exception {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = null;
+        List<Schedule> pastSchedules = new ArrayList<>();
+
+        if (!hasUserProgram(userId)) {
+            return null;
+        }
+
+        String sql = 
+            "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath, st.days "
+            + "FROM schedulesbytraveler st "
+            + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
+            + "JOIN activities a ON a.activityId = s.activityId " 
+            + "JOIN destinations d ON d.destinationId = a.destinationID " 
+            + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Schedule schedule = new Schedule(
+                    rs.getInt("scheduleId"),
+                    rs.getInt("days"),
+                    rs.getDate("savedDate").toString(),
+                    new Destination(
+                        rs.getString("d.destinationName"), 
+                        rs.getString("d.destinationPhotoPath")
+                    )  
+                );
+                pastSchedules.add(schedule);
+            }
+
+            stmt.close();
+            rs.close();
+            db.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e){
+            }
+        }
+
+        return pastSchedules;
+           
+    }
+
+
     private Map<Integer, Map<String, Activity>> fetchOverallSchedule(int scheduleId) throws Exception {
 
         DatabaseConnection db = new DatabaseConnection();
@@ -236,57 +273,52 @@ public class ScheduleDAO {
         }
     }
 
-    public List<Schedule> fetchPastSchedules(int userId) throws Exception {
+    public Schedule fetchPastScheduleById(int scheduleId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
-        List<Schedule> pastSchedules = new ArrayList<>();
+        Schedule pastSchedule = null;
 
-        if (!hasUserProgram(userId)) {
-            return null;
-        }
-
-        String sql = 
-            "SELECT DISTINCT s.scheduleId, st.savedDate, st.comment, st.rating, d.destinationName, d.destinationPhotoPath, st.days "
-            + "FROM schedulesbytraveler st "
-            + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
-            + "JOIN activities a ON a.activityId = s.activityId " 
-            + "JOIN destinations d ON d.destinationId = a.destinationID " 
-            + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
+        String sql = "SELECT days, scheduleId, comment, rating, userId FROM schedulesbytraveler WHERE scheduleId = ?;";
 
         try {
+            Map<Integer, Map<String, Activity>> overallSchedule = fetchOverallSchedule(scheduleId);
+
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, userId);
+            stmt.setInt(1, scheduleId);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Schedule schedule = new Schedule(
-                    rs.getInt("scheduleId"),
-                    rs.getInt("days"),
-                    rs.getDate("savedDate").toString(),
-                    rs.getString("comment"),
-                    rs.getInt("rating"),
-                    new Destination(
-                        rs.getString("d.destinationName"), 
-                        rs.getString("d.destinationPhotoPath")
-                    )  
-                );
-                Map<Integer, Map<String, Activity>> overallSchedule = fetchOverallSchedule(rs.getInt("scheduleId"));
-                schedule.setOverallSchedule(overallSchedule);
-
-                pastSchedules.add(schedule);
+            if (!rs.next()) {
+                stmt.close();
+                rs.close();
+                db.close();
+                throw new Exception("Could not find the specific past schedule by this id");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+            pastSchedule = new Schedule(
+                    rs.getInt("scheduleId"),
+                    overallSchedule,
+                    rs.getInt("userID"),
+                    rs.getInt("days"),
+                    rs.getString("comment"),
+                    rs.getInt("rating")
+            );
+            
+            stmt.close();
+            rs.close();
+            db.close();
+
+            return pastSchedule;
+
+        } catch (Exception e) {
+            throw new Exception("something went wrong" + e.getMessage());
         } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            try {
+                db.close();
+            } catch (Exception e){
             }
         }
-        return pastSchedules;
+
+        
     }
 }

@@ -4,14 +4,23 @@
 
 <%@ include file="AuthenticationGuard.jsp" %>
 <%
-    Schedule schedule = (Schedule) session.getAttribute("schedule");
-    
-    Traveler traveler = (Traveler) session.getAttribute("travelerObj");
-    int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
+    Schedule schedule;
+
+    String scheduleIdParam = request.getParameter("scheduleId");
+
+    if (scheduleIdParam != null && !scheduleIdParam.isEmpty()) {
+        int scheduleId = Integer.parseInt(scheduleIdParam);
+
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        schedule = scheduleDAO.fetchPastScheduleById(scheduleId);
+        session.setAttribute("schedule", schedule);
+    } else {
+        schedule = (Schedule) session.getAttribute("schedule");
+    }
 
     if (schedule == null) {
 %>
-        <jsp:forward page="Error.jsp" />
+        <jsp:forward page="ErrorPage.jsp" />
 <%
     }
     
@@ -19,7 +28,7 @@
     int totalDays = schedule.getTotalDays();
     Map<Integer, Map<String, Activity>> totalSchedule = schedule.getOverallSchedule();
     
-    String[] timeSlots = schedule.getTimeSlots();
+    String[] timeSlots = Schedule.TIMESLOTS;
 %>
 
 <!DOCTYPE html>

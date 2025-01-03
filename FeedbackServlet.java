@@ -15,8 +15,12 @@ public class FeedbackServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+
         Schedule schedule = (Schedule) session.getAttribute("schedule");
+
         try {
+
+            //get comment and rating when the user changes them and wants to submit the changes
             String comment = request.getParameter("comment");
             int rating = Integer.parseInt(request.getParameter("rating"));
 

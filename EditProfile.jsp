@@ -111,17 +111,10 @@
 
                                 <div class="card-body">
 
-                                    <!-- <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= schedule.getScheduleId() %>">
+                                    <a href="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp?scheduleId=<%= schedule.getScheduleId() %>">
                                         <button type="button" class="start-button">Press here</button>
-                                    </a> -->
-                                    <form action="<%= request.getContextPath() %>/Scheduluxe/ShowOverallSchedule.jsp" method="post">
-                                        <%
-                                            session.setAttribute("schedule", schedule);
-                                        %>
-                                        <button type="submit" class="start-button">Press here</button>
-                                    </form>
+                                    </a>
                                     
-
                                     <div class="destination-info" style="text-align: right; margin-left: 10px;">
                                         <p class="destination-name" style="margin: 0; font-weight: bold;">
                                             <%= schedule.getDestination().getDestName() %>
