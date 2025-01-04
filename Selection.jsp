@@ -5,7 +5,7 @@
 
 
 
-<%@ include file="TargetPage.jsp" %>
+<%@ include file="AuthenticationGuard.jsp" %>
 <%
     CatalogService cservice = new CatalogService();
 
