@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,12 +11,11 @@ import Scheduluxe.Schedule;
 import Scheduluxe.ScheduleDAO;
 import Scheduluxe.Traveler;
 
-
-public class CreationScheduleServlet  extends HttpServlet {
+public class CreationScheduleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                
+
         HttpSession session = request.getSession();
         Traveler traveler = (Traveler) session.getAttribute("travelerObj");
 
@@ -45,26 +43,24 @@ public class CreationScheduleServlet  extends HttpServlet {
                     typesId.add(typeId);
                 }
             }
-            
-            // TODO Create a schedule
+
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             List<Activity> activities = scheduleDAO.searchActivities(destinationId, typesId, budgetId);
 
             int userId = traveler.getId(traveler.getUsername(), traveler.getPassword());
 
-
             Schedule schedule = scheduleDAO.createSchedule(activities, totalDays, userId);
             schedule.saveSchedule();
-            
-            //to appear the map and the details about the destination in the ShowScheduleDay => to change if ajax
+
+            // to appear the map and the details about the destination in the
+            // ShowScheduleDay => to change if ajax
             session.setAttribute("destinationId", destinationId);
 
-            //pass the whole object of schedule
+            // pass the whole object of schedule
             session.setAttribute("schedule", schedule);
-            
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Scheduluxe/ShowScheduleDay.jsp");
             dispatcher.forward(request, response);
-
 
         } catch (Exception e) {
             request.setAttribute("error", "An error occurred: " + e.getMessage());

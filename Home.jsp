@@ -31,7 +31,7 @@ session.setAttribute("targetPage", currentURI);
                 height: 100vh; 
                 background-attachment: fixed;
                 background-size: cover; 
-                background: linear-gradient(160deg, #ece7ec 60%, #ecc7ea 80%);
+                background: linear-gradient(160deg, #f2f1f2 60%, #ecc7ea 80%);
               }
             </style>
             <button class="menu-toggle">

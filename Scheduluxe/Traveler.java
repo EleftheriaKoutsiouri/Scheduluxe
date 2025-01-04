@@ -14,7 +14,8 @@ public class Traveler {
     private String password;
 
     // Constructor
-    public Traveler(String username, String firstname, String lastname, String email, String originCountry, String password) {
+    public Traveler(String username, String firstname, String lastname, String email, String originCountry,
+            String password) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -112,34 +113,13 @@ public class Traveler {
         this.password = password;
     }
 
-    // TODO
-    // Μέθοδος αποθήκευσης ή ενημέρωσης χρήστη στη βάση
     public boolean saveOrUpdate() throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
         String query = "INSERT INTO Travelers (username, firstname, lastname, email, originCountry, password) " +
-               "VALUES (?, ?, ?, ?, ?, ?) " +
-               "ON DUPLICATE KEY UPDATE " +
-               "firstname = VALUES(firstname), lastname = VALUES(lastname), email = VALUES(email), originCountry = VALUES(originCountry), password = VALUES(password)";
-
-
-        /*"INSERT INTO Travelers (username, firstname, lastname, email, country, password) " +
-                   "VALUES (?, ?, ?, ?, ?, ?) " +
-                   "ON DUPLICATE KEY UPDATE " +
-                   "firstname = VALUES(firstname), " +
-                   "lastname = VALUES(lastname), " +
-                   "email = VALUES(email), " +
-                   "country = VALUES(country), " +
-                   "password = VALUES(password)"; */
-        /*
-         * "INSERT INTO Travelers (username, firstname, lastname, email, country,
-         * password)
-         * VALUES (?, ?, ?, ?, ?, ?)
-         * ON DUPLICATE KEY UPDATE
-         * firstname = ?, lastname = ?, email = ?, country = ?, password = ?
-         * ";
-         */
-
+                "VALUES (?, ?, ?, ?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE " +
+                "firstname = VALUES(firstname), lastname = VALUES(lastname), email = VALUES(email), originCountry = VALUES(originCountry), password = VALUES(password)";
         try {
             con = db.getConnection();
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -151,8 +131,6 @@ public class Traveler {
             pstmt.setString(6, this.password);
 
             int rowsAffected = pstmt.executeUpdate();
-
-            // Αν εκτελέστηκε η ενημέρωση ή η εισαγωγή, επιστρέφει true
             pstmt.close();
             db.close();
             return rowsAffected > 0;

@@ -3,7 +3,6 @@ package Scheduluxe;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -144,7 +143,6 @@ public class ScheduleDAO {
             }
         }
     }
-    
 
     private boolean hasUserProgram(int userId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
@@ -155,7 +153,7 @@ public class ScheduleDAO {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
-            
+
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (Exception e) {
@@ -170,7 +168,6 @@ public class ScheduleDAO {
         return false;
     }
 
-    
     public List<Schedule> fetchPastSchedules(int userId) throws Exception {
         DatabaseConnection db = new DatabaseConnection();
         Connection con = null;
@@ -180,13 +177,12 @@ public class ScheduleDAO {
             return null;
         }
 
-        String sql = 
-            "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath, st.days "
-            + "FROM schedulesbytraveler st "
-            + "JOIN schedules s ON s.scheduleId = st.scheduleId " 
-            + "JOIN activities a ON a.activityId = s.activityId " 
-            + "JOIN destinations d ON d.destinationId = a.destinationID " 
-            + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
+        String sql = "SELECT DISTINCT s.scheduleId, st.savedDate, d.destinationName, d.destinationPhotoPath, st.days "
+                + "FROM schedulesbytraveler st "
+                + "JOIN schedules s ON s.scheduleId = st.scheduleId "
+                + "JOIN activities a ON a.activityId = s.activityId "
+                + "JOIN destinations d ON d.destinationId = a.destinationID "
+                + "WHERE st.userId = ? ORDER BY savedDate DESC LIMIT 2;";
 
         try {
             con = db.getConnection();
@@ -196,14 +192,12 @@ public class ScheduleDAO {
 
             while (rs.next()) {
                 Schedule schedule = new Schedule(
-                    rs.getInt("scheduleId"),
-                    rs.getInt("days"),
-                    rs.getDate("savedDate").toString(),
-                    new Destination(
-                        rs.getString("d.destinationName"), 
-                        rs.getString("d.destinationPhotoPath")
-                    )  
-                );
+                        rs.getInt("scheduleId"),
+                        rs.getInt("days"),
+                        rs.getDate("savedDate").toString(),
+                        new Destination(
+                                rs.getString("d.destinationName"),
+                                rs.getString("d.destinationPhotoPath")));
                 pastSchedules.add(schedule);
             }
 
@@ -216,14 +210,13 @@ public class ScheduleDAO {
         } finally {
             try {
                 db.close();
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
 
         return pastSchedules;
-           
-    }
 
+    }
 
     private Map<Integer, Map<String, Activity>> fetchOverallSchedule(int scheduleId) throws Exception {
 
@@ -301,9 +294,8 @@ public class ScheduleDAO {
                     rs.getInt("userID"),
                     rs.getInt("days"),
                     rs.getString("comment"),
-                    rs.getInt("rating")
-            );
-            
+                    rs.getInt("rating"));
+
             stmt.close();
             rs.close();
             db.close();
@@ -315,10 +307,9 @@ public class ScheduleDAO {
         } finally {
             try {
                 db.close();
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
 
-        
     }
 }
